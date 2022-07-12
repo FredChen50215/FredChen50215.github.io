@@ -25,7 +25,7 @@
 
         <!-- Header -->
         <header id="header" class="alt">
-            <h1><a href="index.php">FredChen</a></h1>
+            <h1><a href="index.php">品政 & 詩芸</a></h1>
             <nav id="nav">
                 <ul>
                     <li class="special">
@@ -46,7 +46,7 @@
         <!-- Banner -->
         <section id="banner">
             <div class="inner">
-                <h2>FredChen</h2>
+                <h2>品政 & 詩芸</h2>
                 <p>Coding
                     <br /> Music
                     <br /> Life</p>
