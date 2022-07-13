@@ -2641,7 +2641,7 @@
 		}
 
 		.wrapper.style1 {
-			background-color: #FFD2D9;
+			background-color: #FB8787;
 			color: #000000;
 		}
 
@@ -3701,7 +3701,7 @@
 
 	#footer {
 		padding: 6em 0 4em 0 ;
-		background-color: #1d242a;
+		background-color: #fa5a74;
 		text-align: center;
 	}
 
@@ -3810,5 +3810,5 @@
 	}
 
 	body.is-mobile.landing #footer {
-		background-color: #1d242a;
+		background-color: #fa5a74;
 	}
