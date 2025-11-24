@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東京五日遊詳盡版 | TSA ✈ HND</title>
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --primary: #2B2D42;
+            --accent: #EF233C;
+            --bg: #F4F4F9;
+            --card-bg: #FFFFFF;
+            --text: #333333;
+            --text-secondary: #666666;
+            --transit-bg: #F0F2F5;
+            --transit-text: #4A5568;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 40px;
+        }
+
+        /* --- Header & Hero --- */
+        header {
+            background: linear-gradient(135deg, var(--primary), #1D1F2E);
+            color: white;
+            padding: 30px 20px 50px; /* 底部留白給卡片上浮 */
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+        }
+
+        h1 { font-size: 1.6rem; margin-bottom: 5px; letter-spacing: 1px; }
+        .subtitle { font-size: 0.9rem; opacity: 0.8; }
+
+        .container {
+            max-width: 600px;
+            margin: -30px auto 0; /* 讓內容往上浮動蓋住 header */
+            padding: 0 15px;
+        }
+
+        /* --- 航班摘要 --- */
+        .flight-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .flight-code { font-weight: 800; font-size: 1.2rem; color: var(--primary); }
+        .flight-time { font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* --- 每日行程卡片 --- */
+        .day-container {
+            margin-bottom: 30px;
+        }
+
+        .day-sticky-header {
+            background: var(--bg); /* 與背景同色，製造透明感 */
+            padding: 10px 5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: baseline;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px); /* 毛玻璃效果 */
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .day-tag {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .day-theme {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* --- 時間軸設計 --- */
+        .timeline {
+            position: relative;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+
+        /* 連結線 */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E2E8F0;
+        }
+
+        .event-item {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        /* 時間泡泡 */
+        .time-bubble {
+            min-width: 50px;
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            padding-top: 4px;
+            margin-right: 15px;
+            z-index: 2;
+            background: var(--bg); /* 蓋住線 */
+        }
+
+        /* 時間軸上的點 */
+        .timeline-dot {
+            position: absolute;
+            left: 19px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--accent);
+            z-index: 2;
+        }
+
+        /* 內容卡片 */
+        .event-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            flex: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .event-title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: var(--primary);
+        }
+
+        /* 交通資訊區塊 */
+        .transit-box {
+            background-color: var(--transit-bg);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            color: var(--transit-text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .transit-icon {
+            font-size: 0.9rem;
+        }
+
+        /* 旅遊細節描述 */
+        .detail-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #555;
+        }
+        
+        .detail-list li {
+            margin-bottom: 4px;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .detail-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .tip {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #d97706;
+            background: #fffbeb;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 5px;
+            border: 1px solid #fcd34d;
+        }
+        
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TOKYO TRIP</h1>
+        <p class="subtitle">松山 TSA ⇌ 羽田 HND 五日遊</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="flight-summary">
+            <div>
+                <div class="flight-code">BR192</div>
+                <div class="flight-time">07:30 TSA ➝ 11:15 HND</div>
+            </div>
+            <div style="text-align:right">
+                <div class="flight-code">BR191</div>
+                <div class="flight-time">12:15 HND ➝ 15:00 TSA</div>
+            </div>
+        </div>
+
+        <div class="day-container">
+            <div class="day-sticky-header">
+                <span class="day-tag">DAY 1</span>
+                <span class="day-theme">抵達與東京鐵塔夜景</span>
+            </div>
+            <div class="timeline">
+                
+                <div class="event-item">
+                    <div class="time-bubble">11:15</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">抵達羽田機場 (HND)</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>
+                                <strong>入境與購票 (約60分)</strong><br>
+                                1. 購買 Welcome Suica (西瓜卡)<br>
+                                2. 搭乘 <u>京急電鐵 (Keikyu Line)</u> 直通淺草線至新橋/銀座區
+                            </div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>出關後先連機場 WiFi</li>
+                            <li>若排隊人多，可直接用 iPhone 錢包綁定 Suica</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">13:30</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">飯店寄放行李 & 午餐</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">👣</span>
+                            <div>步行至飯店，隨後於新橋/銀座周邊用餐</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>推薦：銀座 篝 (Kagari) 雞白湯拉麵</li>
+                            <li>備案：新橋站前大樓地下街 (上班族美食)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">15:30</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">增上寺 & 東京鐵塔</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>淺草線/大江戶線至 <u>大門站</u> (A6出口)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>拍攝重點：增上寺本殿與東京鐵塔同框</li>
+                            <li>芝公園散步，尋找「紅葉谷」拍攝點</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">18:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">六本木 Hills 夜景</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>大江戶線至 <u>六本木站</u> (約10分)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>Tokyo City View 展望台 (需事先購票)</li>
+                            <li>晚餐：麻布十番商店街 (推薦阿夫利柚子拉麵)</li>
+                            <li><span class="tip">Tips</span> 此處可拍到最完整的東京鐵塔夜景</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-container">
+            <div class="day-sticky-header">
+                <span class="day-tag">DAY 2</span>
+                <span class="day-theme">潮流時尚：涉谷與原宿</span>
+            </div>
+            <div class="timeline">
+                
+                <div class="event-item">
+                    <div class="time-bubble">09:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">明治神宮</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>山手線至 <u>原宿站</u> (西口)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>參觀重點：巨大鳥居、清酒樽牆</li>
+                            <li>早晨空氣清新，適合散步約 1.5 小時</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">11:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">竹下通 & 表參道</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">👣</span>
+                            <div>從明治神宮步行 5 分鐘</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>竹下通：體驗拍貼機、吃可麗餅</li>
+                            <li>表參道：各大精品旗艦店、Kiddy Land (買玩具)</li>
+                            <li>午餐：表參道 Hills 內或 Luke's Lobster 龍蝦堡</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">15:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">SHIBUYA SKY 展望台</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>副都心線/半藏門線至 <u>涉谷站</u> (B6出口直結)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li><span class="tip">重要</span> 務必提前 1 個月上網預約夕陽時段</li>
+                            <li>戶外手扶梯是必拍網美點</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">18:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">涉谷十字路口 & 晚餐</div>
+                        <ul class="detail-list">
+                            <li>體驗世界最繁忙十字路口</li>
+                            <li>忠犬八公像拍照 (人多需排隊)</li>
+                            <li>晚餐：涉谷橫丁 (宮下公園下方) 體驗熱鬧氣氛</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-container">
+            <div class="day-sticky-header">
+                <span class="day-tag">DAY 3</span>
+                <span class="day-theme">下町風情：淺草與上野</span>
+            </div>
+            <div class="timeline">
+                <div class="event-item">
+                    <div class="time-bubble">08:30</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">淺草寺 & 雷門</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>銀座線至 <u>淺草站</u> (1號出口)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>建議早到避開人潮，先拍雷門大燈籠</li>
+                            <li>仲見世通：花月堂波蘿麵包、吉備糰子</li>
+                            <li>至淺草文化觀光中心 8F 展望台免費看全景</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">11:30</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">東京晴空塔 (Skytree)</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">👣</span>
+                            <div>步行過隅田川橋 (約15分) 或搭地鐵一站</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>午餐：叙叙苑燒肉 (30F) 需預約，午間套餐划算</li>
+                            <li>Solamachi 商場購物 (寶可夢中心、LOFT)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">15:30</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">阿美橫丁 (上野)</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>銀座線/日比谷線至 <u>上野站</u></div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>二木之菓子：爆買零食伴手禮</li>
+                            <li>OS Drug / 松本清：採購藥妝</li>
+                            <li>晚餐：上野周邊居酒屋或一蘭拉麵</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-container">
+            <div class="day-sticky-header">
+                <span class="day-tag">DAY 4</span>
+                <span class="day-theme">海灣與銀座購物</span>
+            </div>
+            <div class="timeline">
+                <div class="event-item">
+                    <div class="time-bubble">08:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">築地場外市場</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>大江戶線至 <u>築地市場站</u></div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>早餐：狐狸屋牛丼 (重口味) 或 海鮮丼</li>
+                            <li>必吃：玉子燒 (山長或丸武)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">11:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">台場 (Odaiba)</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>搭乘 <u>百合海鷗號</u> (Yurikamome) 至台場站</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>這條線路需坐第一節車廂看風景</li>
+                            <li>DiverCity 看獨角獸鋼彈變身 (整點表演)</li>
+                            <li>Aqua City 拍自由女神像與彩虹大橋</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">16:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">銀座 步行天國</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>銀座線至 <u>銀座站</u></div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>週末下午中央通會封路，可在馬路中間拍照</li>
+                            <li>UNIQLO 旗艦店 (12層樓) & 無印良品</li>
+                            <li>晚餐：根室花丸迴轉壽司 (Tokyu Plaza 10F)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-container">
+            <div class="day-sticky-header">
+                <span class="day-tag">DAY 5</span>
+                <span class="day-theme">最後採買與返程</span>
+            </div>
+            <div class="timeline">
+                <div class="event-item">
+                    <div class="time-bubble">09:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">Check-out & 東京車站</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>JR山手線至 <u>東京站</u></div>
+                        </div>
+                        <ul class="detail-list">
+                            <li>行李可寄放車站置物櫃</li>
+                            <li>東京一番街：購買伴手禮 (NY Perfect Cheese)</li>
+                            <li>拉麵街：在此解決午餐</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">11:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">前往羽田機場 (HND)</div>
+                        <div class="transit-box">
+                            <span class="transit-icon">🚇</span>
+                            <div>JR/單軌電車 (約30-40分)</div>
+                        </div>
+                        <ul class="detail-list">
+                            <li><strong>12:15</strong> 需抵達機場櫃檯報到</li>
+                            <li>羽田機場江戶小路可最後補貨</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="time-bubble">15:00</div>
+                    <div class="timeline-dot"></div>
+                    <div class="event-content">
+                        <div class="event-title">抵達台北松山 (TSA)</div>
+                        <ul class="detail-list">
+                            <li>平安返家</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            © 2025 Tokyo Trip Planner<br>
+            Created for iPhone View
+        </footer>
+
+    </div>
+</body>
+</html>
