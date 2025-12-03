@@ -3,381 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>東京橫濱之旅 | iOS 26 Style - Liquid Glass</title>
+    <title>東京橫濱之旅 | Morandi Detailed</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
     <style>
-        /* --- iOS 26 Liquid Glass Design System --- */
+        /* --- Morandi x iOS 26 Design System --- */
         :root {
-            --liquid-glass-bg: rgba(255, 255, 255, 0.2); /* 更透明的玻璃基底 */
-            --liquid-glass-border: rgba(255, 255, 255, 0.4);
-            --liquid-blur: blur(35px); /* 更強的模糊效果 */
-            --primary: #00A6FF; /* 更明亮、流動感的藍色 */
-            --text-main: #FFFFFF; /* 在深色玻璃背景上的白色文字 */
-            --text-sub: rgba(255, 255, 255, 0.7); /* 淺色半透明輔助文字 */
-            --radius-l: 40px; /* 極度圓潤 */
-            --radius-m: 25px;
-            --radius-s: 15px;
-            --shadow-light: 0 5px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2); /* 輕盈的陰影與內部高光 */
-            --shadow-deep: 0 15px 40px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.1); /* 深邃的陰影 */
+            /* 莫蘭迪色票 */
+            --m-blue: #9BAEC8;   /* 霧霾藍 */
+            --m-pink: #D8B4B4;   /* 乾燥玫瑰 */
+            --m-green: #A3B5A5;  /* 鼠尾草綠 */
+            --m-grey: #C8C8C0;   /* 暖岩灰 */
+            --m-dark: #5E6469;   /* 深岩灰文字 */
+            
+            /* 玻璃材質設定 */
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-inner-bg: rgba(255, 255, 255, 0.3); /* 內部資訊框背景 */
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-blur: blur(30px);
+            
+            --radius-l: 28px;
+            --radius-m: 16px;
+            --radius-s: 8px;
+            
+            --shadow-soft: 0 10px 30px rgba(100, 110, 120, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
             padding: 0;
-            /* 背景：動態、深邃的漸變，模擬流體基底 */
-            background: linear-gradient(145deg, #1A2A6C 0%, #B21F1F 50%, #FDBB2D 100%);
-            background-size: 200% 200%; /* 動態背景準備 */
-            animation: gradientShift 15s ease infinite;
-            background-attachment: fixed;
-            color: var(--text-main);
+            color: var(--m-dark);
             -webkit-font-smoothing: antialiased;
             padding-bottom: 90px;
-            min-height: 100vh; /* 確保漸變覆蓋整個視窗 */
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 背景動態漸變 */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            min-height: 100vh;
+            
+            /* 背景：流動莫蘭迪光影 */
+            background: radial-gradient(circle at 10% 10%, #E3E6EB, transparent 70%),
+                        radial-gradient(circle at 90% 90%, #EBE3E3, transparent 70%),
+                        linear-gradient(135deg, #F5F5F0 0%, #F0F2F5 100%);
+            background-attachment: fixed;
         }
 
         /* --- Header --- */
         header {
-            padding: 70px 25px 30px; /* 更大的頂部與底部間距 */
-            text-align: left;
+            padding: 70px 25px 30px;
             position: relative;
-            z-index: 10;
         }
 
         h1 {
-            font-size: 44px; /* 極大的標題 */
-            font-weight: 900;
+            font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+            font-size: 40px;
+            font-weight: 600;
             margin: 0;
-            color: var(--text-main);
-            letter-spacing: -1.2px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 文字陰影增加深度 */
+            color: #444;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 15px rgba(255,255,255,0.8);
         }
 
         .subtitle {
-            font-size: 17px;
-            color: var(--text-sub);
-            font-weight: 500;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #888;
+            font-weight: 400;
+            margin-top: 5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        /* --- Liquid Glass Card Base --- */
-        .liquid-card-base {
-            background: var(--liquid-glass-bg);
-            backdrop-filter: var(--liquid-blur);
-            -webkit-backdrop-filter: var(--liquid-blur);
-            border: 1px solid var(--liquid-glass-border);
+        /* --- Frosted Card Base --- */
+        .frosted-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-l);
-            box-shadow: var(--shadow-deep);
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            z-index: 5; /* 確保卡片在背景之上 */
+            box-shadow: var(--shadow-soft);
         }
 
         /* --- Flight Widget --- */
         .flight-widget {
-            margin: 25px;
-            padding: 20px;
+            margin: 0 20px 25px;
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: var(--radius-l); /* 更圓潤 */
-            box-shadow: var(--shadow-light); /* 更輕盈的陰影 */
-            background: rgba(255, 255, 255, 0.15); /* 輕微透明，讓背景透出 */
-            backdrop-filter: blur(25px); /* 略小於主卡片，形成層次 */
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
         }
-        .flight-time { color: #FFF; font-size: 18px; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        .flight-widget > div:first-child > div:first-child,
-        .flight-widget > div:last-child > div:first-child {
-            font-size:12px; 
-            color:rgba(255,255,255,0.6); 
-            margin-bottom:4px;
-        }
-        .flight-widget > div:nth-child(2) {
-            color: var(--primary); 
-            font-size:30px; /* 更大的圖示 */
-            text-shadow: 0 1px 5px rgba(0,166,255,0.5);
+        .flight-widget { @extend .frosted-card; } /* Manual copy below */
+        .flight-widget {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-l);
+            box-shadow: var(--shadow-soft);
         }
 
-        /* --- Segmented Control (Tabs) --- */
+        .flight-label { font-size: 11px; color: #999; letter-spacing: 1px; margin-bottom: 2px; }
+        .flight-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #555; }
+        .flight-icon { font-size: 22px; color: var(--m-green); opacity: 0.8; }
+
+        /* --- Tabs --- */
         .tabs-container {
             position: sticky;
-            top: 20px;
+            top: 15px;
             z-index: 100;
-            margin: 0 25px;
-            padding: 6px;
-            background: rgba(255, 255, 255, 0.1); /* 輕微透明，流動感 */
-            backdrop-filter: var(--liquid-blur);
-            -webkit-backdrop-filter: var(--liquid-blur);
-            border-radius: 50px; /* 極度圓潤的膠囊形 */
+            margin: 0 20px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 50px;
             display: flex;
             justify-content: space-between;
+            gap: 5px;
             overflow-x: auto;
             white-space: nowrap;
-            box-shadow: var(--shadow-light);
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
-        
         .tabs-container::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             flex: 1;
             border: none;
             background: transparent;
-            padding: 12px 16px;
-            border-radius: 40px; /* 匹配容器圓角 */
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-sub);
+            padding: 10px 14px;
+            border-radius: 40px;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 14px;
+            color: #888;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: all 0.3s ease;
             text-align: center;
-            min-width: 70px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            min-width: 60px;
         }
 
         .tab-btn.active {
-            background: rgba(255, 255, 255, 0.9); /* 實心高光效果 */
-            color: #1A2A6C; /* 深色文字在高光上 */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.8);
-            transform: translateY(-2px); /* 輕微浮起 */
-        }
-        .tab-btn:hover:not(.active) {
-            background: rgba(255,255,255,0.05);
-            color: white;
+            background: #FFFFFF;
+            color: #555;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         /* --- Content Layout --- */
         .day-content {
             display: none;
-            padding: 30px 25px 5px 25px; 
-            animation: liquidFadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); /* 更流暢的動畫 */
-            flex-grow: 1; /* 讓內容區塊佔滿剩餘空間 */
+            padding: 30px 20px 10px;
+            animation: fadeIn 0.6s ease-out;
         }
         .day-content.active { display: block; }
 
-        @keyframes liquidFadeIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Timeline Card (Liquid Glass Style) --- */
+        /* --- Timeline --- */
         .timeline-item {
             display: flex;
-            margin-bottom: 35px; /* 更大的垂直間距 */
+            margin-bottom: 35px;
             position: relative;
         }
-
+        
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 28px; /* 調整位置 */
-            top: 50px;
-            bottom: -40px; 
-            width: 4px; /* 更粗、更顯眼的時間線 */
-            background: rgba(255,255,255,0.3); /* 半透明線條 */
+            left: 28px; top: 15px; bottom: -40px; 
+            width: 1px;
+            background: linear-gradient(to bottom, var(--m-grey) 0%, transparent 100%);
             z-index: 0;
-            border-radius: 2px;
         }
         .timeline-item:last-child::before { display: none; }
 
         .time-col {
-            min-width: 60px; /* 增加寬度 */
-            text-align: center;
-            padding-top: 8px;
+            min-width: 60px;
+            padding-top: 2px;
             z-index: 1;
-            align-self: flex-start; /* 讓時間與卡片頂部對齊 */
+            flex-shrink: 0;
         }
-        
         .time-text {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            background: linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent 60%, transparent 100%); /* 增加遮罩的層次感 */
-            padding: 4px 0;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px; 
+            font-weight: 600; 
+            color: var(--m-blue);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(5px);
+            padding: 2px 6px;
+            border-radius: 6px;
+            text-align: center;
         }
 
+        /* --- Main Card --- */
         .card {
             flex: 1;
-            padding: 22px;
-            margin-left: 20px; /* 增加與時間線的距離 */
-            /* 繼承 Liquid Glass Base */
-            background: rgba(255, 255, 255, 0.12); /* 更透明，讓背景透出更多 */
-            backdrop-filter: var(--liquid-blur);
-            -webkit-backdrop-filter: var(--liquid-blur);
-            border: 1px solid var(--liquid-glass-border);
+            margin-left: 15px;
+            padding: 24px;
+            /* Frosted glass style */
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-l);
-            box-shadow: var(--shadow-deep);
-            position: relative;
+            box-shadow: var(--shadow-soft);
             overflow: hidden;
-            z-index: 5;
         }
-        
-        .badge-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .badge {
-            font-size: 13px;
-            padding: 7px 12px;
-            border-radius: 12px; /* 更圓潤 */
-            font-weight: 700;
-            text-transform: uppercase;
-            color: white; 
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-            background: rgba(255,255,255,0.15); /* 輕微透明，透出背景色 */
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
-        }
-        /* 高飽和度徽章色，搭配透明基底 */
-        .badge.eat { background: rgba(255,159,10, 0.8); }
-        .badge.play { background: rgba(48,209,88, 0.8); }
-        .badge.shop { background: rgba(175,82,222, 0.8); }
-        .badge.move { background: rgba(142,142,147, 0.8); }
 
         .card-title {
-            font-size: 21px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: var(--text-main);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .card-detail {
-            font-size: 16px;
-            color: var(--text-sub);
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        /* Reference Link Style */
-        .ref-link {
-            font-size: 15px;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 19px;
             font-weight: 600;
-            color: var(--primary);
-            text-decoration: none;
-            display: block;
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.15); 
-            transition: all 0.2s ease;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            color: #4A4A4A;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+            padding-bottom: 10px;
         }
-        .ref-link:hover { text-decoration: underline; color: #00C6FF; }
 
-        /* Direct Navigation Button */
-        .nav-btn {
+        /* --- Info Grid (Details Area) --- */
+        .info-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .info-row {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary); 
-            color: white;
-            padding: 14px;
-            border-radius: var(--radius-m);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            gap: 10px;
-            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-            margin-top: 20px;
-            box-shadow: 0 8px 20px rgba(0,166,255,0.4); /* 更柔和且有色彩的陰影 */
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        .nav-btn:active { 
-            background: #0088DD; 
-            transform: translateY(1px) scale(0.98);
-            box-shadow: 0 4px 10px rgba(0,166,255,0.4);
+            align-items: baseline;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
         }
 
-        /* Footer */
-        footer {
+        .info-label {
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 500;
+            color: #FFF;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-right: 10px;
+            min-width: 20px;
             text-align: center;
-            font-size: 14px;
-            color: rgba(255,255,255,0.7);
-            padding: 40px 20px 20px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            margin-top: auto; /* 將 footer 推到底部 */
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* 莫蘭迪色標籤 */
+        .lbl-eat  { background-color: var(--m-pink); }  /* 乾燥玫瑰 */
+        .lbl-wear { background-color: var(--m-blue); }  /* 霧霾藍 */
+        .lbl-stay { background-color: var(--m-green); } /* 鼠尾草綠 */
+        .lbl-go   { background-color: var(--m-grey); color: #666; }   /* 暖岩灰 */
+
+        /* Buttons & Links */
+        .action-row {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 20px;
+            text-decoration: none; font-size: 13px; font-weight: 500;
+            color: #fff;
+            background: linear-gradient(135deg, #A4B0BE, #8C99A6);
+            box-shadow: 0 4px 10px rgba(140, 153, 166, 0.3);
+            transition: transform 0.2s;
+        }
+        .nav-btn:active { transform: scale(0.96); }
+
+        .ref-link {
+            font-size: 12px; color: var(--m-blue); text-decoration: none;
+            border-bottom: 1px dotted var(--m-blue);
+        }
+
+        footer {
+            text-align: center; font-size: 12px; color: #AAA; padding: 50px 20px;
+            font-family: 'Cormorant Garamond', serif; font-style: italic;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="subtitle">🚀 Welcome to iOS 26</div>
-        <h1>Tokyo Trip Planner</h1>
-        <div class="subtitle">橫濱關內 Base・五日遊</div>
+        <div class="subtitle">Elegance & Detail</div>
+        <h1>Tokyo & Yokohama</h1>
+        <div class="subtitle">November 2025</div>
     </header>
 
     <div class="flight-widget">
         <div>
-            <div>DEPARTURE</div>
-            <div>BR190 <span class="flight-time">16:30</span></div>
+            <div class="flight-label">DEPARTURE</div>
+            <div class="flight-val">BR190</div>
+            <div class="flight-label">16:30 TSA</div>
         </div>
-        <div>✈</div>
+        <div class="flight-icon">✈</div>
         <div style="text-align:right;">
-            <div>RETURN</div>
-            <div>BR189 <span class="flight-time">10:25</span></div>
+            <div class="flight-label">RETURN</div>
+            <div class="flight-val">BR189</div>
+            <div class="flight-label">10:25 HND</div>
         </div>
     </div>
 
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="showTab('d1', this)">D1<br>抵達</button>
-        <button class="tab-btn" onclick="showTab('d2', this)">D2<br>澀谷</button>
-        <button class="tab-btn" onclick="showTab('d3', this)">D3<br>淺草</button>
-        <button class="tab-btn" onclick="showTab('d4', this)">D4<br>築地</button>
-        <button class="tab-btn" onclick="showTab('d5', this)">D5<br>返程</button>
+        <button class="tab-btn active" onclick="showTab('d1', this)">D1 抵達</button>
+        <button class="tab-btn" onclick="showTab('d2', this)">D2 澀谷</button>
+        <button class="tab-btn" onclick="showTab('d3', this)">D3 淺草</button>
+        <button class="tab-btn" onclick="showTab('d4', this)">D4 築地</button>
+        <button class="tab-btn" onclick="showTab('d5', this)">D5 返程</button>
     </div>
 
     <div id="d1" class="day-content active">
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">20:20</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge move">抵達</span></div>
                 <div class="card-title">羽田機場 (HND)</div>
-                <div class="card-detail">入境手續約 1 小時。出關後請至京急線櫃檯或機台購買/綁定 Suica。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam1" target="_blank" class="nav-btn">📍 開始導航</a>
-                <a href="https://tokyo-haneda.com/access/train/index.html" target="_blank" class="ref-link">🔗 參考資料：羽田機場交通指南</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>入境後搭乘「京急空港線」往橫濱。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>機上穿著寬鬆，建議帶件薄風衣適應溫差。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>機場便利商店簡易飯糰或三明治。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 導航</a>
+                    <a href="https://tokyo-haneda.com/access/train/index.html" target="_blank" class="ref-link">交通指南</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">21:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge move">移動</span></div>
-                <div class="card-title">前往橫濱關內</div>
-                <div class="card-detail">搭乘 <strong>京急空港線 (往逗子葉山/橫濱方向)</strong> 急行，免轉車約 35 分鐘直達橫濱站，轉乘根岸線至關內。</div>
+                <div class="card-title">橫濱關內 (Kannai)</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>抵達朋友租屋處，整理行李與休息。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>從橫濱站轉乘根岸線至關內站。</div>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">22:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge eat">宵夜</span></div>
                 <div class="card-title">伊勢佐木町商店街</div>
-                <div class="card-detail">放行李後吃宵夜。推薦：<strong>一蘭拉麵 橫濱櫻木町店</strong> 或 <strong>三田製麵所</strong> (皆開到深夜)。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam2" target="_blank" class="nav-btn">📍 導航美食</a>
-                <a href="https://www.ichiran.com/shop/kanto/sakuragicho/" target="_blank" class="ref-link">🔗 參考資料：一蘭橫濱櫻木町店</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>推薦「一蘭拉麵 橫濱店」或「三田製麵所」。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>輕便休閒服，適合深夜散步。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower6" target="_blank" class="nav-btn">📍 導航美食</a>
+                </div>
             </div>
         </div>
     </div>
@@ -386,47 +362,47 @@
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">09:00</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge play">景點</span><span class="badge move">F-Liner 直達</span></div>
                 <div class="card-title">明治神宮</div>
-                <div class="card-detail">從關內搭 F-Liner 特急直達「明治神宮前」。早晨散步，參觀著名的酒樽牆與大鳥居。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam3" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.meijijingu.or.jp/" target="_blank" class="ref-link">🔗 參考資料：明治神宮官網</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>關內站搭 F-Liner 直達明治神宮前。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>舒適的步行鞋，適合碎石子路。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>參道入口咖啡廳稍微休憩。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower7" target="_blank" class="nav-btn">📍 導航</a>
+                    <a href="https://www.meijijingu.or.jp/" target="_blank" class="ref-link">參拜資訊</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">11:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge eat">午餐</span><span class="badge shop">逛街</span></div>
                 <div class="card-title">原宿 & 表參道</div>
-                <div class="card-detail">
-                    🍽️ <strong>午餐：</strong> AFURI 柚子鹽拉麵 (原宿店) 或 舞泉炸豬排。<br>
-                    🛍️ <strong>逛：</strong> 竹下通 (藥妝)、表參道 Hills (精品)、Kiddy Land。
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>午餐：AFURI 柚子鹽拉麵。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>適合拍照的時尚穿搭，融入表參道氛圍。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>步行穿梭於竹下通與表參道Hills。</div>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam4" target="_blank" class="nav-btn">📍 導航 AFURI</a>
-                <a href="https://www.omotesandohills.com/" target="_blank" class="ref-link">🔗 參考資料：表參道 Hills 資訊</a>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower8" target="_blank" class="nav-btn">📍 導航 AFURI</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">16:00</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge play">必去</span></div>
                 <div class="card-title">SHIBUYA SKY</div>
-                <div class="card-detail">澀谷最高地標。務必預約日落時段，在戶外手扶梯拍出絕美大片。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam5" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.shibuya-sky.jp/" target="_blank" class="ref-link">🔗 參考資料：SHIBUYA SKY 官網</a>
-            </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="time-col"><div class="time-text">18:30</div></div>
-            <div class="card">
-                <div class="badge-row"><span class="badge eat">晚餐</span></div>
-                <div class="card-title">澀谷橫丁 / 逛街</div>
-                <div class="card-detail">體驗澀谷十字路口人潮。晚餐推薦宮下公園下方的「澀谷橫丁」，氣氛熱鬧。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam6" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://shibuya-yokocho.com/" target="_blank" class="ref-link">🔗 參考資料：澀谷橫丁官網</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>搭地鐵至澀谷站，B6出口直達。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>高空風大，請避免易飛走的帽子。</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>預約日落時段，觀賞東京絕美夕陽。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower9" target="_blank" class="nav-btn">📍 導航</a>
+                    <a href="https://www.shibuya-sky.jp/" target="_blank" class="ref-link">預約官網</a>
+                </div>
             </div>
         </div>
     </div>
@@ -435,36 +411,45 @@
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">09:00</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge play">文化</span><span class="badge move">京急直通</span></div>
                 <div class="card-title">淺草寺 & 仲見世通</div>
-                <div class="card-detail">雷門拍照。必吃：吉備糰子、花月堂菠蘿麵包、淺草炸肉餅。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam7" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.senso-ji.jp/" target="_blank" class="ref-link">🔗 參考資料：淺草寺官方資訊</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>京急本線直通都營淺草線至淺草站。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>可考慮租借和服體驗下町風情。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>吉備糰子、花月堂菠蘿麵包。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+30" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">12:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge eat">午餐</span><span class="badge shop">逛街</span></div>
                 <div class="card-title">東京晴空塔</div>
-                <div class="card-detail">
-                    🍽️ <strong>午餐：</strong> 六厘舍沾麵 (Solamachi 6F) 或 敘敘苑燒肉 (30F, 需預約)。<br>
-                    🛍️ <strong>逛：：</strong> 寶可夢中心、Loft、Jump Shop。
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>午餐：六厘舍沾麵或敘敘苑燒肉。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>步行過吾妻橋或搭地鐵一站。</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>Solamachi 商場購物與休息。</div>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam8" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.tokyo-skytree.jp/" target="_blank" class="ref-link">🔗 參考資料：東京晴空塔官網</a>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+31" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">17:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge play">夜景</span><span class="badge eat">晚餐</span></div>
-                <div class="card-title">橫濱港未來 & 紅磚倉庫</div>
-                <div class="card-detail">返回橫濱。搭乘 <strong>Air Cabin 空中纜車</strong> 看夜景。晚餐於紅磚倉庫或中華街享用。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam9" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.yokohama-akarenga.jp/" target="_blank" class="ref-link">🔗 參考資料：橫濱紅磚倉庫資訊</a>
+                <div class="card-title">橫濱港未來</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>返回橫濱，搭乘 Air Cabin 空中纜車。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>晚餐：紅磚倉庫特色餐廳或中華街。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>海邊風大，晚間需注意保暖。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+32" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
     </div>
@@ -473,33 +458,44 @@
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">08:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge eat">早餐</span></div>
                 <div class="card-title">築地場外市場</div>
-                <div class="card-detail">早餐吃海鮮！推薦：<strong>丸武玉子燒、狐狸屋牛丼、筑地壽司大</strong> (需極早排隊)。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower0" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.tsukiji.or.jp/" target="_blank" class="ref-link">🔗 參考資料：築地場外市場官網</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>早餐：丸武玉子燒、狐狸屋牛丼。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>搭乘大江戶線至築地市場站。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>輕便服裝，方便在市場穿梭。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+33" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">11:00</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge shop">血拼</span></div>
                 <div class="card-title">銀座 (Ginza)</div>
-                <div class="card-detail">步行者天國。逛 UNIQLO 旗艦店 (12層樓)、無印良品、伊東屋 (文具)。下午茶吃 <strong>HARBS 水果千層</strong>。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower1" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.ginza.jp/" target="_blank" class="ref-link">🔗 參考資料：銀座旅遊官方資訊</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>步行者天國散步，造訪 UNIQLO、伊東屋。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>下午茶：HARBS 水果千層蛋糕。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>適合都會風格的優雅穿搭。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+34" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">15:30</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge play">地標</span></div>
                 <div class="card-title">增上寺 & 東京鐵塔</div>
-                <div class="card-detail">到芝公園的「紅葉谷」或增上寺前，拍出最經典的紅白鐵塔合照。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower2" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://www.tokyotower.co.jp/" target="_blank" class="ref-link">🔗 參考資料：東京鐵塔官網</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>前往芝公園，尋找最佳拍攝點。</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>參觀增上寺，感受紅白鐵塔的震撼。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+35" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
     </div>
@@ -508,53 +504,59 @@
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">07:00</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge move">出發</span></div>
-                <div class="card-title">離開關內</div>
-                <div class="card-detail">早班飛機，請務必準時。從關內搭乘京急線往羽田機場。</div>
-                <a href="https://www.keikyu.co.jp/en/" target="_blank" class="ref-link">🔗 參考資料：京急線時刻表</a>
+                <div class="card-title">前往羽田機場</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>整理行李，辦理退房手續。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>從關內搭乘京急線直達羽田機場。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>輕便舒適，方便過安檢的服裝。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.keikyu.co.jp/en/" target="_blank" class="ref-link">時刻表</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">08:25</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge shop">最後採買</span></div>
                 <div class="card-title">羽田機場 (HND)</div>
-                <div class="card-detail">報到掛行李。出境後在免稅店購買 Tokyo Banana、白色戀人等伴手禮。</div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Odaiba+Gundam3" target="_blank" class="nav-btn">📍 導航</a>
-                <a href="https://tokyo-haneda.com/shop_and_dine/duty_free/index.html" target="_blank" class="ref-link">🔗 參考資料：羽田機場免稅店</a>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>辦理登機與行李托運。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>購買 Tokyo Banana、白色戀人等伴手禮。</div>
+                </div>
+                <div class="action-row">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+36" target="_blank" class="nav-btn">📍 導航</a>
+                </div>
             </div>
         </div>
 
         <div class="timeline-item">
             <div class="time-col"><div class="time-text">10:25</div></div>
             <div class="card">
-                <div class="badge-row"><span class="badge move">起飛</span></div>
                 <div class="card-title">BR189 返台</div>
-                <div class="card-detail">預計 13:25 抵達台北松山機場。</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="info-label lbl-go">行</span>搭乘長榮航空 BR189。</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>預計 13:25 抵達台北松山機場 (TSA)。</div>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Built with 💖 and Liquid Glass for Fred's Trip<br>iOS 26 Edition</p>
+        <p>Morandi Style x iOS 26<br>Detailed Itinerary</p>
     </footer>
 
     <script>
         function showTab(dayId, btn) {
-            // Hide all content
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(c => c.classList.remove('active'));
             
-            // Remove active class from buttons
             const btns = document.querySelectorAll('.tab-btn');
             btns.forEach(b => b.classList.remove('active'));
 
-            // Activate selected
             document.getElementById(dayId).classList.add('active');
             btn.classList.add('active');
 
-            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
