@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 東京應援之旅 | Morandi Style</title>
+    <title>2026 WBC 應援之旅 | Full Schedule</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- Morandi x iOS 26 Design System --- */
+        /* --- Morandi x Baseball x iOS 26 Design System --- */
         :root {
-            /* 莫蘭迪色票 - 應援特別版 */
-            --m-blue: #8fa4b7;   /* 霧霾藍 (中華隊配色靈感) */
-            --m-red: #c28c8c;    /* 棒球紅土色 (熱血) */
-            --m-green: #A3B5A5;  /* 草地綠 */
-            --m-grey: #C8C8C0;   /* 暖岩灰 */
-            --m-dark: #5E6469;   /* 深岩灰文字 */
+            /* 1. 背景與氛圍用 */
+            --bg-blue: #dbe2ef;
+            --bg-red: #e8d5d5;
+            --bg-sand: #f4f4f0;
             
-            /* 玻璃材質設定 */
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-blur: blur(35px);
+            /* 2. 標籤專用深色莫蘭迪 (High Contrast) */
+            --tag-red: #A85A5A;    /* 深磚紅 */
+            --tag-blue: #4F6D85;   /* 深岩藍 */
+            --tag-green: #5D7A68;  /* 深草綠 */
+            --tag-grey: #666666;   /* 深鐵灰 */
+            --tag-gold: #BFA36F;   /* 冠軍金/重點色 */
             
-            --radius-l: 28px;
-            --radius-m: 16px;
+            --m-dark: #4A4F55;     /* 主要文字深灰 */
             
-            --shadow-soft: 0 12px 40px rgba(100, 110, 120, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            /* 液態玻璃材質 */
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-blur: blur(40px);
+            
+            --radius-l: 30px;
+            --radius-m: 18px;
+            
+            /* 柔和投影 */
+            --shadow-soft: 0 15px 40px rgba(94, 100, 105, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -39,58 +47,69 @@
             padding-bottom: 90px;
             min-height: 100vh;
             
-            /* 背景：流動的應援色光影 */
-            background: radial-gradient(circle at 10% 10%, #dbe2ef, transparent 70%),
-                        radial-gradient(circle at 90% 90%, #e8d5d5, transparent 70%),
-                        linear-gradient(135deg, #f3f4f6 0%, #eef1f5 100%);
+            /* 背景：流動的球場光影 */
+            background: radial-gradient(circle at 0% 0%, var(--bg-blue), transparent 60%),
+                        radial-gradient(circle at 100% 0%, var(--bg-red), transparent 60%),
+                        radial-gradient(circle at 50% 100%, #e0e5df, transparent 60%),
+                        var(--bg-sand);
             background-attachment: fixed;
+            background-size: 200% 200%;
+            animation: fieldFlow 20s ease infinite alternate;
+        }
+
+        @keyframes fieldFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
 
         /* --- Header --- */
         header {
             padding: 60px 25px 30px;
             position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 200px; height: 200px;
+            border: 4px dashed var(--tag-red);
+            border-radius: 50%;
+            opacity: 0.08;
+            transform: rotate(-45deg);
+            z-index: -1;
         }
 
         h1 {
             font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
-            font-size: 38px;
+            font-size: 40px;
             font-weight: 700;
             margin: 0;
-            color: #444;
+            color: #333;
             letter-spacing: -0.01em;
             text-shadow: 0 2px 15px rgba(255,255,255,0.8);
         }
 
         .subtitle {
             font-size: 13px;
-            color: #888;
+            color: #777;
             font-weight: 500;
             margin-top: 5px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         
-        .tag-wbc {
-            background: var(--m-blue);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        /* --- Frosted Card Base --- */
-        .frosted-card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-l);
-            box-shadow: var(--shadow-soft);
+        .stitch-line {
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background-image: linear-gradient(to right, var(--tag-red) 50%, transparent 50%);
+            background-size: 6px 100%;
+            opacity: 0.6;
         }
 
         /* --- Flight Widget --- */
@@ -100,20 +119,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .flight-widget { @extend .frosted-card; } 
-        .flight-widget {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-l);
             box-shadow: var(--shadow-soft);
+            border-top: 2px dashed rgba(168, 90, 90, 0.3);
+            border-bottom: 2px dashed rgba(168, 90, 90, 0.3);
         }
 
-        .flight-label { font-size: 11px; color: #999; letter-spacing: 1px; margin-bottom: 2px; }
-        .flight-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #555; }
-        .flight-icon { font-size: 22px; color: var(--m-blue); opacity: 0.8; }
+        .flight-label { font-size: 11px; color: #888; letter-spacing: 1px; margin-bottom: 2px; }
+        .flight-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #444; }
+        .flight-icon { font-size: 22px; color: var(--tag-blue); opacity: 0.9; transform: rotate(45deg); }
 
         /* --- Tabs --- */
         .tabs-container {
@@ -122,25 +140,25 @@
             z-index: 100;
             margin: 0 20px;
             padding: 5px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.9);
             border-radius: 50px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start; /* 改為靠左排列，支援滑動 */
             gap: 5px;
             overflow-x: auto;
             white-space: nowrap;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .tabs-container::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            flex: 1;
+            flex: 0 0 auto; /* 確保按鈕不會被壓縮 */
             border: none;
             background: transparent;
-            padding: 10px 14px;
+            padding: 10px 18px;
             border-radius: 40px;
             font-family: 'Noto Serif TC', serif;
             font-size: 14px;
@@ -153,22 +171,22 @@
 
         .tab-btn.active {
             background: #FFFFFF;
-            color: #555;
+            color: var(--tag-blue);
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(79, 109, 133, 0.15);
         }
 
         /* --- Content Layout --- */
         .day-content {
             display: none;
             padding: 30px 20px 10px;
-            animation: fadeIn 0.6s ease-out;
+            animation: slideUp 0.6s ease-out;
         }
         .day-content.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         /* --- Timeline --- */
@@ -181,11 +199,11 @@
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 28px; top: 15px; bottom: -40px; 
+            left: 28px; top: 18px; bottom: -40px; 
             width: 1px;
-            background: linear-gradient(to bottom, var(--m-blue) 0%, transparent 100%);
+            background: linear-gradient(to bottom, var(--tag-blue) 0%, transparent 100%);
             z-index: 0;
-            opacity: 0.5;
+            opacity: 0.3;
         }
         .timeline-item:last-child::before { display: none; }
 
@@ -194,17 +212,27 @@
             padding-top: 2px;
             z-index: 1;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
+        .diamond-dot {
+            width: 10px; height: 10px;
+            background: var(--tag-blue);
+            transform: rotate(45deg);
+            margin-bottom: 5px;
+            box-shadow: 0 0 0 2px white, 0 0 10px rgba(79, 109, 133, 0.4);
+        }
+        
         .time-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 16px; 
             font-weight: 600; 
-            color: var(--m-blue);
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(5px);
+            color: var(--tag-blue);
+            background: rgba(255,255,255,0.9);
             padding: 2px 6px;
-            border-radius: 6px;
-            text-align: center;
+            border-radius: 4px;
         }
 
         /* --- Main Card --- */
@@ -222,28 +250,59 @@
             position: relative;
         }
 
-        /* 賽事專用卡片樣式 */
         .card.game-card {
-            background: rgba(235, 242, 250, 0.6); /* 帶一點藍的底色 */
-            border: 1px solid #ffffff;
+            background: linear-gradient(135deg, #F0F4F8, #FFFFFF);
+            border: 1px solid #FFFFFF;
         }
         
+        .card.game-card::before {
+            content: '';
+            position: absolute;
+            top: 15px; bottom: 15px; left: 6px;
+            width: 4px;
+            border-right: 2px dashed var(--tag-red);
+            opacity: 0.6;
+        }
+
         .game-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed rgba(143, 164, 183, 0.3);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         
         .game-badge {
-            background: #2B4560; /* 中華隊深藍 */
+            background: var(--tag-blue);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        .match-note {
+            background: rgba(255, 255, 255, 0.6);
+            border-left: 3px solid var(--tag-red);
+            padding: 12px 15px;
+            margin-top: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            backdrop-filter: blur(10px);
+        }
+        .match-note-title {
+            font-weight: 700;
+            color: var(--tag-blue);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: block;
         }
 
         .card-title {
@@ -251,12 +310,11 @@
             font-size: 19px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: #4A4A4A;
+            color: #333;
             border-bottom: 1px dashed rgba(0,0,0,0.1);
             padding-bottom: 10px;
         }
-        
-        .game-card .card-title { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .game-card .card-title { border-bottom: none; margin-bottom: 0; padding-bottom: 0; font-size: 22px; color: #2B3A42; }
 
         /* --- Info Grid --- */
         .info-grid { display: grid; gap: 12px; }
@@ -266,13 +324,13 @@
             align-items: baseline;
             font-size: 14px;
             line-height: 1.6;
-            color: #666;
+            color: #555;
         }
 
         .info-label {
             flex-shrink: 0;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
             color: #FFF;
             padding: 3px 8px;
             border-radius: 6px;
@@ -280,14 +338,16 @@
             min-width: 24px;
             text-align: center;
             letter-spacing: 1px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        /* 莫蘭迪色標籤 */
-        .lbl-eat  { background-color: var(--m-red); }   /* 棒球紅 - 食 */
-        .lbl-wear { background-color: var(--m-blue); }  /* 隊服藍 - 衣 */
-        .lbl-stay { background-color: var(--m-green); } /* 草地綠 - 住 */
-        .lbl-go   { background-color: var(--m-grey); color: #666; }   /* 暖岩灰 - 行 */
+        /* 標籤配色 */
+        .lbl-eat  { background-color: var(--tag-red); }   
+        .lbl-wear { background-color: var(--tag-blue); }  
+        .lbl-stay { background-color: var(--tag-green); } 
+        .lbl-go   { background-color: var(--tag-grey); }  
+        .lbl-play { background-color: #8C7B75; } 
+        .lbl-shop { background-color: #8E7C8F; } 
 
         /* Buttons & Links */
         .action-row {
@@ -302,29 +362,95 @@
             padding: 8px 16px; border-radius: 20px;
             text-decoration: none; font-size: 13px; font-weight: 500;
             color: #fff;
-            background: linear-gradient(135deg, #8fa4b7, #728699);
-            box-shadow: 0 4px 10px rgba(114, 134, 153, 0.3);
+            background: linear-gradient(135deg, var(--tag-blue), #667C8F);
+            box-shadow: 0 4px 10px rgba(79, 109, 133, 0.4);
             transition: transform 0.2s;
         }
         .nav-btn:active { transform: scale(0.96); }
 
         .ref-link {
-            font-size: 12px; color: var(--m-blue); text-decoration: none;
-            border-bottom: 1px dotted var(--m-blue);
+            font-size: 12px; color: var(--tag-blue); text-decoration: none;
+            border-bottom: 1px dotted var(--tag-blue);
         }
 
         footer {
-            text-align: center; font-size: 12px; color: #AAA; padding: 50px 20px;
+            text-align: center; font-size: 12px; color: #999; padding: 50px 20px;
             font-family: 'Cormorant Garamond', serif; font-style: italic;
         }
+
+        /* --- WBC Schedule Tab Specific Styles --- */
+        .wbc-group-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--tag-blue);
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        .team-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.4);
+            padding: 15px;
+            border-radius: var(--radius-m);
+        }
+        
+        .team-item {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+        }
+        .team-flag { font-size: 24px; display: block; margin-bottom: 5px; }
+
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .schedule-row:last-child { border-bottom: none; }
+
+        .sch-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            color: var(--tag-grey);
+            width: 50px;
+        }
+        .sch-match { flex: 1; padding: 0 10px; font-weight: 500; }
+        .sch-time { font-size: 12px; color: #999; background: #eee; padding: 2px 6px; border-radius: 4px; }
+        
+        /* Highlight specific games */
+        .sch-highlight {
+            background: rgba(79, 109, 133, 0.08);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid var(--tag-blue);
+        }
+        .sch-highlight .sch-date { color: var(--tag-blue); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="subtitle"><span class="tag-wbc">WBC 2026</span> Pool C Tokyo</div>
-        <h1>World Baseball Classic</h1>
-        <div class="subtitle">應援之旅・March 5-9</div>
+        <div class="subtitle">
+            <span class="stitch-line"></span>
+            WBC 2026 TOKYO
+            <span class="stitch-line"></span>
+        </div>
+        <h1>Baseball & Travel</h1>
+        <div class="subtitle" style="margin-top:4px; font-size:11px; opacity:0.8; color:#666;">Cheering for Chinese Taipei</div>
     </header>
 
     <div class="flight-widget">
@@ -347,16 +473,17 @@
         <button class="tab-btn" onclick="showTab('d3', this)">3/7<br>捷克</button>
         <button class="tab-btn" onclick="showTab('d4', this)">3/8<br>韓國</button>
         <button class="tab-btn" onclick="showTab('d5', this)">3/9<br>返程</button>
+        <button class="tab-btn" onclick="showTab('wbc', this)">WBC<br>賽程</button>
     </div>
 
     <div id="d1" class="day-content active">
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">20:20</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">20:20</div></div>
             <div class="card">
                 <div class="card-title">羽田機場 (HND)</div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-go">行</span>抵達機場，辦理入境約 60 分鐘。搭乘京急線往橫濱。</div>
-                    <div class="info-row"><span class="info-label lbl-wear">衣</span>本日無觀賽行程，著輕便飛機裝。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>入境約 60 分鐘。搭乘京急線往橫濱。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>本日無觀賽，著輕便飛機裝。</div>
                     <div class="info-row"><span class="info-label lbl-eat">食</span>機上晚餐。</div>
                 </div>
                 <div class="action-row">
@@ -366,11 +493,11 @@
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">22:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">22:00</div></div>
             <div class="card">
                 <div class="card-title">橫濱關內 (Base)</div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-stay">住</span>抵達關內朋友家。本日中華隊 vs 澳洲 (12:00) 已結束。</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>抵達朋友家。本日 TPE vs AUS 已結束。</div>
                     <div class="info-row"><span class="info-label lbl-eat">食</span>宵夜：伊勢佐木町「一蘭」或居酒屋。</div>
                 </div>
             </div>
@@ -379,12 +506,12 @@
 
     <div id="d2" class="day-content">
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">10:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
             <div class="card">
                 <div class="card-title">橫濱紅磚倉庫</div>
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-go">行</span>晚場比賽，上午在橫濱悠閒散策。</div>
-                    <div class="info-row"><span class="info-label lbl-eat">食</span>早午餐：Bills 鬆餅 (需預約) 或海岸咖啡廳。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>早午餐：Bills 鬆餅 (需預約) 或海岸咖啡。</div>
                 </div>
                 <div class="action-row">
                     <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+32" target="_blank" class="nav-btn">📍 導航</a>
@@ -393,30 +520,38 @@
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">16:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:00</div></div>
             <div class="card">
-                <div class="card-title">前往東京巨蛋</div>
+                <div class="card-title">移動：東京巨蛋</div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-go">行</span>從關內搭乘 JR 根岸線直通京濱東北線至「水道橋站」(約 50 分)。</div>
-                    <div class="info-row"><span class="info-label lbl-eat">食</span>巨蛋周邊或場內便當 (建議入場前先吃)。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>JR根岸線直通京濱東北線至「水道橋站」(50分)。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>場內便當或周邊餐廳 (建議入場前用餐)。</div>
                 </div>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">19:00</div></div>
+            <div class="time-col"><div class="diamond-dot" style="background:var(--tag-red); border-color:var(--tag-red);"></div><div class="time-text">19:00</div></div>
             <div class="card game-card">
                 <div class="game-header">
                     <span class="game-badge">GAME 1</span>
-                    <span style="font-weight:700; color:#2B4560;">🇹🇼 TPE vs JPN 🇯🇵</span>
+                    <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
+                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs JPN 🇯🇵</div>
+                
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>世界王者 vs 12強新霸主</strong><br>
+                    2024 Premier12 台灣奪冠後，台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決，全場氣氛將沸騰至最高點。
+                </div>
+
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-wear">衣</span>請穿著中華隊球衣/藍白色系。</div>
-                    <div class="info-row"><span class="info-label lbl-stay">住</span>預計 22:30 結束，搭乘電車返回橫濱。</div>
-                    <div class="info-row"><span class="info-label lbl-go">行</span>注意終電時間，人潮眾多請提早離場移動。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>請穿著中華隊球衣/藍白色系應援！</div>
+                    <div class="info-row"><span class="info-label lbl-stay">住</span>預計 22:30 結束，注意終電時間返回橫濱。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>人潮眾多，建議提早離場移動。</div>
                 </div>
                 <div class="action-row">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+36" target="_blank" class="nav-btn">📍 東京巨蛋</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+36" target="_blank" class="nav-btn">⚾ 東京巨蛋</a>
                 </div>
             </div>
         </div>
@@ -424,32 +559,40 @@
 
     <div id="d3" class="day-content">
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">10:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
             <div class="card">
-                <div class="card-title">移動至球場</div>
+                <div class="card-title">早晨移動</div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-go">行</span>午場比賽，需早起。建議 10:00 前抵達水道橋。</div>
-                    <div class="info-row"><span class="info-label lbl-eat">食</span>早餐：便利商店簡單解決，保留體力應援。</div>
+                    <div class="info-row"><span class="info-label lbl-go">行</span>午場比賽需早起。建議 10:00 前抵達水道橋。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>早餐：便利商店簡單解決，保留體力。</div>
                 </div>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">12:00</div></div>
+            <div class="time-col"><div class="diamond-dot" style="background:var(--tag-red); border-color:var(--tag-red);"></div><div class="time-text">12:00</div></div>
             <div class="card game-card">
                 <div class="game-header">
                     <span class="game-badge">GAME 2</span>
-                    <span style="font-weight:700; color:#2B4560;">🇹🇼 TPE vs CZE 🇨🇿</span>
+                    <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
+                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs CZE 🇨🇿</div>
+                
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>斜槓鬥士 vs 職業菁英</strong><br>
+                    捷克隊以「平日上班、假日打球」的熱血故事聞名。雖然實力有差距，但捷克球風穩健且鬥志高昂，中華隊需穩紮穩打，避免被爆冷。
+                </div>
+
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-wear">衣</span>球場有空調，但建議洋蔥式穿搭。</div>
-                    <div class="info-row"><span class="info-label lbl-play">樂</span>捷克隊球風獨特，欣賞歐洲棒球風格。</div>
+                    <div class="info-row"><span class="info-label lbl-play">樂</span>欣賞捷克隊獨特的歐洲棒球風格。</div>
                 </div>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">16:30</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:30</div></div>
             <div class="card">
                 <div class="card-title">SHIBUYA SKY</div>
                 <div class="info-grid">
@@ -466,38 +609,46 @@
 
     <div id="d4" class="day-content">
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">10:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
             <div class="card">
-                <div class="card-title">移動至球場</div>
+                <div class="card-title">早晨移動</div>
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-go">行</span>週日電車較空，但仍建議提早出門。</div>
-                    <div class="info-row"><span class="info-label lbl-eat">食</span>補充水分與零食。</div>
+                    <div class="info-row"><span class="info-label lbl-eat">食</span>補充水分與喉糖，準備吶喊。</div>
                 </div>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">12:00</div></div>
+            <div class="time-col"><div class="diamond-dot" style="background:var(--tag-red); border-color:var(--tag-red);"></div><div class="time-text">12:00</div></div>
             <div class="card game-card">
                 <div class="game-header">
                     <span class="game-badge">GAME 3</span>
-                    <span style="font-weight:700; color:#2B4560;">🇹🇼 TPE vs KOR 🇰🇷</span>
+                    <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
+                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs KOR 🇰🇷</div>
+                
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>宿命對決：不能輸的戰役</strong><br>
+                    12強賽韓國首戰敗給台灣導致淘汰，此次勢必尋求復仇。這是攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
+                </div>
+
                 <div class="info-grid">
-                    <div class="info-row"><span class="info-label lbl-play">樂</span>宿敵對決！氣氛最為緊繃熱烈的一場。</div>
-                    <div class="info-row"><span class="info-label lbl-wear">衣</span>全力應援！準備好喉糖。</div>
+                    <div class="info-row"><span class="info-label lbl-play">樂</span>氣氛最為緊繃熱烈的一場。</div>
+                    <div class="info-row"><span class="info-label lbl-wear">衣</span>全力應援！Team Taiwan！</div>
                 </div>
             </div>
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">17:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
             <div class="card">
                 <div class="card-title">銀座 & 東京鐵塔</div>
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-go">行</span>賽後前往銀座 (步行者天國至 17:00)。</div>
                     <div class="info-row"><span class="info-label lbl-shop">買</span>Uniqlo 旗艦店、伊東屋文具採買。</div>
-                    <div class="info-row"><span class="info-label lbl-play">樂</span>晚上至增上寺看東京鐵塔夜景，為旅程畫下句點。</div>
+                    <div class="info-row"><span class="info-label lbl-play">樂</span>晚上至增上寺看東京鐵塔夜景。</div>
                 </div>
                 <div class="action-row">
                     <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+34" target="_blank" class="nav-btn">📍 導航</a>
@@ -508,7 +659,7 @@
 
     <div id="d5" class="day-content">
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">07:00</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">07:00</div></div>
             <div class="card">
                 <div class="card-title">前往羽田機場</div>
                 <div class="info-grid">
@@ -522,7 +673,7 @@
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">08:25</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">08:25</div></div>
             <div class="card">
                 <div class="card-title">羽田機場 (HND)</div>
                 <div class="info-grid">
@@ -533,7 +684,7 @@
         </div>
 
         <div class="timeline-item">
-            <div class="time-col"><div class="time-text">10:25</div></div>
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:25</div></div>
             <div class="card">
                 <div class="card-title">BR189 返台</div>
                 <div class="info-grid">
@@ -544,8 +695,75 @@
         </div>
     </div>
 
+    <div id="wbc" class="day-content">
+        <div class="card" style="margin-left:0; margin-bottom:20px;">
+            <div class="wbc-group-title">Pool C Teams</div>
+            <div class="team-grid">
+                <div class="team-item"><span class="team-flag">🇯🇵</span>JPN</div>
+                <div class="team-item"><span class="team-flag">🇰🇷</span>KOR</div>
+                <div class="team-item"><span class="team-flag">🇦🇺</span>AUS</div>
+                <div class="team-item"><span class="team-flag">🇨🇿</span>CZE</div>
+                <div class="team-item"><span class="team-flag">🇹🇼</span>TPE</div>
+            </div>
+            
+            <div class="wbc-group-title" style="margin-top:10px;">Full Schedule (Tokyo)</div>
+            <ul class="schedule-list">
+                <li class="schedule-row">
+                    <span class="sch-date">3/5</span>
+                    <span class="sch-match">AUS vs TPE</span>
+                    <span class="sch-time">12:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/5</span>
+                    <span class="sch-match">KOR vs CZE</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/6</span>
+                    <span class="sch-match">CZE vs AUS</span>
+                    <span class="sch-time">12:00</span>
+                </li>
+                <li class="schedule-row sch-highlight">
+                    <span class="sch-date">3/6</span>
+                    <span class="sch-match" style="color:var(--tag-blue);font-weight:700;">TPE vs JPN</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+                <li class="schedule-row sch-highlight">
+                    <span class="sch-date">3/7</span>
+                    <span class="sch-match" style="color:var(--tag-blue);font-weight:700;">CZE vs TPE</span>
+                    <span class="sch-time">12:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/7</span>
+                    <span class="sch-match">KOR vs JPN</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+                <li class="schedule-row sch-highlight">
+                    <span class="sch-date">3/8</span>
+                    <span class="sch-match" style="color:var(--tag-blue);font-weight:700;">KOR vs TPE</span>
+                    <span class="sch-time">12:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/8</span>
+                    <span class="sch-match">AUS vs JPN</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/9</span>
+                    <span class="sch-match">AUS vs KOR</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+                <li class="schedule-row">
+                    <span class="sch-date">3/10</span>
+                    <span class="sch-match">JPN vs CZE</span>
+                    <span class="sch-time">19:00</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <footer>
-        <p>Morandi x iOS 26<br>WBC 2026 Cheering Trip</p>
+        <p>Morandi x Baseball x iOS 26<br>Designed for Fred</p>
     </footer>
 
     <script>
