@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | Global Schedule</title>
+    <title>2026 WBC 應援之旅 | Layout Fixed</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,20 +12,21 @@
     <style>
         /* --- Morandi x Baseball x iOS 26 Design System --- */
         :root {
-            /* 1. 背景與氛圍用 */
             --bg-blue: #dbe2ef;
             --bg-red: #e8d5d5;
             --bg-sand: #f4f4f0;
             
-            /* 2. 標籤專用深色莫蘭迪 (High Contrast) */
-            --tag-red: #A85A5A;    /* 深磚紅 */
-            --tag-blue: #4F6D85;   /* 深岩藍 */
-            --tag-green: #5D7A68;  /* 深草綠 */
-            --tag-grey: #666666;   /* 深鐵灰 */
+            /* High Contrast Morandi Tags */
+            --tag-red: #A85A5A;    
+            --tag-blue: #4F6D85;   
+            --tag-green: #5D7A68;  
+            --tag-grey: #666666;   
+            --tag-gold: #C5A065;
+            --tag-point: #B07D7D;
             
-            --m-dark: #4A4F55;     /* 主要文字深灰 */
+            --m-dark: #4A4F55;
             
-            /* 液態玻璃材質 */
+            /* Liquid Glass */
             --glass-bg: rgba(255, 255, 255, 0.65);
             --glass-border: rgba(255, 255, 255, 0.8);
             --glass-blur: blur(40px);
@@ -33,7 +34,6 @@
             --radius-l: 30px;
             --radius-m: 18px;
             
-            /* 柔和投影 */
             --shadow-soft: 0 15px 40px rgba(94, 100, 105, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
@@ -45,8 +45,6 @@
             -webkit-font-smoothing: antialiased;
             padding-bottom: 90px;
             min-height: 100vh;
-            
-            /* 背景：流動的球場光影 */
             background: radial-gradient(circle at 0% 0%, var(--bg-blue), transparent 60%),
                         radial-gradient(circle at 100% 0%, var(--bg-red), transparent 60%),
                         radial-gradient(circle at 50% 100%, #e0e5df, transparent 60%),
@@ -175,6 +173,19 @@
             box-shadow: 0 4px 12px rgba(79, 109, 133, 0.15);
         }
 
+        .tab-btn.wbc-special {
+            background: rgba(168, 90, 90, 0.1);
+            color: var(--tag-red);
+            font-weight: 600;
+            border: 1px solid rgba(168, 90, 90, 0.2);
+        }
+        .tab-btn.wbc-special.active {
+            background: var(--tag-red) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(168, 90, 90, 0.4);
+            border: 1px solid var(--tag-red);
+        }
+
         /* --- Content Layout --- */
         .day-content {
             display: none;
@@ -189,254 +200,157 @@
         }
 
         /* --- Timeline --- */
-        .timeline-item {
-            display: flex;
-            margin-bottom: 35px;
-            position: relative;
-        }
-        
+        .timeline-item { display: flex; margin-bottom: 35px; position: relative; }
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 28px; top: 18px; bottom: -40px; 
-            width: 1px;
-            background: linear-gradient(to bottom, var(--tag-blue) 0%, transparent 100%);
-            z-index: 0;
-            opacity: 0.3;
+            content: ''; position: absolute; left: 28px; top: 18px; bottom: -40px; width: 1px;
+            background: linear-gradient(to bottom, var(--tag-blue) 0%, transparent 100%); z-index: 0; opacity: 0.3;
         }
         .timeline-item:last-child::before { display: none; }
-
-        .time-col {
-            min-width: 60px;
-            padding-top: 2px;
-            z-index: 1;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
+        .time-col { min-width: 60px; padding-top: 2px; z-index: 1; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
         .diamond-dot {
-            width: 10px; height: 10px;
-            background: var(--tag-blue);
-            transform: rotate(45deg);
-            margin-bottom: 5px;
-            box-shadow: 0 0 0 2px white, 0 0 10px rgba(79, 109, 133, 0.4);
+            width: 10px; height: 10px; background: var(--tag-blue); transform: rotate(45deg);
+            margin-bottom: 5px; box-shadow: 0 0 0 2px white, 0 0 10px rgba(79, 109, 133, 0.4);
         }
-        
         .time-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 16px; 
-            font-weight: 600; 
-            color: var(--tag-blue);
-            background: rgba(255,255,255,0.9);
-            padding: 2px 6px;
-            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--tag-blue);
+            background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 4px;
         }
 
         /* --- Main Card --- */
         .card {
-            flex: 1;
-            margin-left: 15px;
-            padding: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-l);
-            box-shadow: var(--shadow-soft);
-            overflow: hidden;
-            position: relative;
+            flex: 1; margin-left: 15px; padding: 24px; background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); border-radius: var(--radius-l);
+            box-shadow: var(--shadow-soft); overflow: hidden; position: relative;
         }
-
-        .card.game-card {
-            background: linear-gradient(135deg, #F0F4F8, #FFFFFF);
-            border: 1px solid #FFFFFF;
-        }
-        
+        .card.game-card { background: linear-gradient(135deg, #F0F4F8, #FFFFFF); border: 1px solid #FFFFFF; }
         .card.game-card::before {
-            content: '';
-            position: absolute;
-            top: 15px; bottom: 15px; left: 6px;
-            width: 4px;
-            border-right: 2px dashed var(--tag-red);
-            opacity: 0.6;
+            content: ''; position: absolute; top: 15px; bottom: 15px; left: 6px; width: 4px;
+            border-right: 2px dashed var(--tag-red); opacity: 0.6;
         }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .game-badge {
-            background: var(--tag-blue);
-            color: white;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 4px;
-            letter-spacing: 1px;
-        }
-
+        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .game-badge { background: var(--tag-blue); color: white; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; letter-spacing: 1px; }
         .match-note {
-            background: rgba(255, 255, 255, 0.6);
-            border-left: 3px solid var(--tag-red);
-            padding: 12px 15px;
-            margin-top: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #555;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.6); border-left: 3px solid var(--tag-red); padding: 12px 15px;
+            margin-top: 12px; margin-bottom: 15px; border-radius: 8px; font-size: 13px; line-height: 1.6; color: #555; backdrop-filter: blur(10px);
         }
-        .match-note-title {
-            font-weight: 700;
-            color: var(--tag-blue);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: block;
-        }
-
+        .match-note-title { font-weight: 700; color: var(--tag-blue); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
         .card-title {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 19px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #333;
-            border-bottom: 1px dashed rgba(0,0,0,0.1);
-            padding-bottom: 10px;
+            font-family: 'Noto Serif TC', serif; font-size: 19px; font-weight: 700; margin-bottom: 15px;
+            color: #333; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;
         }
-        .game-card .card-title { border-bottom: none; margin-bottom: 0; padding-bottom: 0; font-size: 22px; color: #2B3A42; }
-
-        /* --- Info Grid --- */
+        .game-card .card-title { border-bottom: none; margin-bottom: 0; padding-bottom: 0; font-size: 20px; color: #2B3A42; }
         .info-grid { display: grid; gap: 12px; }
-
-        .info-row {
-            display: flex;
-            align-items: baseline;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #555;
-        }
-
+        .info-row { display: flex; align-items: baseline; font-size: 14px; line-height: 1.6; color: #555; }
         .info-label {
-            flex-shrink: 0;
-            font-size: 12px;
-            font-weight: 600;
-            color: #FFF;
-            padding: 3px 8px;
-            border-radius: 6px;
-            margin-right: 10px;
-            min-width: 24px;
-            text-align: center;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            flex-shrink: 0; font-size: 12px; font-weight: 600; color: #FFF; padding: 3px 8px;
+            border-radius: 6px; margin-right: 10px; min-width: 24px; text-align: center; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
-
-        /* 標籤配色 */
-        .lbl-eat  { background-color: var(--tag-red); }   
+        .lbl-eat { background-color: var(--tag-red); }   
         .lbl-wear { background-color: var(--tag-blue); }  
         .lbl-stay { background-color: var(--tag-green); } 
-        .lbl-go   { background-color: var(--tag-grey); }  
+        .lbl-go { background-color: var(--tag-grey); }  
         .lbl-play { background-color: #8C7B75; } 
         .lbl-shop { background-color: #8E7C8F; } 
-
-        /* Buttons & Links */
-        .action-row {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .action-row { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
         .nav-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 16px; border-radius: 20px;
-            text-decoration: none; font-size: 13px; font-weight: 500;
-            color: #fff;
-            background: linear-gradient(135deg, var(--tag-blue), #667C8F);
-            box-shadow: 0 4px 10px rgba(79, 109, 133, 0.4);
-            transition: transform 0.2s;
+            display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 20px;
+            text-decoration: none; font-size: 13px; font-weight: 500; color: #fff;
+            background: linear-gradient(135deg, var(--tag-blue), #667C8F); box-shadow: 0 4px 10px rgba(79, 109, 133, 0.4); transition: transform 0.2s;
         }
         .nav-btn:active { transform: scale(0.96); }
+        .ref-link { font-size: 12px; color: var(--tag-blue); text-decoration: none; border-bottom: 1px dotted var(--tag-blue); }
+        footer { text-align: center; font-size: 12px; color: #999; padding: 50px 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
 
-        .ref-link {
-            font-size: 12px; color: var(--tag-blue); text-decoration: none;
-            border-bottom: 1px dotted var(--tag-blue);
+        /* --- Tournament Tree Style (Fixed Layout) --- */
+        .scroll-hint {
+            text-align: center; font-size: 11px; color: var(--tag-blue); margin-bottom: 10px; font-weight: 500; opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        .tree-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 20px 40px 20px;
+            margin-bottom: 20px;
+            /* Critical Fixes for Visibility */
+            display: block; 
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tree-wrapper {
+            display: inline-flex; /* Changed from flex to inline-flex to allow scroll */
+            align-items: center;
+            gap: 40px;
+            min-width: max-content; /* Ensure width expands to fit content */
+            padding-right: 20px;
         }
 
-        footer {
-            text-align: center; font-size: 12px; color: #999; padding: 50px 20px;
-            font-family: 'Cormorant Garamond', serif; font-style: italic;
+        .bracket-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .node {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--tag-blue);
+            border-radius: 12px;
+            padding: 10px 15px;
+            width: 140px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(79, 109, 133, 0.15);
+            white-space: normal; /* Allow text wrapping inside node */
+            z-index: 1;
+        }
+
+        .node-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;}
+        .node-content { font-size: 12px; font-weight: 700; color: #333; display: block; line-height: 1.3; }
+
+        .node.final {
+            border-color: var(--tag-gold);
+            background: linear-gradient(135deg, #FFF, #FDF8F0);
+            box-shadow: 0 0 25px rgba(197, 160, 101, 0.5);
+            transform: scale(1.1);
+            z-index: 2;
+            width: 150px;
+        }
+        .node.final .node-content { color: var(--tag-gold); font-size: 15px; }
+
+        /* Connector Lines */
+        .node::after {
+            content: ''; position: absolute; background: var(--tag-blue); opacity: 0.4;
+        }
+
+        /* Left side lines pointing right */
+        .col-left .node::after {
+            right: -42px; top: 50%; width: 42px; height: 2px;
+        }
+        
+        /* Right side lines pointing left */
+        .col-right .node::after {
+            left: -42px; top: 50%; width: 42px; height: 2px;
         }
 
         /* --- WBC Tables Style --- */
         .wbc-section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--tag-blue);
-            margin: 30px 0 15px;
-            padding-left: 10px;
-            border-left: 3px solid var(--tag-red);
-            letter-spacing: 1px;
+            font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--tag-blue);
+            margin: 40px 0 15px; padding-left: 10px; border-left: 3px solid var(--tag-red); letter-spacing: 1px;
         }
-        
-        .wbc-table-container {
-            overflow-x: auto;
-            border-radius: var(--radius-m);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .wbc-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: rgba(255,255,255,0.7);
-        }
-
-        .wbc-table th {
-            background: var(--tag-blue);
-            color: white;
-            font-weight: 600;
-            padding: 10px;
-            text-align: left;
-            font-family: 'Noto Serif TC', serif;
-        }
-
-        .wbc-table td {
-            padding: 10px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            color: #555;
-        }
-
-        /* Zebra Striping (Morandi style) */
-        .wbc-table tr:nth-child(even) {
-            background-color: rgba(79, 109, 133, 0.05);
-        }
-        
-        .tpe-highlight {
-            background-color: rgba(168, 90, 90, 0.1) !important;
-            font-weight: 700;
-            color: var(--tag-red) !important;
-        }
-        
-        .location-tag {
-            font-size: 10px;
-            background: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #777;
-            display: inline-block;
-            margin-top: 2px;
-        }
+        .wbc-table-container { overflow-x: auto; border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .wbc-table { width: 100%; border-collapse: collapse; font-size: 13px; background: rgba(255,255,255,0.7); min-width: 450px; }
+        .wbc-table th { background: var(--tag-blue); color: white; font-weight: 600; padding: 12px 10px; text-align: left; font-family: 'Noto Serif TC', serif; }
+        .wbc-table td { padding: 12px 10px; border-bottom: 1px solid rgba(0,0,0,0.05); color: #555; vertical-align: top; }
+        .wbc-table tr:last-child td { border-bottom: none; }
+        .wbc-table tr:nth-child(even) { background-color: rgba(79, 109, 133, 0.05); }
+        .tpe-highlight { background-color: rgba(168, 90, 90, 0.08) !important; }
+        .point-text { display: block; margin-top: 4px; font-size: 11px; color: var(--tag-point); font-weight: 500; line-height: 1.4; }
+        .team-name { font-weight: 700; font-size: 14px; color: #333; }
+        .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: #777; font-family: 'Noto Sans TC', sans-serif; }
+        .location-tag { font-size: 10px; background: #eee; padding: 2px 6px; border-radius: 4px; color: #777; display: inline-block; margin-top: 2px; margin-left: 5px; font-family: sans-serif; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -471,7 +385,7 @@
         <button class="tab-btn" onclick="showTab('d3', this)">3/7<br>捷克</button>
         <button class="tab-btn" onclick="showTab('d4', this)">3/8<br>韓國</button>
         <button class="tab-btn" onclick="showTab('d5', this)">3/9<br>返程</button>
-        <button class="tab-btn" onclick="showTab('wbc', this)">WBC<br>戰情</button>
+        <button class="tab-btn wbc-special" onclick="showTab('wbc', this)">WBC<br>戰情</button>
     </div>
 
     <div id="d1" class="day-content active">
@@ -535,12 +449,12 @@
                     <span class="game-badge">GAME 1</span>
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
-                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs JPN 🇯🇵</div>
+                <div class="card-title" style="color:#2B4560;">TPE vs JPN</div>
                 
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>世界王者 vs 12強新霸主</strong><br>
-                    2024 Premier12 台灣奪冠後，台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決。
+                    台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決。
                 </div>
 
                 <div class="info-grid">
@@ -574,12 +488,12 @@
                     <span class="game-badge">GAME 2</span>
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
-                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs CZE 🇨🇿</div>
+                <div class="card-title" style="color:#2B4560;">CZE vs TPE</div>
                 
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>斜槓鬥士 vs 職業菁英</strong><br>
-                    捷克隊以熱血著稱。雖然實力有差距，但捷克球風穩健且鬥志高昂，中華隊需穩紮穩打。
+                    捷克球風穩健且鬥志高昂，中華隊需穩紮穩打，避免被爆冷。
                 </div>
 
                 <div class="info-grid">
@@ -624,12 +538,12 @@
                     <span class="game-badge">GAME 3</span>
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
-                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs KOR 🇰🇷</div>
+                <div class="card-title" style="color:#2B4560;">KOR vs TPE</div>
                 
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>宿命對決：不能輸的戰役</strong><br>
-                    這是攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
+                    攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
                 </div>
 
                 <div class="info-grid">
@@ -694,137 +608,380 @@
     </div>
 
     <div id="wbc" class="day-content">
+        <div class="scroll-hint">← Swipe to view Bracket →</div>
+        <div class="tree-container">
+            <div class="tree-wrapper">
+                <div class="bracket-col col-left">
+                    <div class="node"><span class="node-label">Pool A</span><span class="node-content">Winner<br>& 2nd</span></div>
+                    <div class="node"><span class="node-label">Pool B</span><span class="node-content">Winner<br>& 2nd</span></div>
+                </div>
+
+                <div class="bracket-col col-left">
+                    <div class="node"><span class="node-label">Quarterfinal 1</span><span class="node-content">B Winner<br>vs<br>A 2nd</span></div>
+                    <div class="node"><span class="node-label">Quarterfinal 2</span><span class="node-content">A Winner<br>vs<br>B 2nd</span></div>
+                </div>
+
+                <div class="bracket-col col-left">
+                    <div class="node"><span class="node-label">Semifinal 1</span><span class="node-content">QF1 Winner<br>vs<br>QF2 Winner</span></div>
+                </div>
+
+                <div class="bracket-col">
+                    <div class="node final"><span class="node-label">Championship</span><span class="node-content">FINAL</span><span class="node-sub">Miami</span></div>
+                </div>
+
+                <div class="bracket-col col-right">
+                    <div class="node"><span class="node-label">Semifinal 2</span><span class="node-content">QF3 Winner<br>vs<br>QF4 Winner</span></div>
+                </div>
+
+                <div class="bracket-col col-right">
+                    <div class="node"><span class="node-label">Quarterfinal 3</span><span class="node-content">D Winner<br>vs<br>C 2nd</span></div>
+                    <div class="node"><span class="node-label">Quarterfinal 4</span><span class="node-content">C Winner<br>vs<br>D 2nd</span></div>
+                </div>
+
+                <div class="bracket-col col-right">
+                    <div class="node"><span class="node-label">Pool C</span><span class="node-content">Winner<br>& 2nd</span></div>
+                    <div class="node"><span class="node-label">Pool D</span><span class="node-content">Winner<br>& 2nd</span></div>
+                </div>
+            </div>
+        </div>
+
         <div class="card" style="margin-left:0; margin-bottom:20px;">
-            <div class="card-title">Pool C (Tokyo)</div>
+            <div class="card-title">
+                Pool C (Tokyo)
+                <span class="pool-teams">台灣 TPE・日本 JPN・韓國 KOR・澳洲 AUS・捷克 CZE</span>
+            </div>
             <div class="wbc-table-container">
                 <table class="wbc-table">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Home vs Away</th>
+                            <th>Matchup & Key Point</th>
                             <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>3/5</td>
-                            <td>AUS vs <strong>TPE</strong></td>
+                            <td>
+                                <span class="team-name">AUS vs TPE</span>
+                                <span class="point-text">澳洲長打火力兇猛，且擁有多位小聯盟潛力新秀，投手調度是關鍵。</span>
+                            </td>
                             <td>12:00</td>
                         </tr>
                         <tr>
                             <td>3/5</td>
-                            <td>KOR vs CZE</td>
+                            <td>
+                                <span class="team-name">KOR vs CZE</span>
+                                <span class="point-text">韓國尋求開門紅以穩定軍心，捷克能否複製上屆奇蹟備受關注。</span>
+                            </td>
                             <td>19:00</td>
                         </tr>
                         <tr>
                             <td>3/6</td>
-                            <td>CZE vs AUS</td>
+                            <td>
+                                <span class="team-name">CZE vs AUS</span>
+                                <span class="point-text">歐洋球風對決，捷克的團隊默契對抗澳洲的力量棒球。</span>
+                            </td>
                             <td>12:00</td>
                         </tr>
                         <tr class="tpe-highlight">
                             <td>3/6</td>
-                            <td>TPE vs JPN</td>
+                            <td>
+                                <span class="team-name" style="color:var(--tag-blue);">TPE vs JPN</span>
+                                <span class="point-text">頂上對決！台灣最強打線挑戰日本大聯盟級投手群，勝負在細節。</span>
+                            </td>
                             <td>19:00</td>
                         </tr>
                         <tr class="tpe-highlight">
                             <td>3/7</td>
-                            <td>CZE vs TPE</td>
+                            <td>
+                                <span class="team-name" style="color:var(--tag-blue);">CZE vs TPE</span>
+                                <span class="point-text">必勝之戰！需提防捷克慢速怪投擾亂節奏，打線發揮是重點。</span>
+                            </td>
                             <td>12:00</td>
                         </tr>
                         <tr>
                             <td>3/7</td>
-                            <td>KOR vs JPN</td>
+                            <td>
+                                <span class="team-name">KOR vs JPN</span>
+                                <span class="point-text">世仇大戰！亞洲棒球最高殿堂之爭，無論戰績如何雙方皆會拚盡全力。</span>
+                            </td>
                             <td>19:00</td>
                         </tr>
                         <tr class="tpe-highlight">
                             <td>3/8</td>
-                            <td>KOR vs TPE</td>
+                            <td>
+                                <span class="team-name" style="color:var(--tag-blue);">KOR vs TPE</span>
+                                <span class="point-text">宿命復仇戰！韓國背負不能輸的壓力，台灣需展現強大抗壓性。</span>
+                            </td>
                             <td>12:00</td>
                         </tr>
                         <tr>
                             <td>3/8</td>
-                            <td>AUS vs JPN</td>
+                            <td>
+                                <span class="team-name">AUS vs JPN</span>
+                                <span class="point-text">澳洲能否以長打撼動日本武士道？日本投手群的穩定度測試。</span>
+                            </td>
+                            <td>19:00</td>
+                        </tr>
+                        <tr>
+                            <td>3/9</td>
+                            <td>
+                                <span class="team-name">AUS vs KOR</span>
+                                <span class="point-text">若戰況膠著，此戰可能決定分組最後一張晉級門票。</span>
+                            </td>
+                            <td>19:00</td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td>
+                                <span class="team-name">JPN vs CZE</span>
+                                <span class="point-text">充滿敬意的比賽，佐佐木朗希曾在此對決中展現風度，友誼第一。</span>
+                            </td>
                             <td>19:00</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="wbc-section-title">Other Pools</div>
-
-            <div class="card-title" style="font-size:16px;">Pool A <span class="location-tag">Puerto Rico</span></div>
+            <div class="wbc-section-title">
+                Pool A <span class="location-tag">San Juan</span>
+                <span class="pool-teams">波多黎各 PUR・古巴 CUB・加拿大 CAN・巴拿馬 PAN・哥倫比亞 COL</span>
+            </div>
             <div class="wbc-table-container">
                 <table class="wbc-table">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Key Matchups</th>
+                            <th>Matchup & Scouting Report</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>3/6</td>
-                            <td>PUR vs TBD</td>
+                            <td>
+                                <span class="team-name">PUR vs COL</span>
+                                <span class="point-text">地主波多黎各首戰，拉丁美洲熱情點燃，Lindor 領軍內野豪華防線。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/7</td>
-                            <td>CUB vs PAN</td>
+                            <td>
+                                <span class="team-name">CUB vs PAN</span>
+                                <span class="point-text">古巴紅色閃電 vs 巴拿馬，傳統強權與新興勢力的碰撞。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td>
+                                <span class="team-name">CAN vs PUR</span>
+                                <span class="point-text">加拿大重砲部隊挑戰波多黎各投手群，Freeman 是否參賽是看點。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/11</td>
-                            <td>PUR vs CUB</td>
+                            <td>
+                                <span class="team-name">PUR vs CUB</span>
+                                <span class="point-text">加勒比海經典大戰，雙方皆有大量美職球員，節奏明快。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/6</td>
+                            <td><span class="team-name">PAN vs COL</span><span class="point-text">中南美洲內戰，投手戰力相當，細節定勝負。</span></td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td><span class="team-name">CUB vs CAN</span><span class="point-text">古巴速度戰與加拿大力量戰的對決。</span></td>
+                        </tr>
+                        <tr>
+                            <td>3/9</td>
+                            <td><span class="team-name">COL vs CUB</span><span class="point-text">關鍵晉級戰役，雙方皆無退路。</span></td>
+                        </tr>
+                        <tr>
+                            <td>3/9</td>
+                            <td><span class="team-name">CAN vs PAN</span><span class="point-text">兩隊實力伯仲之間，打擊發揮是關鍵。</span></td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td><span class="team-name">PUR vs PAN</span><span class="point-text">波多黎各主場優勢最大化的一場。</span></td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td><span class="team-name">COL vs CAN</span><span class="point-text">分組最後一場，可能決定誰能晉級八強。</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="card-title" style="font-size:16px; margin-top:20px;">Pool B <span class="location-tag">Houston</span></div>
+            <div class="wbc-section-title">
+                Pool B <span class="location-tag">Houston</span>
+                <span class="pool-teams">美國 USA・墨西哥 MEX・義大利 ITA・英國 GBR・巴西 BRA</span>
+            </div>
             <div class="wbc-table-container">
                 <table class="wbc-table">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Key Matchups</th>
+                            <th>Matchup & Scouting Report</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>3/6</td>
-                            <td>USA vs GBR</td>
+                            <td>
+                                <span class="team-name">USA vs GBR</span>
+                                <span class="point-text">美國夢幻隊首秀，全大聯盟MVP打線火力展示，英國隊力求少輸為贏。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/6</td>
+                            <td>
+                                <span class="team-name">ITA vs BRA</span>
+                                <span class="point-text">足球強國的棒球對決，義大利擁有大量意裔美職球員。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/7</td>
-                            <td>MEX vs ITA</td>
+                            <td>
+                                <span class="team-name">GBR vs MEX</span>
+                                <span class="point-text">墨西哥擁有頂級投手 Urías 等人，實力高出一截。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/7</td>
+                            <td>
+                                <span class="team-name">USA vs ITA</span>
+                                <span class="point-text">義大利上屆表現驚奇，美國隊不可輕敵。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td>
+                                <span class="team-name">BRA vs USA</span>
+                                <span class="point-text">美國隊預計將輪換陣容，測試牛棚深度。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td>
+                                <span class="team-name">MEX vs ITA</span>
+                                <span class="point-text">分組第二的關鍵爭奪戰，義大利若勝將攪亂戰局。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/9</td>
+                            <td>
+                                <span class="team-name">GBR vs BRA</span>
+                                <span class="point-text">兩支實力較弱球隊的榮譽之戰，爭取避免下屆打資格賽。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td>
+                                <span class="team-name">ITA vs GBR</span>
+                                <span class="point-text">歐洲內戰，義大利必須取勝以保晉級希望。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td>
+                                <span class="team-name">MEX vs BRA</span>
+                                <span class="point-text">墨西哥穩紮穩打，為了最後一天對美大戰保留實力。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/11</td>
-                            <td>USA vs MEX</td>
+                            <td>
+                                <span class="team-name">USA vs MEX</span>
+                                <span class="point-text">北美內戰！上屆墨西哥曾擊敗美國震驚世界，此次復仇味濃厚，分組第一之爭。</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="card-title" style="font-size:16px; margin-top:20px;">Pool D <span class="location-tag">Miami</span></div>
+            <div class="wbc-section-title">
+                Pool D <span class="location-tag">Miami</span>
+                <span class="pool-teams">多明尼加 DOM・委內瑞拉 VEN・荷蘭 NED・以色列 ISR・尼加拉瓜 NIC</span>
+            </div>
             <div class="wbc-table-container">
                 <table class="wbc-table">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Key Matchups</th>
+                            <th>Matchup & Scouting Report</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>3/6</td>
-                            <td>VEN vs ISR</td>
+                            <td>
+                                <span class="team-name">VEN vs ISR</span>
+                                <span class="point-text">委內瑞拉擁有 Acuña 等巨星，以色列擅長以小博大，首戰即關鍵。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/6</td>
+                            <td>
+                                <span class="team-name">NED vs NIC</span>
+                                <span class="point-text">歐洲霸主荷蘭內野全大聯盟陣容，尼加拉瓜投手戰力不俗。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/7</td>
-                            <td>DOM vs NED</td>
+                            <td>
+                                <span class="team-name">ISR vs DOM</span>
+                                <span class="point-text">多明尼加宇宙隊登場，Soto, Tatis Jr. 火力全開。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/7</td>
+                            <td>
+                                <span class="team-name">NIC vs VEN</span>
+                                <span class="point-text">委內瑞拉必須取勝，避免陰溝裡翻船。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td>
+                                <span class="team-name">DOM vs NED</span>
+                                <span class="point-text">強權對話！荷蘭曾多次在國際賽擊敗多明尼加，精彩可期。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/8</td>
+                            <td>
+                                <span class="team-name">ISR vs NIC</span>
+                                <span class="point-text">實力接近，可能決定誰能留在下屆會內賽。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/9</td>
+                            <td>
+                                <span class="team-name">NED vs VEN</span>
+                                <span class="point-text">關鍵晉級戰！兩隊內野防守都屬頂級，可能演變成低比分投手戰。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td>
+                                <span class="team-name">NIC vs DOM</span>
+                                <span class="point-text">多明尼加預計會讓主力打者輪休，或測試替補手感。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3/10</td>
+                            <td>
+                                <span class="team-name">NED vs ISR</span>
+                                <span class="point-text">荷蘭需確保勝利以鎖定晉級名額。</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>3/11</td>
-                            <td>DOM vs VEN</td>
+                            <td>
+                                <span class="team-name">DOM vs VEN</span>
+                                <span class="point-text">死亡之組壓軸大戲！雙方陣容總身價破億美金，堪稱大聯盟全明星賽。</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
