@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | Layout Fixed</title>
+    <title>2026 WBC 應援之旅 | Debugged Bracket</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,30 +228,37 @@
             content: ''; position: absolute; top: 15px; bottom: 15px; left: 6px; width: 4px;
             border-right: 2px dashed var(--tag-red); opacity: 0.6;
         }
+
         .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .game-badge { background: var(--tag-blue); color: white; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; letter-spacing: 1px; }
+        
         .match-note {
             background: rgba(255, 255, 255, 0.6); border-left: 3px solid var(--tag-red); padding: 12px 15px;
             margin-top: 12px; margin-bottom: 15px; border-radius: 8px; font-size: 13px; line-height: 1.6; color: #555; backdrop-filter: blur(10px);
         }
         .match-note-title { font-weight: 700; color: var(--tag-blue); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        
         .card-title {
             font-family: 'Noto Serif TC', serif; font-size: 19px; font-weight: 700; margin-bottom: 15px;
             color: #333; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;
         }
         .game-card .card-title { border-bottom: none; margin-bottom: 0; padding-bottom: 0; font-size: 20px; color: #2B3A42; }
+
         .info-grid { display: grid; gap: 12px; }
         .info-row { display: flex; align-items: baseline; font-size: 14px; line-height: 1.6; color: #555; }
         .info-label {
             flex-shrink: 0; font-size: 12px; font-weight: 600; color: #FFF; padding: 3px 8px;
             border-radius: 6px; margin-right: 10px; min-width: 24px; text-align: center; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
+        
+        /* 標籤配色 */
         .lbl-eat { background-color: var(--tag-red); }   
         .lbl-wear { background-color: var(--tag-blue); }  
         .lbl-stay { background-color: var(--tag-green); } 
         .lbl-go { background-color: var(--tag-grey); }  
         .lbl-play { background-color: #8C7B75; } 
         .lbl-shop { background-color: #8E7C8F; } 
+
         .action-row { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
         .nav-btn {
             display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 20px;
@@ -262,7 +269,7 @@
         .ref-link { font-size: 12px; color: var(--tag-blue); text-decoration: none; border-bottom: 1px dotted var(--tag-blue); }
         footer { text-align: center; font-size: 12px; color: #999; padding: 50px 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
 
-        /* --- Tournament Tree Style (Fixed Layout) --- */
+        /* --- Tournament Tree Style --- */
         .scroll-hint {
             text-align: center; font-size: 11px; color: var(--tag-blue); margin-bottom: 10px; font-weight: 500; opacity: 0.8;
             animation: pulse 2s infinite;
@@ -270,29 +277,29 @@
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
         .tree-container {
+            display: flex; 
+            justify-content: flex-start; /* Default for mobile scrolling */
             overflow-x: auto;
             white-space: nowrap;
             padding: 10px 20px 40px 20px;
             margin-bottom: 20px;
-            /* Critical Fixes for Visibility */
-            display: block; 
             -webkit-overflow-scrolling: touch;
         }
         
+        /* Center on large screens only */
+        @media (min-width: 1000px) {
+            .tree-container { justify-content: center; }
+        }
+
         .tree-wrapper {
-            display: inline-flex; /* Changed from flex to inline-flex to allow scroll */
+            display: flex;
             align-items: center;
             gap: 40px;
-            min-width: max-content; /* Ensure width expands to fit content */
+            min-width: max-content;
             padding-right: 20px;
         }
 
-        .bracket-col {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: center;
-        }
+        .bracket-col { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
 
         .node {
             background: rgba(255, 255, 255, 0.95);
@@ -303,53 +310,76 @@
             text-align: center;
             position: relative;
             box-shadow: 0 8px 20px rgba(79, 109, 133, 0.15);
-            white-space: normal; /* Allow text wrapping inside node */
+            white-space: normal;
             z-index: 1;
         }
 
         .node-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;}
-        .node-content { font-size: 12px; font-weight: 700; color: #333; display: block; line-height: 1.3; }
+        .node-content { font-size: 13px; font-weight: 700; color: #333; display: block; line-height: 1.3; }
 
         .node.final {
             border-color: var(--tag-gold);
             background: linear-gradient(135deg, #FFF, #FDF8F0);
             box-shadow: 0 0 25px rgba(197, 160, 101, 0.5);
-            transform: scale(1.1);
+            transform: scale(1.15);
             z-index: 2;
             width: 150px;
         }
         .node.final .node-content { color: var(--tag-gold); font-size: 15px; }
 
-        /* Connector Lines */
-        .node::after {
-            content: ''; position: absolute; background: var(--tag-blue); opacity: 0.4;
-        }
+        .node::after { content: ''; position: absolute; background: var(--tag-blue); opacity: 0.4; }
+        .col-left .node::after { right: -42px; top: 50%; width: 42px; height: 2px; }
+        .col-right .node::after { left: -42px; top: 50%; width: 42px; height: 2px; }
 
-        /* Left side lines pointing right */
-        .col-left .node::after {
-            right: -42px; top: 50%; width: 42px; height: 2px;
-        }
+        /* SVG Internal Styles */
+        .bracket-svg { min-width: 1000px; height: auto; display: block; margin: 0 auto; }
+        .svg-title { font-family: 'Cormorant Garamond', serif; fill: var(--tag-blue); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .svg-text { font-family: 'Noto Sans TC', sans-serif; fill: #444; font-size: 12px; font-weight: 600; }
+        .svg-sub { font-family: 'Noto Sans TC', sans-serif; fill: #888; font-size: 10px; }
         
-        /* Right side lines pointing left */
-        .col-right .node::after {
-            left: -42px; top: 50%; width: 42px; height: 2px;
-        }
+        .svg-box { fill: rgba(255,255,255,0.95); stroke: var(--tag-blue); stroke-width: 2px; rx: 10; filter: drop-shadow(0 4px 8px rgba(79, 109, 133, 0.15)); }
+        .svg-line { stroke: var(--tag-blue); stroke-width: 2px; opacity: 0.3; fill: none; }
+        
+        .svg-final-box { fill: linear-gradient(135deg, #FFF, #FDF8F0); stroke: var(--tag-gold); stroke-width: 3px; filter: drop-shadow(0 0 15px rgba(197, 160, 101, 0.4)); }
+        .svg-final-text { fill: var(--tag-gold); font-weight: 800; font-size: 15px; }
 
-        /* --- WBC Tables Style --- */
+        /* --- WBC Responsive Table Style (Fixed) --- */
         .wbc-section-title {
             font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--tag-blue);
             margin: 40px 0 15px; padding-left: 10px; border-left: 3px solid var(--tag-red); letter-spacing: 1px;
         }
-        .wbc-table-container { overflow-x: auto; border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .wbc-table { width: 100%; border-collapse: collapse; font-size: 13px; background: rgba(255,255,255,0.7); min-width: 450px; }
-        .wbc-table th { background: var(--tag-blue); color: white; font-weight: 600; padding: 12px 10px; text-align: left; font-family: 'Noto Serif TC', serif; }
-        .wbc-table td { padding: 12px 10px; border-bottom: 1px solid rgba(0,0,0,0.05); color: #555; vertical-align: top; }
+        .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        
+        .wbc-table { 
+            width: 100%; border-collapse: collapse; font-size: 13px; background: rgba(255,255,255,0.7); 
+            table-layout: fixed;
+        }
+        
+        .wbc-table th:first-child, .wbc-table td:first-child { 
+            width: 45px; background: var(--tag-blue); color: white; font-weight: 600; padding: 12px 5px; 
+            text-align: center; font-family: 'Noto Serif TC', serif; white-space: nowrap; 
+        }
+        .wbc-table td:first-child { background: transparent; color: #555; }
+        
+        .wbc-table th:nth-child(2), .wbc-table td:nth-child(2) { 
+            padding: 12px 10px; text-align: left; 
+            white-space: normal;
+            word-wrap: break-word; 
+        }
+        .wbc-table th:nth-child(2) { background: var(--tag-blue); color: white; font-family: 'Noto Serif TC', serif; }
+        
+        .wbc-table th:nth-child(3), .wbc-table td:nth-child(3) { 
+            width: 50px; padding: 12px 5px; text-align: center; white-space: nowrap; 
+        }
+        .wbc-table th:nth-child(3) { background: var(--tag-blue); color: white; font-family: 'Noto Serif TC', serif; }
+        
         .wbc-table tr:last-child td { border-bottom: none; }
         .wbc-table tr:nth-child(even) { background-color: rgba(79, 109, 133, 0.05); }
         .tpe-highlight { background-color: rgba(168, 90, 90, 0.08) !important; }
+        
         .point-text { display: block; margin-top: 4px; font-size: 11px; color: var(--tag-point); font-weight: 500; line-height: 1.4; }
-        .team-name { font-weight: 700; font-size: 14px; color: #333; }
-        .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: #777; font-family: 'Noto Sans TC', sans-serif; }
+        .team-name { font-weight: 700; font-size: 14px; color: #333; display: block; }
+        .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: #777; font-family: 'Noto Sans TC', sans-serif; line-height: 1.5; }
         .location-tag { font-size: 10px; background: #eee; padding: 2px 6px; border-radius: 4px; color: #777; display: inline-block; margin-top: 2px; margin-left: 5px; font-family: sans-serif; vertical-align: middle; }
     </style>
 </head>
@@ -450,17 +480,14 @@
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
                 <div class="card-title" style="color:#2B4560;">TPE vs JPN</div>
-                
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>世界王者 vs 12強新霸主</strong><br>
                     台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決。
                 </div>
-
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-wear">衣</span>請穿著中華隊球衣/藍白色系應援！</div>
                     <div class="info-row"><span class="info-label lbl-stay">住</span>預計 22:30 結束，注意終電時間返回橫濱。</div>
-                    <div class="info-row"><span class="info-label lbl-go">行</span>人潮眾多，建議提早離場移動。</div>
                 </div>
                 <div class="action-row">
                     <a href="https://www.google.com/maps/search/?api=1&query=Haneda+Airport+Terminal+36" target="_blank" class="nav-btn">⚾ 東京巨蛋</a>
@@ -489,13 +516,11 @@
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
                 <div class="card-title" style="color:#2B4560;">CZE vs TPE</div>
-                
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>斜槓鬥士 vs 職業菁英</strong><br>
                     捷克球風穩健且鬥志高昂，中華隊需穩紮穩打，避免被爆冷。
                 </div>
-
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-wear">衣</span>球場有空調，但建議洋蔥式穿搭。</div>
                     <div class="info-row"><span class="info-label lbl-play">樂</span>欣賞捷克隊獨特的歐洲棒球風格。</div>
@@ -539,13 +564,11 @@
                     <span style="font-size:12px; color:#888;">Pool C - Tokyo Dome</span>
                 </div>
                 <div class="card-title" style="color:#2B4560;">KOR vs TPE</div>
-                
                 <div class="match-note">
                     <span class="match-note-title">⚾ 觀戰重點</span>
                     <strong>宿命對決：不能輸的戰役</strong><br>
                     攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
                 </div>
-
                 <div class="info-grid">
                     <div class="info-row"><span class="info-label lbl-play">樂</span>氣氛最為緊繃熱烈的一場。</div>
                     <div class="info-row"><span class="info-label lbl-wear">衣</span>全力應援！Team Taiwan！</div>
@@ -609,40 +632,88 @@
 
     <div id="wbc" class="day-content">
         <div class="scroll-hint">← Swipe to view Bracket →</div>
-        <div class="tree-container">
-            <div class="tree-wrapper">
-                <div class="bracket-col col-left">
-                    <div class="node"><span class="node-label">Pool A</span><span class="node-content">Winner<br>& 2nd</span></div>
-                    <div class="node"><span class="node-label">Pool B</span><span class="node-content">Winner<br>& 2nd</span></div>
-                </div>
+        
+        <div class="svg-container">
+            <svg class="bracket-svg" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-line" d="M140 60 C160 60, 160 100, 180 100" />
+                <path class="svg-line" d="M140 140 C160 140, 160 100, 180 100" />
+                <path class="svg-line" d="M140 220 C160 220, 160 260, 180 260" />
+                <path class="svg-line" d="M140 300 C160 300, 160 260, 180 260" />
+                
+                <path class="svg-line" d="M320 100 C360 100, 360 180, 400 180" />
+                <path class="svg-line" d="M320 260 C360 260, 360 180, 400 180" />
 
-                <div class="bracket-col col-left">
-                    <div class="node"><span class="node-label">Quarterfinal 1</span><span class="node-content">B Winner<br>vs<br>A 2nd</span></div>
-                    <div class="node"><span class="node-label">Quarterfinal 2</span><span class="node-content">A Winner<br>vs<br>B 2nd</span></div>
-                </div>
+                <path class="svg-line" d="M860 60 C840 60, 840 100, 820 100" />
+                <path class="svg-line" d="M860 140 C840 140, 840 100, 820 100" />
+                <path class="svg-line" d="M860 220 C840 220, 840 260, 820 260" />
+                <path class="svg-line" d="M860 300 C840 300, 840 260, 820 260" />
 
-                <div class="bracket-col col-left">
-                    <div class="node"><span class="node-label">Semifinal 1</span><span class="node-content">QF1 Winner<br>vs<br>QF2 Winner</span></div>
-                </div>
+                <path class="svg-line" d="M680 100 C640 100, 640 180, 600 180" />
+                <path class="svg-line" d="M680 260 C640 260, 640 180, 600 180" />
+                
+                <path class="svg-line" d="M430 155 L430 60 L450 60" stroke-dasharray="4" />
+                <path class="svg-line" d="M570 155 L570 60 L550 60" stroke-dasharray="4" />
 
-                <div class="bracket-col">
-                    <div class="node final"><span class="node-label">Championship</span><span class="node-content">FINAL</span><span class="node-sub">Miami</span></div>
-                </div>
+                <rect x="20" y="40" width="120" height="40" class="svg-box" />
+                <text x="80" y="60" text-anchor="middle" class="svg-title">POOL A</text>
+                <text x="80" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
 
-                <div class="bracket-col col-right">
-                    <div class="node"><span class="node-label">Semifinal 2</span><span class="node-content">QF3 Winner<br>vs<br>QF4 Winner</span></div>
-                </div>
+                <rect x="20" y="120" width="120" height="40" class="svg-box" />
+                <text x="80" y="140" text-anchor="middle" class="svg-title">POOL B</text>
+                <text x="80" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
 
-                <div class="bracket-col col-right">
-                    <div class="node"><span class="node-label">Quarterfinal 3</span><span class="node-content">D Winner<br>vs<br>C 2nd</span></div>
-                    <div class="node"><span class="node-label">Quarterfinal 4</span><span class="node-content">C Winner<br>vs<br>D 2nd</span></div>
-                </div>
+                <rect x="20" y="200" width="120" height="40" class="svg-box" />
+                <text x="80" y="220" text-anchor="middle" class="svg-title">POOL A</text>
+                <text x="80" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
 
-                <div class="bracket-col col-right">
-                    <div class="node"><span class="node-label">Pool C</span><span class="node-content">Winner<br>& 2nd</span></div>
-                    <div class="node"><span class="node-label">Pool D</span><span class="node-content">Winner<br>& 2nd</span></div>
-                </div>
-            </div>
+                <rect x="20" y="280" width="120" height="40" class="svg-box" />
+                <text x="80" y="300" text-anchor="middle" class="svg-title">POOL B</text>
+                <text x="80" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
+
+                <rect x="180" y="80" width="140" height="40" class="svg-box" />
+                <text x="250" y="100" text-anchor="middle" class="svg-title">QF 1 (HOU)</text>
+                <text x="250" y="113" text-anchor="middle" class="svg-text">B-1st vs A-2nd</text>
+
+                <rect x="180" y="240" width="140" height="40" class="svg-box" />
+                <text x="250" y="260" text-anchor="middle" class="svg-title">QF 2 (HOU)</text>
+                <text x="250" y="273" text-anchor="middle" class="svg-text">A-1st vs B-2nd</text>
+
+                <rect x="360" y="160" width="110" height="40" class="svg-box" />
+                <text x="415" y="180" text-anchor="middle" class="svg-title">SF 1</text>
+                <text x="415" y="193" text-anchor="middle" class="svg-text">QF1 vs QF3</text>
+
+                <rect x="425" y="10" width="150" height="60" class="svg-box svg-final-box" rx="15" />
+                <text x="500" y="35" text-anchor="middle" class="svg-title" style="fill:#C5A065; font-size:14px;">CHAMPIONSHIP</text>
+                <text x="500" y="55" text-anchor="middle" class="svg-text" style="fill:#C5A065; font-size:16px;">MIAMI</text>
+                
+                <rect x="530" y="160" width="110" height="40" class="svg-box" />
+                <text x="585" y="180" text-anchor="middle" class="svg-title">SF 2</text>
+                <text x="585" y="193" text-anchor="middle" class="svg-text">QF2 vs QF4</text>
+
+                 <rect x="680" y="80" width="140" height="40" class="svg-box" />
+                 <text x="750" y="100" text-anchor="middle" class="svg-title">QF 3 (MIA)</text>
+                 <text x="750" y="113" text-anchor="middle" class="svg-text">D-1st vs C-2nd</text>
+ 
+                 <rect x="680" y="240" width="140" height="40" class="svg-box" />
+                 <text x="750" y="260" text-anchor="middle" class="svg-title">QF 4 (MIA)</text>
+                 <text x="750" y="273" text-anchor="middle" class="svg-text">C-1st vs D-2nd</text>
+
+                <rect x="860" y="40" width="120" height="40" class="svg-box" />
+                <text x="920" y="60" text-anchor="middle" class="svg-title">POOL D</text>
+                <text x="920" y="73" text-anchor="middle" class="svg-sub">Winner</text>
+
+                <rect x="860" y="120" width="120" height="40" class="svg-box" />
+                <text x="920" y="140" text-anchor="middle" class="svg-title">POOL C</text>
+                <text x="920" y="153" text-anchor="middle" class="svg-sub">Runner-up</text>
+
+                <rect x="860" y="200" width="120" height="40" class="svg-box" />
+                <text x="920" y="220" text-anchor="middle" class="svg-title">POOL C</text>
+                <text x="920" y="233" text-anchor="middle" class="svg-sub">Winner</text>
+
+                <rect x="860" y="280" width="120" height="40" class="svg-box" />
+                <text x="920" y="300" text-anchor="middle" class="svg-title">POOL D</text>
+                <text x="920" y="313" text-anchor="middle" class="svg-sub">Runner-up</text>
+            </svg>
         </div>
 
         <div class="card" style="margin-left:0; margin-bottom:20px;">
