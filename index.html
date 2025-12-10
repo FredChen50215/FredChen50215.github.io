@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | JP Link Fixed</title>
+    <title>2026 WBC 應援之旅 | Corrected V5</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
+
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
         :root {
@@ -33,6 +37,7 @@
                 
             /* Font Setting */
             --font-stack: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
         }
 
         body {
@@ -56,124 +61,76 @@
             background-size: cover;
         }
 
-        /* --- REDESIGNED Header (Restored V2 Style) --- */
-        .hero-header {
-            padding: 80px 24px 40px;
+        /* --- Header (Magazine Style) --- */
+        .modern-header {
+            padding: 70px 24px 40px;
             position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0) 100%);
             overflow: hidden;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 40px -20px rgba(125, 138, 147, 0.15);
             text-align: center;
-            /* Header 自身也是一個大型玻璃卡片 */
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-            margin-bottom: 30px;
-            border-radius: 0 0 40px 40px; /* 底部大圓角 */
-            box-shadow: 0 15px 40px -15px rgba(125, 138, 147, 0.2);
         }
-
-        /* 棒球場菱形背景浮水印 */
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            top: 55%; left: 50%;
-            width: 350px; height: 350px;
-            /* 使用 SVG 繪製一個淡色的菱形 */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 5 L95 50 L50 95 L5 50 Z' fill='none' stroke='%23B87878' stroke-width='2' opacity='0.1'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: -1;
+        .modern-header::before {
+            content: '2026'; position: absolute; top: -30px; right: -20px; font-size: 160px; font-weight: 900;
+            color: rgba(125, 138, 147, 0.05); z-index: 0; line-height: 1; font-family: var(--font-serif);
+            transform: rotate(-10deg); pointer-events: none;
         }
-
-        .header-content { position: relative; z-index: 1; }
-
-        .header-top-label {
-            font-size: 13px; letter-spacing: 3px; color: var(--m-blue);
-            text-transform: uppercase; font-weight: 700; margin-bottom: 12px;
-            display: inline-block;
-            background: rgba(255,255,255,0.6); padding: 6px 14px; border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        .header-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+        .top-pill {
+            background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(125, 138, 147, 0.2); color: var(--m-blue);
+            font-size: 11px; font-weight: 700; padding: 6px 16px; border-radius: 20px; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex; align-items: center; gap: 6px;
         }
-
-        .header-title {
-            font-family: var(--font-stack);
-            font-size: 40px; font-weight: 900; margin: 5px 0 15px;
-            color: #333; letter-spacing: 1px;
-            /* 文字微漸層 */
-            background: linear-gradient(45deg, #333, var(--m-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 15px rgba(255,255,255,0.8);
+        .top-pill::before { content: ''; display: block; width: 6px; height: 6px; background: var(--m-red); border-radius: 50%; }
+        .main-title-group { text-align: center; position: relative; margin-bottom: 15px; }
+        .title-city {
+            font-family: var(--font-serif); font-size: 64px; font-weight: 700; line-height: 0.85;
+            color: #2c3e50; letter-spacing: -2px; display: block; text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
         }
-
-        /* 置中縫線裝飾 */
-        .baseball-stitch-divider {
-            width: 80px; height: 6px; margin: 0 auto 15px;
-            background-image: repeating-linear-gradient(45deg, var(--m-red) 0, var(--m-red) 2px, transparent 2px, transparent 8px);
-            border-top: 2px solid var(--m-red); border-bottom: 2px solid var(--m-red);
-            opacity: 0.8;
+        .title-event {
+            font-family: var(--font-stack); font-size: 16px; font-weight: 900; color: var(--m-red);
+            letter-spacing: 6px; display: block; margin-top: 8px; margin-left: 6px;
         }
-
-        .header-subtitle {
-            font-size: 16px; color: #666; font-weight: 600; letter-spacing: 1px;
+        .stitch-curve {
+            margin-top: 15px; width: 50px; height: 6px;
+            background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px);
+            border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7;
         }
-        .header-subtitle span { color: var(--m-red); margin-left: 5px; }
-
+        .sub-caption { margin-top: 15px; font-size: 14px; color: #666; font-weight: 600; display: flex; align-items: center; gap: 8px; }
 
         /* --- Flight Widget --- */
         .flight-widget {
-            margin: 0 20px 25px;
-            padding: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-l);
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
+            margin: 0 20px 25px; padding: 24px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-l);
+            box-shadow: var(--shadow-soft); display: flex; justify-content: space-between; align-items: center; position: relative;
         }
         .flight-widget::before {
             content: ''; position: absolute; top: 10px; bottom: 10px; left: 10px; right: 10px;
             border: 1px dashed rgba(184, 120, 120, 0.3); border-radius: 24px; pointer-events: none;
         }
-
         .flight-label { font-size: 12px; color: #999; margin-bottom: 2px; font-weight: 600; }
-        .flight-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: #555; }
+        .flight-val { font-family: var(--font-serif); font-size: 24px; font-weight: 800; color: #555; }
         .flight-icon { font-size: 20px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
 
-        /* --- Tabs --- */
+        /* --- Tabs (More Transparent) --- */
         .tabs-container {
             position: sticky; top: 15px; z-index: 100; margin: 0 20px; padding: 6px;
-            background: rgba(240, 240, 235, 0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.6);
-            border-radius: 50px;
-            display: flex; justify-content: flex-start; gap: 5px;
-            overflow-x: auto; scrollbar-width: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; display: flex; justify-content: flex-start; gap: 5px;
+            overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 32px rgba(0,0,0,0.05);
         }
         .tabs-container::-webkit-scrollbar { display: none; }
-
         .tab-btn {
-            flex: 0 0 auto; border: none; background: transparent;
-            padding: 10px 18px; border-radius: 40px;
-            font-family: var(--font-stack); font-size: 15px; color: #888;
-            cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 60px; font-weight: 500;
+            flex: 0 0 auto; border: none; background: transparent; padding: 10px 18px; border-radius: 40px;
+            font-family: var(--font-stack); font-size: 15px; color: #777; cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 60px; font-weight: 500;
         }
-        .tab-btn.active {
-            background: #FFF; color: var(--m-blue); font-weight: 800;
-            box-shadow: 0 4px 10px rgba(125, 138, 147, 0.2);
-        }
+        .tab-btn.active { background: #FFF; color: var(--m-blue); font-weight: 800; box-shadow: 0 4px 10px rgba(125, 138, 147, 0.2); }
         .tab-btn.wbc-special { color: var(--m-red); font-weight: 700; }
-        .tab-btn.wbc-special.active {
-            background: var(--m-red); color: white;
-            box-shadow: 0 4px 10px rgba(184, 120, 120, 0.3);
-        }
+        .tab-btn.wbc-special.active { background: var(--m-red); color: white; box-shadow: 0 4px 10px rgba(184, 120, 120, 0.3); }
 
         /* --- Content Layout --- */
         .day-content { display: none; padding: 30px 20px 20px; animation: slideUp 0.6s ease-out; }
@@ -188,152 +145,121 @@
             z-index: 0; opacity: 0.3;
         }
         .timeline-item:last-child::before { display: none; }
-
         .time-col { min-width: 50px; padding-top: 2px; z-index: 1; display: flex; flex-direction: column; align-items: center; }
         .diamond-dot {
-            width: 12px; height: 12px; background: #FFF; border: 3px solid var(--m-blue);
-            transform: rotate(45deg); margin-bottom: 6px;
+            width: 12px; height: 12px; background: #FFF; border: 3px solid var(--m-blue); transform: rotate(45deg); margin-bottom: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .time-text {
-            font-size: 16px; font-weight: 700; color: var(--m-blue);
+            font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700; color: var(--m-blue);
             background: rgba(255,255,255,0.8); padding: 2px 6px; border-radius: 6px;
         }
 
         /* --- Card System --- */
         .card {
-            flex: 1; margin-left: 15px; padding: 26px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border); border-radius: var(--radius-m);
-            box-shadow: var(--shadow-soft);
-            position: relative; overflow: hidden;
-            transition: transform 0.2s;
+            flex: 1; margin-left: 15px; padding: 26px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-m);
+            box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform 0.2s;
         }
-
         .card-title {
-            font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 800; margin-bottom: 12px;
+            font-family: var(--font-stack); font-size: 20px; font-weight: 800; margin-bottom: 12px;
             color: #444; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;
         }
-
-        /* Info Tags & Grid */
         .info-grid { display: grid; gap: 14px; }
         .info-row { font-size: 15px; line-height: 1.6; color: #666; display: flex; align-items: baseline; font-weight: 500; }
-        
         .badge {
-            flex-shrink: 0; font-size: 12px; font-weight: 700; color: #FFF;
-            padding: 4px 10px; border-radius: 6px; margin-right: 12px;
-            min-width: 30px; text-align: center; letter-spacing: 0.5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-shrink: 0; font-size: 12px; font-weight: 700; color: #FFF; padding: 4px 10px; border-radius: 6px; margin-right: 12px;
+            min-width: 30px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .badge.eat  { background: var(--m-red); }
-        .badge.play { background: var(--m-green); }
-        .badge.shop { background: var(--m-tan); color: #555; }
-        .badge.wear { background: var(--m-blue); }
-        .badge.move { background: var(--m-grey); color: #FFF; }
-        .badge.stay { background: #8C8C8C; }
+        .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #555; }
+        .badge.wear { background: var(--m-blue); } .badge.move { background: var(--m-grey); color: #FFF; } .badge.stay { background: #8C8C8C; }
 
-        /* --- Game Card Special --- */
-        .card.game-card {
-            background: linear-gradient(135deg, #FFF, #F0F4F8);
-            border-left: 4px solid var(--m-blue);
-        }
-        .game-header { 
-            font-size: 12px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; 
-            margin-bottom: 5px; text-transform: uppercase;
-        }
+        /* --- Game Card --- */
+        .card.game-card { background: linear-gradient(135deg, #FFF, #F0F4F8); border-left: 4px solid var(--m-blue); }
+        .game-header { font-size: 12px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
         .game-title { font-size: 24px; font-weight: 800; color: #333; margin-bottom: 12px; }
-        
         .analysis-box {
-            background: rgba(184, 120, 120, 0.08);
-            border-radius: 8px; padding: 12px 14px;
+            background: rgba(184, 120, 120, 0.08); border-radius: 8px; padding: 12px 14px;
             margin-bottom: 15px; border: 1px solid rgba(184, 120, 120, 0.2);
         }
         .analysis-title {
-            font-size: 12px; color: var(--m-red); font-weight: 800; 
-            text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px;
+            font-size: 12px; color: var(--m-red); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px;
         }
         .analysis-text { font-size: 14px; color: #555; line-height: 1.6; text-align: justify; font-weight: 400; }
 
-        /* Buttons */
         .nav-btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            width: 100%; box-sizing: border-box;
-            background: rgba(255,255,255,0.5); color: var(--m-blue);
-            font-weight: 700; font-size: 15px; padding: 12px; border-radius: 12px;
-            text-decoration: none; margin-top: 15px; border: 1px solid rgba(125, 138, 147, 0.3);
-            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box;
+            background: rgba(255,255,255,0.5); color: var(--m-blue); font-weight: 700; font-size: 15px; padding: 12px; border-radius: 12px;
+            text-decoration: none; margin-top: 15px; border: 1px solid rgba(125, 138, 147, 0.3); transition: all 0.2s;
         }
         .nav-btn:active { background: rgba(255,255,255,0.8); }
 
-        /* --- SVG Bracket --- */
+        /* --- SVG Bracket Styles --- */
         .svg-container {
-            width: 100%; max-width: 100%; overflow-x: auto;
-            background: rgba(255,255,255,0.4); border-radius: var(--radius-m);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px;
-            text-align: center; padding: 25px 0; -webkit-overflow-scrolling: touch;
+            width: 100%; max-width: 100%; overflow-x: auto; background: rgba(255,255,255,0.5); border-radius: var(--radius-m);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; padding: 35px 0; -webkit-overflow-scrolling: touch;
         }
         .scroll-hint { text-align: center; font-size: 12px; color: var(--m-blue); margin-bottom: 10px; opacity: 0.8; animation: pulse 2s infinite; font-weight: 600; }
         @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-        .bracket-svg { min-width: 950px; height: auto; display: block; margin: 0 auto; }
-        .svg-title { font-family: var(--font-stack); fill: var(--m-blue); font-size: 12px; font-weight: 800; letter-spacing: 1px; }
-        .svg-text { font-family: var(--font-stack); fill: #444; font-size: 13px; font-weight: 700; }
-        .svg-sub { fill: #888; font-size: 11px; font-weight: 500; }
-        .svg-box { fill: rgba(255,255,255,0.95); stroke: var(--m-blue); stroke-width: 1.5; rx: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
-        .svg-line { stroke: var(--m-blue); stroke-width: 1.5; opacity: 0.3; fill: none; }
-        .svg-final-box { fill: #FFF; stroke: var(--m-gold); stroke-width: 2.5; filter: drop-shadow(0 0 10px rgba(197, 160, 101, 0.2)); }
-        .svg-final-text { fill: var(--m-gold); font-weight: 900; font-size: 16px; }
+        .bracket-svg { min-width: 1200px; height: auto; display: block; margin: 0 auto; }
+        
+        /* Pool Nodes */
+        .svg-box-pool { fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 12; filter: drop-shadow(0 2px 3px rgba(125, 138, 147, 0.3)); }
+        
+        /* Matchup Nodes (Solid Lines) */
+        .svg-box-match { 
+            fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 4; 
+            filter: drop-shadow(0 4px 6px rgba(125, 138, 147, 0.2));
+        }
+
+        .svg-line { stroke: var(--m-blue); stroke-width: 2.5px; opacity: 0.8; fill: none; stroke-linecap: round; }
+        .base-dot { fill: #FFF; stroke: var(--m-blue); stroke-width: 2.5px; }
+        
+        .svg-home-plate { fill: linear-gradient(135deg, #FFF 30%, #FDF8F0 100%); stroke: var(--m-gold); stroke-width: 3px; filter: drop-shadow(0 4px 10px rgba(197, 160, 101, 0.4)); }
+
+        .svg-title { font-family: var(--font-serif); fill: var(--m-blue); font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+        .svg-text { font-family: var(--font-stack); fill: #444; font-size: 14px; font-weight: 700; }
+        .svg-sub { fill: #888; font-size: 12px; font-weight: 500; }
+        
+        .svg-loc { 
+            font-family: var(--font-stack); fill: var(--m-red); font-size: 11px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .svg-final-title { fill: var(--m-gold); font-weight: 900; font-size: 15px; letter-spacing: 1px; }
+        .svg-final-loc { fill: var(--m-red); font-weight: 800; font-size: 13px; }
 
         /* --- WBC Table --- */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .wbc-table { 
-            width: 100%; border-collapse: collapse; font-size: 14px; background: rgba(255,255,255,0.7); 
-            table-layout: fixed;
-        }
-        
-        .wbc-table th:first-child, .wbc-table td:first-child { 
-            width: 45px; background: var(--m-blue); color: white; font-weight: 700; padding: 12px 5px; 
-            text-align: center; white-space: nowrap; 
-        }
+        .wbc-table { width: 100%; border-collapse: collapse; font-size: 14px; background: rgba(255,255,255,0.7); table-layout: fixed; }
+        .wbc-table th:first-child, .wbc-table td:first-child { width: 45px; background: var(--m-blue); color: white; font-weight: 700; padding: 12px 5px; text-align: center; white-space: nowrap; }
         .wbc-table td:first-child { background: transparent; color: #555; }
-        
-        .wbc-table th:nth-child(2), .wbc-table td:nth-child(2) { 
-            padding: 14px 12px; text-align: left; 
-            white-space: normal; word-wrap: break-word; 
-        }
+        .wbc-table th:nth-child(2), .wbc-table td:nth-child(2) { padding: 14px 12px; text-align: left; white-space: normal; word-wrap: break-word; }
         .wbc-table th:nth-child(2) { background: var(--m-blue); color: white; }
-        
-        .wbc-table th:nth-child(3), .wbc-table td:nth-child(3) { 
-            width: 50px; padding: 12px 5px; text-align: center; white-space: nowrap; 
-        }
+        .wbc-table th:nth-child(3), .wbc-table td:nth-child(3) { width: 50px; padding: 12px 5px; text-align: center; white-space: nowrap; }
         .wbc-table th:nth-child(3) { background: var(--m-blue); color: white; }
-        
         .wbc-table tr:last-child td { border-bottom: none; }
         .wbc-table tr:nth-child(even) { background-color: rgba(125, 138, 147, 0.05); }
         .tpe-highlight { background-color: rgba(184, 120, 120, 0.08) !important; }
+        .point-text { display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); font-weight: 500; line-height: 1.5; }
         
-        .point-text { 
-            display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); 
-            font-weight: 500; line-height: 1.5; 
-        }
-        
-        /* Team Name - Large */
+        /* Font Size Increased to 18px */
         .team-name { font-weight: 800; font-size: 18px; color: #333; display: block; line-height: 1.4; margin-bottom: 2px; }
-        
         .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: #777; line-height: 1.5; }
-
         footer { text-align: center; font-size: 13px; color: #AAA; padding: 50px 20px; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <header class="hero-header">
-        <div class="header-content">
-            <div class="header-top-label">Fred's Journey</div>
-            <h1 class="header-title">2026 東京經典賽之旅</h1>
-            <div class="baseball-stitch-divider"></div>
-            <div class="header-subtitle">為中華隊應援 <span>Cheering for TPE</span></div>
+    <header class="modern-header">
+        <div class="header-inner">
+            <div class="top-pill">Fred's Journey</div>
+            <div class="main-title-group">
+                <span class="title-city">TOKYO</span>
+                <span class="title-event">WBC 2026</span>
+            </div>
+            <div class="stitch-curve"></div>
+            <div class="sub-caption">Cheering for <span style="color:var(--m-red); font-weight:800;">TPE 🇹🇼</span></div>
         </div>
     </header>
 
@@ -352,11 +278,11 @@
     </div>
 
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="showTab('d1', this)">D1<br>抵達</button>
-        <button class="tab-btn" onclick="showTab('d2', this)">D2<br>抗日</button>
-        <button class="tab-btn" onclick="showTab('d3', this)">D3<br>捷克</button>
-        <button class="tab-btn" onclick="showTab('d4', this)">D4<br>韓國</button>
-        <button class="tab-btn" onclick="showTab('d5', this)">D5<br>返程</button>
+        <button class="tab-btn active" onclick="showTab('d1', this)">3/5<br>抵達</button>
+        <button class="tab-btn" onclick="showTab('d2', this)">3/6<br>抗日</button>
+        <button class="tab-btn" onclick="showTab('d3', this)">3/7<br>捷克</button>
+        <button class="tab-btn" onclick="showTab('d4', this)">3/8<br>韓國</button>
+        <button class="tab-btn" onclick="showTab('d5', this)">3/9<br>返程</button>
         <button class="tab-btn wbc-special" onclick="showTab('wbc', this)">WBC<br>戰情</button>
     </div>
 
@@ -404,10 +330,11 @@
             <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
             <div class="card game-card">
                 <div class="game-header">Pool C • Game 1</div>
-                <div class="game-title">🇹🇼 台灣 vs 日本 🇯🇵</div>
-                <div class="analysis-box">
-                    <span class="analysis-title">⚾ 戰情短評</span>
-                    <span class="analysis-text">世界王者 vs 12強新霸主。這是本屆小組賽最受矚目的一戰！日本隊擁有全明星陣容，這是一場檢驗台灣棒球實力的頂尖對決。全場氣氛將沸騰至最高點。</span>
+                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs 🇯🇵 JPN</div>
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>世界王者 vs 12強新霸主</strong><br>
+                    台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決。
                 </div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge wear">衣</span>請穿著中華隊球衣/藍白色系，準備好喉糖應援！</div>
@@ -425,7 +352,7 @@
                 <div class="card-title">早晨移動</div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋站。</div>
-                    <div class="info-row"><span class="info-label badge eat">食</span>早餐以便利商店飯糰為主，保留體力。</div>
+                    <div class="info-row"><span class="badge eat">食</span>早餐以便利商店飯糰為主，保留體力。</div>
                 </div>
             </div>
         </div>
@@ -434,10 +361,11 @@
             <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
             <div class="card game-card">
                 <div class="game-header">Pool C • Game 2</div>
-                <div class="game-title">🇨🇿 捷克 vs 台灣 🇹🇼</div>
-                <div class="analysis-box">
-                    <span class="analysis-title">⚾ 戰情短評</span>
-                    <span class="analysis-text">斜槓鬥士 vs 職業菁英。捷克隊以「平日上班、假日打球」的熱血故事聞名，球風穩健且鬥志高昂。中華隊需穩紮穩打，避免被爆冷，這是搶下晉級門票的必勝之戰。</span>
+                <div class="card-title" style="color:#2B4560;">🇨🇿 CZE vs 🇹🇼 TPE</div>
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>斜槓鬥士 vs 職業菁英</strong><br>
+                    捷克球風穩健且鬥志高昂，中華隊需穩紮穩打，避免被爆冷。
                 </div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge wear">衣</span>巨蛋內有空調，建議洋蔥式穿搭。</div>
@@ -460,13 +388,25 @@
 
     <div id="d4" class="day-content">
         <div class="timeline-item">
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+            <div class="card">
+                <div class="card-title">早晨移動</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="badge move">行</span>週日電車較空，但仍建議提早出門。</div>
+                    <div class="info-row"><span class="badge eat">食</span>補充水分與喉糖，準備吶喊。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
             <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
             <div class="card game-card">
                 <div class="game-header">Pool C • Game 3</div>
-                <div class="game-title">🇰🇷 韓國 vs 台灣 🇹🇼</div>
-                <div class="analysis-box">
-                    <span class="analysis-title">⚾ 戰情短評</span>
-                    <span class="analysis-text">宿命對決！這絕對是攸關分組晉級的最關鍵戰役。韓國隊背負著不能輸的壓力，氣氛將比日韓戰更為緊繃肅殺。請準備好最強的應援火力，Team Taiwan！</span>
+                <div class="card-title" style="color:#2B4560;">🇰🇷 KOR vs 🇹🇼 TPE</div>
+                <div class="match-note">
+                    <span class="match-note-title">⚾ 觀戰重點</span>
+                    <strong>宿命對決：不能輸的戰役</strong><br>
+                    攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
                 </div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge wear">衣</span>全力應援！藍白配色！</div>
@@ -495,9 +435,9 @@
                 <div class="card-title">前往羽田機場</div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge move">行</span>週一上班日電車極度擁擠，務必 07:00 前出發。</div>
-                    <div class="info-row"><span class="badge stay">住</span>辦理退房，再次檢查護照。</div>
+                    <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
                 </div>
-                <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
+                <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表</a>
             </div>
         </div>
 
@@ -517,79 +457,96 @@
         <div class="scroll-hint">← 滑動查看完整晉級路線 →</div>
         
         <div class="svg-container">
-            <svg class="bracket-svg" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+            <svg class="bracket-svg" viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
                 <path class="svg-line" d="M140 60 C160 60, 160 100, 180 100" />
                 <path class="svg-line" d="M140 140 C160 140, 160 100, 180 100" />
                 <path class="svg-line" d="M140 220 C160 220, 160 260, 180 260" />
                 <path class="svg-line" d="M140 300 C160 300, 160 260, 180 260" />
                 <path class="svg-line" d="M320 100 C360 100, 360 180, 400 180" />
                 <path class="svg-line" d="M320 260 C360 260, 360 180, 400 180" />
-                <path class="svg-line" d="M860 60 C840 60, 840 100, 820 100" />
-                <path class="svg-line" d="M860 140 C840 140, 840 100, 820 100" />
-                <path class="svg-line" d="M860 220 C840 220, 840 260, 820 260" />
-                <path class="svg-line" d="M860 300 C840 300, 840 260, 820 260" />
-                <path class="svg-line" d="M680 100 C640 100, 640 180, 600 180" />
-                <path class="svg-line" d="M680 260 C640 260, 640 180, 600 180" />
-                <path class="svg-line" d="M430 155 L430 60 L450 60" stroke-dasharray="4" />
-                <path class="svg-line" d="M570 155 L570 60 L550 60" stroke-dasharray="4" />
+                <path class="svg-line" d="M1060 60 C1040 60, 1040 100, 1020 100" />
+                <path class="svg-line" d="M1060 140 C1040 140, 1040 100, 1020 100" />
+                <path class="svg-line" d="M1060 220 C1040 220, 1040 260, 1020 260" />
+                <path class="svg-line" d="M1060 300 C1040 300, 1040 260, 1020 260" />
+                <path class="svg-line" d="M880 100 C840 100, 840 180, 800 180" />
+                <path class="svg-line" d="M880 260 C840 260, 840 180, 800 180" />
+                <path class="svg-line" d="M495 180 C550 180, 550 80, 600 80" marker-end="url(#baseDot)"/>
+                <path class="svg-line" d="M705 180 C650 180, 650 80, 600 80" marker-end="url(#baseDot)"/>
 
-                <rect x="20" y="40" width="120" height="40" class="svg-box" />
+                <circle class="base-dot" cx="180" cy="100" r="5" />
+                <circle class="base-dot" cx="180" cy="260" r="5" />
+                <circle class="base-dot" cx="400" cy="180" r="5" />
+                <circle class="base-dot" cx="1020" cy="100" r="5" />
+                <circle class="base-dot" cx="1020" cy="260" r="5" />
+                <circle class="base-dot" cx="800" cy="180" r="5" />
+
+                <rect x="20" y="40" width="120" height="40" class="svg-box-pool" />
                 <text x="80" y="60" text-anchor="middle" class="svg-title">POOL A</text>
                 <text x="80" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="120" width="120" height="40" class="svg-box" />
+                <rect x="20" y="120" width="120" height="40" class="svg-box-pool" />
                 <text x="80" y="140" text-anchor="middle" class="svg-title">POOL B</text>
                 <text x="80" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="200" width="120" height="40" class="svg-box" />
+                <rect x="20" y="200" width="120" height="40" class="svg-box-pool" />
                 <text x="80" y="220" text-anchor="middle" class="svg-title">POOL A</text>
                 <text x="80" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="280" width="120" height="40" class="svg-box" />
+                <rect x="20" y="280" width="120" height="40" class="svg-box-pool" />
                 <text x="80" y="300" text-anchor="middle" class="svg-title">POOL B</text>
                 <text x="80" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
 
-                <rect x="180" y="80" width="140" height="40" class="svg-box" />
-                <text x="250" y="100" text-anchor="middle" class="svg-title">QF 1 (HOU)</text>
-                <text x="250" y="113" text-anchor="middle" class="svg-text">B-1st vs A-2nd</text>
-                <rect x="180" y="240" width="140" height="40" class="svg-box" />
-                <text x="250" y="260" text-anchor="middle" class="svg-title">QF 2 (HOU)</text>
-                <text x="250" y="273" text-anchor="middle" class="svg-text">A-1st vs B-2nd</text>
+                <rect x="180" y="75" width="140" height="50" class="svg-box-match" />
+                <text x="250" y="93" text-anchor="middle" class="svg-title">QUARTERFINAL 1</text>
+                <text x="250" y="106" text-anchor="middle" class="svg-text">B-1st vs A-2nd</text>
+                <text x="250" y="119" text-anchor="middle" class="svg-loc">📍 HOUSTON</text>
+                <rect x="180" y="235" width="140" height="50" class="svg-box-match" />
+                <text x="250" y="253" text-anchor="middle" class="svg-title">QUARTERFINAL 2</text>
+                <text x="250" y="266" text-anchor="middle" class="svg-text">A-1st vs B-2nd</text>
+                <text x="250" y="279" text-anchor="middle" class="svg-loc">📍 HOUSTON</text>
 
-                <rect x="360" y="160" width="110" height="40" class="svg-box" />
-                <text x="415" y="180" text-anchor="middle" class="svg-title">SF 1</text>
-                <text x="415" y="193" text-anchor="middle" class="svg-text">QF1 vs QF3</text>
+                <rect x="375" y="155" width="120" height="50" class="svg-box-match" />
+                <text x="435" y="173" text-anchor="middle" class="svg-title">SEMIFINAL 1</text>
+                <text x="435" y="186" text-anchor="middle" class="svg-text">QF1 vs QF3</text>
+                <text x="435" y="199" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
 
-                <rect x="425" y="10" width="150" height="60" class="svg-box svg-final-box" rx="15" />
-                <text x="500" y="35" text-anchor="middle" class="svg-title" style="fill:var(--m-gold);">CHAMPIONSHIP</text>
-                <text x="500" y="55" text-anchor="middle" class="svg-final-text">MIAMI</text>
+                <path d="M 520 10 L 680 10 L 680 60 L 600 95 L 520 60 Z" class="svg-home-plate" />
+                <text x="600" y="38" text-anchor="middle" class="svg-final-title">CHAMPIONSHIP</text>
+                <text x="600" y="60" text-anchor="middle" class="svg-final-loc">📍 MIAMI</text>
+
+                <rect x="705" y="155" width="120" height="50" class="svg-box-match" />
+                <text x="765" y="173" text-anchor="middle" class="svg-title">SEMIFINAL 2</text>
+                <text x="765" y="186" text-anchor="middle" class="svg-text">QF2 vs QF4</text>
+                <text x="765" y="199" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
+
+                <rect x="880" y="75" width="140" height="50" class="svg-box-match" />
+                <text x="950" y="93" text-anchor="middle" class="svg-title">QUARTERFINAL 3</text>
+                <text x="950" y="106" text-anchor="middle" class="svg-text">D-1st vs C-2nd</text>
+                <text x="950" y="119" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
+                <rect x="880" y="235" width="140" height="50" class="svg-box-match" />
+                <text x="950" y="253" text-anchor="middle" class="svg-title">QUARTERFINAL 4</text>
+                <text x="950" y="266" text-anchor="middle" class="svg-text">C-1st vs D-2nd</text>
+                <text x="950" y="279" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
+
+                <rect x="1060" y="120" width="120" height="40" class="svg-box-pool" style="stroke:var(--m-red);"/>
+                <text x="1120" y="140" text-anchor="middle" class="svg-title" style="fill:var(--m-red);">POOL C (TOKYO)</text>
+                <text x="1120" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
+
+                <rect x="1060" y="40" width="120" height="40" class="svg-box-pool" />
+                <text x="1120" y="60" text-anchor="middle" class="svg-title">POOL D</text>
+                <text x="1120" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
                 
-                <rect x="530" y="160" width="110" height="40" class="svg-box" />
-                <text x="585" y="180" text-anchor="middle" class="svg-title">SF 2</text>
-                <text x="585" y="193" text-anchor="middle" class="svg-text">QF2 vs QF4</text>
-                <rect x="680" y="80" width="140" height="40" class="svg-box" />
-                <text x="750" y="100" text-anchor="middle" class="svg-title">QF 3 (MIA)</text>
-                <text x="750" y="113" text-anchor="middle" class="svg-text">D-1st vs C-2nd</text>
-                <rect x="680" y="240" width="140" height="40" class="svg-box" />
-                <text x="750" y="260" text-anchor="middle" class="svg-title">QF 4 (MIA)</text>
-                <text x="750" y="273" text-anchor="middle" class="svg-text">C-1st vs D-2nd</text>
-
-                <rect x="860" y="40" width="120" height="40" class="svg-box" />
-                <text x="920" y="60" text-anchor="middle" class="svg-title">POOL D</text>
-                <text x="920" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="860" y="120" width="120" height="40" class="svg-box" />
-                <text x="920" y="140" text-anchor="middle" class="svg-title">POOL C</text>
-                <text x="920" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="860" y="200" width="120" height="40" class="svg-box" />
-                <text x="920" y="220" text-anchor="middle" class="svg-title">POOL C</text>
-                <text x="920" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="860" y="280" width="120" height="40" class="svg-box" />
-                <text x="920" y="300" text-anchor="middle" class="svg-title">POOL D</text>
-                <text x="920" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
+                <rect x="1060" y="200" width="120" height="40" class="svg-box-pool" style="stroke:var(--m-red);"/>
+                <text x="1120" y="220" text-anchor="middle" class="svg-title" style="fill:var(--m-red);">POOL C (TOKYO)</text>
+                <text x="1120" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
+                
+                <rect x="1060" y="280" width="120" height="40" class="svg-box-pool" />
+                <text x="1120" y="300" text-anchor="middle" class="svg-title">POOL D</text>
+                <text x="1120" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
             </svg>
         </div>
 
         <div class="card" style="margin-left:0; margin-bottom:20px;">
             <div class="card-title">
                 Pool C (Tokyo)
-                <span class="pool-teams">台灣 TPE・日本 JPN・韓國 KOR・澳洲 AUS・捷克 CZE</span>
+                <span class="pool-teams">🇹🇼 台灣・🇯🇵 日本・🇰🇷 韓國・🇦🇺 澳洲・🇨🇿 捷克</span>
             </div>
             <div class="wbc-table-container">
                 <table class="wbc-table">
