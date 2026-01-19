@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | Corrected V5</title>
+    <title>2026 WBC 應援之旅 | Shopping List Added</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,7 +116,7 @@
         .flight-val { font-family: var(--font-serif); font-size: 24px; font-weight: 800; color: #555; }
         .flight-icon { font-size: 20px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
 
-        /* --- Tabs (More Transparent) --- */
+        /* --- Tabs --- */
         .tabs-container {
             position: sticky; top: 15px; z-index: 100; margin: 0 20px; padding: 6px;
             background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -194,6 +194,34 @@
         }
         .nav-btn:active { background: rgba(255,255,255,0.8); }
 
+        /* --- Shopping List Styles (New) --- */
+        .shopping-textarea {
+            width: 100%;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(125, 138, 147, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            font-family: var(--font-stack);
+            font-size: 16px;
+            color: #444;
+            resize: none;
+            outline: none;
+            box-sizing: border-box;
+            line-height: 1.7;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .shopping-textarea:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--m-blue);
+            box-shadow: 0 0 20px rgba(125, 138, 147, 0.15);
+        }
+        .shopping-textarea::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
         /* --- SVG Bracket Styles --- */
         .svg-container {
             width: 100%; max-width: 100%; overflow-x: auto; background: rgba(255,255,255,0.5); border-radius: var(--radius-m);
@@ -204,10 +232,8 @@
 
         .bracket-svg { min-width: 1200px; height: auto; display: block; margin: 0 auto; }
         
-        /* Pool Nodes */
         .svg-box-pool { fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 12; filter: drop-shadow(0 2px 3px rgba(125, 138, 147, 0.3)); }
         
-        /* Matchup Nodes (Solid Lines) */
         .svg-box-match { 
             fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 4; 
             filter: drop-shadow(0 4px 6px rgba(125, 138, 147, 0.2));
@@ -242,8 +268,6 @@
         .wbc-table tr:nth-child(even) { background-color: rgba(125, 138, 147, 0.05); }
         .tpe-highlight { background-color: rgba(184, 120, 120, 0.08) !important; }
         .point-text { display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); font-weight: 500; line-height: 1.5; }
-        
-        /* Font Size Increased to 18px */
         .team-name { font-weight: 800; font-size: 18px; color: #333; display: block; line-height: 1.4; margin-bottom: 2px; }
         .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: #777; line-height: 1.5; }
         footer { text-align: center; font-size: 13px; color: #AAA; padding: 50px 20px; font-style: italic; }
@@ -283,6 +307,7 @@
         <button class="tab-btn" onclick="showTab('d3', this)">3/7<br>捷克</button>
         <button class="tab-btn" onclick="showTab('d4', this)">3/8<br>韓國</button>
         <button class="tab-btn" onclick="showTab('d5', this)">3/9<br>返程</button>
+        <button class="tab-btn" style="color:var(--m-tan); font-weight:700;" onclick="showTab('shop', this)">必買<br>清單</button>
         <button class="tab-btn wbc-special" onclick="showTab('wbc', this)">WBC<br>戰情</button>
     </div>
 
@@ -318,29 +343,39 @@
             <div class="card">
                 <div class="card-title">橫濱紅磚倉庫</div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="badge play">樂</span>在海風中漫步，欣賞歷史紅磚建築與橫濱港灣美景，適合拍照打卡。</div>
+                    <div class="info-row"><span class="badge play">樂</span>在海風中漫步，欣賞歷史紅磚建築與橫濱港灣美景。</div>
                     <div class="info-row"><span class="badge eat">食</span>早午餐推薦：世界第一早餐 Bills 鬆餅 (建議事先預約)。</div>
-                    <div class="info-row"><span class="badge move">行</span>下午搭乘 JR 根岸線直通京濱東北線前往水道橋站。</div>
                 </div>
                 <a href="https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse" target="_blank" class="nav-btn">📍 導航 Bills</a>
             </div>
         </div>
 
         <div class="timeline-item">
+            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">15:00</div></div>
+            <div class="card">
+                <div class="card-title">橫濱散策 & 移動</div>
+                <div class="info-grid">
+                    <div class="info-row"><span class="badge play">樂</span>搭乘 YOKOHAMA AIR CABIN 空中纜車，俯瞰港未來美景。</div>
+                    <div class="info-row"><span class="badge eat">食</span>橫濱中華街品嚐小吃。</div>
+                    <div class="info-row"><span class="badge move">行</span>傍晚前往橫濱或東京市區的運動酒吧。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
             <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
             <div class="card game-card">
-                <div class="game-header">Pool C • Game 1</div>
+                <div class="game-header">Pool C • Game 1 (Live Viewing)</div>
                 <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs 🇯🇵 JPN</div>
-                <div class="match-note">
-                    <span class="match-note-title">⚾ 觀戰重點</span>
-                    <strong>世界王者 vs 12強新霸主</strong><br>
-                    台日首次一級賽事交手。面對日本隊的全明星陣容，這是檢驗台灣棒球實力的頂尖對決。
+                <div class="analysis-box">
+                    <span class="analysis-title">📺 賽事直播應援</span>
+                    <span class="analysis-text">雖然遺憾未搶到門票，但這場頂上對決絕不能錯過！建議前往運動酒吧（如 HUB British Pub），與現場球迷一同透過大螢幕為中華隊吶喊，氣氛同樣熱血沸騰！</span>
                 </div>
                 <div class="info-grid">
-                    <div class="info-row"><span class="badge wear">衣</span>請穿著中華隊球衣/藍白色系，準備好喉糖應援！</div>
-                    <div class="info-row"><span class="badge eat">食</span>建議入場前在巨蛋周邊用餐，場內人潮眾多。</div>
+                    <div class="info-row"><span class="badge play">樂</span>體驗日本 Sports Bar 的熱鬧應援文化。</div>
+                    <div class="info-row"><span class="badge eat">食</span>啤酒、炸雞、毛豆，享受最道地的球賽饗宴。</div>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Dome" target="_blank" class="nav-btn">⚾ 東京巨蛋</a>
+                <a href="https://www.pub-hub.com/index.php/en/shop" target="_blank" class="nav-btn">📍 尋找附近的 HUB</a>
             </div>
         </div>
     </div>
@@ -403,10 +438,9 @@
             <div class="card game-card">
                 <div class="game-header">Pool C • Game 3</div>
                 <div class="card-title" style="color:#2B4560;">🇰🇷 KOR vs 🇹🇼 TPE</div>
-                <div class="match-note">
-                    <span class="match-note-title">⚾ 觀戰重點</span>
-                    <strong>宿命對決：不能輸的戰役</strong><br>
-                    攸關分組晉級的最關鍵戰役，氣氛將比日韓戰更為緊繃肅殺，請準備好最強的應援火力！
+                <div class="analysis-box">
+                    <span class="analysis-title">⚾ 戰情短評</span>
+                    <span class="analysis-text">宿命對決！這絕對是攸關分組晉級的最關鍵戰役。韓國隊背負著不能輸的壓力，氣氛將比日韓戰更為緊繃肅殺。請準備好最強的應援火力，Team Taiwan！</span>
                 </div>
                 <div class="info-grid">
                     <div class="info-row"><span class="badge wear">衣</span>全力應援！藍白配色！</div>
@@ -437,7 +471,7 @@
                     <div class="info-row"><span class="badge move">行</span>週一上班日電車極度擁擠，務必 07:00 前出發。</div>
                     <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
                 </div>
-                <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表</a>
+                <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
             </div>
         </div>
 
@@ -449,6 +483,25 @@
                     <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店 (薯條三兄弟、NY Perfect Cheese)。</div>
                     <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山 (TSA)。</div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="shop" class="day-content">
+        <div class="card" style="margin-left:0;">
+            <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
+                必買清單 🛍️
+                <span style="font-size:12px; font-weight:400; color:#888;">Auto-saved</span>
+            </div>
+            <div class="info-grid">
+                <div class="info-row" style="color:#666; font-size:13px; margin-bottom:10px;">
+                    輸入您想購買的伴手禮、藥妝或球隊周邊，系統會自動儲存您的筆記。
+                </div>
+                <textarea id="shoppingNote" class="shopping-textarea" placeholder="例如：
+1. 薯條三兄弟 (機場)
+2. 合利他命 (藥妝店)
+3. 侍Japan球衣 (巨蛋)
+..."></textarea>
             </div>
         </div>
     </div>
@@ -536,7 +589,6 @@
                 <rect x="1060" y="200" width="120" height="40" class="svg-box-pool" style="stroke:var(--m-red);"/>
                 <text x="1120" y="220" text-anchor="middle" class="svg-title" style="fill:var(--m-red);">POOL C (TOKYO)</text>
                 <text x="1120" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                
                 <rect x="1060" y="280" width="120" height="40" class="svg-box-pool" />
                 <text x="1120" y="300" text-anchor="middle" class="svg-title">POOL D</text>
                 <text x="1120" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
@@ -653,6 +705,7 @@
     </footer>
 
     <script>
+        // 頁籤切換邏輯
         function showTab(dayId, btn) {
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(c => c.classList.remove('active'));
@@ -665,6 +718,21 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // 自動儲存筆記功能 (Local Storage)
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedNote = localStorage.getItem('wbc_shopping_note');
+            const textarea = document.getElementById('shoppingNote');
+            if (savedNote && textarea) {
+                textarea.value = savedNote;
+            }
+            
+            if(textarea) {
+                textarea.addEventListener('input', (e) => {
+                    localStorage.setItem('wbc_shopping_note', e.target.value);
+                });
+            }
+        });
     </script>
 </body>
 </html>
