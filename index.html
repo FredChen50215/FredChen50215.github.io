@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | Rich Editor</title>
+    <title>2026 WBC 應援之旅</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,9 +52,11 @@
             --highlight-bg: rgba(184, 120, 120, 0.08);
             
             /* Editor Specific */
-            --editor-bg: rgba(255, 255, 255, 0.6);
-            --editor-toolbar-bg: rgba(255, 255, 255, 0.8);
+            --editor-bg: rgba(255, 255, 255, 0.8);
+            --editor-toolbar-bg: rgba(255, 255, 255, 0.9);
             --hr-color: rgba(125, 138, 147, 0.3);
+            /* Editor Border - Stronger for emphasis */
+            --editor-border: 2px solid rgba(125, 138, 147, 0.6);
         }
 
         /* --- Dark Mode Overrides --- */
@@ -84,9 +86,10 @@
                 --table-row-hover: rgba(255, 255, 255, 0.05);
                 --highlight-bg: rgba(209, 140, 140, 0.15);
                 
-                --editor-bg: rgba(44, 44, 46, 0.6);
-                --editor-toolbar-bg: rgba(60, 60, 64, 0.8);
+                --editor-bg: rgba(44, 44, 46, 0.8);
+                --editor-toolbar-bg: rgba(60, 60, 64, 0.9);
                 --hr-color: rgba(255, 255, 255, 0.2);
+                --editor-border: 2px solid rgba(148, 168, 179, 0.5);
             }
         }
 
@@ -248,7 +251,7 @@
         }
         .nav-btn:active { background: rgba(125, 138, 147, 0.3); }
 
-        /* --- Rich Text Editor Styles (Enhanced) --- */
+        /* --- Rich Text Editor Styles (Updated for Emphasis) --- */
         .editor-container {
             display: flex; flex-direction: column; gap: 10px;
         }
@@ -264,7 +267,6 @@
         }
         .tool-btn:hover, .tool-btn:active { background: var(--m-blue); color: #FFF; border-color: var(--m-blue); }
         
-        /* Color Input Styling */
         .color-wrapper { position: relative; display: flex; align-items: center; }
         .color-input-hidden {
             position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer;
@@ -273,14 +275,20 @@
         .shopping-editor {
             width: 100%; min-height: 350px;
             background: var(--editor-bg);
-            border: 1px solid var(--glass-border);
+            /* EMPHASIZED BORDER: Thicker and stronger color */
+            border: var(--editor-border);
             border-radius: 16px; padding: 20px;
             font-family: var(--font-stack); font-size: 16px; color: var(--text-main);
             outline: none; box-sizing: border-box; line-height: 1.7;
             transition: all 0.3s ease; backdrop-filter: blur(10px);
             overflow-y: auto;
         }
-        .shopping-editor:focus { border-color: var(--m-blue); box-shadow: 0 0 15px rgba(125, 138, 147, 0.2); }
+        /* Focus State for Emphasis */
+        .shopping-editor:focus { 
+            border-color: var(--m-blue); 
+            box-shadow: 0 0 0 4px rgba(125, 138, 147, 0.25); 
+        }
+        
         .shopping-editor ul, .shopping-editor ol { padding-left: 20px; margin: 5px 0; }
         .shopping-editor li { margin-bottom: 5px; }
         .shopping-editor hr { border: 0; border-top: 2px dashed var(--hr-color); margin: 15px 0; }
@@ -568,6 +576,7 @@
                         🎨
                         <input type="color" class="color-input-hidden" onchange="formatDoc('foreColor', this.value)">
                     </button>
+                    <button class="tool-btn" onclick="selectAllContent()" title="全選">全選</button>
                 </div>
                 
                 <div id="shoppingNote" class="shopping-editor" contenteditable="true">
@@ -810,6 +819,16 @@
             if (editor) {
                 localStorage.setItem('wbc_shopping_note_html_v2', editor.innerHTML);
             }
+        }
+
+        // Select All Content Function
+        function selectAllContent() {
+            const editor = document.getElementById('shoppingNote');
+            const range = document.createRange();
+            range.selectNodeContents(editor);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
