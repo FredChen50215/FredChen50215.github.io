@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 WBC 應援之旅 | Shopping List Added</title>
+    <title>2026 WBC 應援之旅 | Rich Editor</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,51 +12,101 @@
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
         :root {
-            /* Morandi Baseball Palette (Light & Dusty) */
-            --m-bg: #F5F5F0;          /* 米灰基底 */
-            --m-blue: #7D8A93;        /* 霧霾藍 (中華隊/衣) */
-            --m-red: #B87878;         /* 髒磚紅 (紅土/食/重點) */
-            --m-green: #9EAFA2;       /* 鼠尾草綠 (草地/住/樂) */
-            --m-tan: #D6C6B0;         /* 淺駝色 (壘包/購物) */
-            --m-grey: #A0A0A0;        /* 暖灰 (移動) */
-            --m-dark: #444444;        /* 文字深灰 */
-            --m-gold: #C5A065;        /* 冠軍金 */
-
-            /* Liquid Glass (Light Mode) */
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --glass-blur: blur(35px);
-            
+            /* Common Base */
             --radius-l: 32px;
             --radius-m: 20px;
             --radius-s: 12px;
-            
-            --shadow-soft: 
-                0 10px 30px -5px rgba(125, 138, 147, 0.15), 
-                inset 0 1px 2px rgba(255, 255, 255, 0.9);
-                
-            /* Font Setting */
             --font-stack: "Microsoft JhengHei", "微軟正黑體", sans-serif;
             --font-serif: 'Cormorant Garamond', serif;
+            
+            /* Light Mode (Default) */
+            --bg-base: #F5F5F0;
+            --text-main: #444444;
+            --text-sub: #666666;
+            --text-muted: #999999;
+            
+            /* Morandi Colors */
+            --m-blue: #7D8A93;
+            --m-red: #B87878;
+            --m-green: #9EAFA2;
+            --m-tan: #D6C6B0;
+            --m-grey: #A0A0A0;
+            --m-gold: #C5A065;
+
+            /* Glass Effect */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-blur: blur(35px);
+            --shadow-soft: 0 10px 30px -5px rgba(125, 138, 147, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+            
+            /* Header Specific */
+            --header-bg: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0) 100%);
+            --header-text: #2c3e50;
+            --watermark-color: rgba(125, 138, 147, 0.05);
+            
+            /* SVG Specific */
+            --svg-fill: #FFFFFF;
+            --svg-stroke: var(--m-blue);
+            --table-bg: rgba(255,255,255,0.7);
+            --table-row-hover: rgba(125, 138, 147, 0.05);
+            --highlight-bg: rgba(184, 120, 120, 0.08);
+            
+            /* Editor Specific */
+            --editor-bg: rgba(255, 255, 255, 0.6);
+            --editor-toolbar-bg: rgba(255, 255, 255, 0.8);
+            --hr-color: rgba(125, 138, 147, 0.3);
+        }
+
+        /* --- Dark Mode Overrides --- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-base: #121212;
+                --text-main: #E0E0E0;
+                --text-sub: #B0B0B0;
+                --text-muted: #777777;
+
+                --m-blue: #94A8B3; 
+                --m-red: #D18C8C; 
+                --m-green: #B3C7B7;
+                --m-tan: #E0D0BA;
+                
+                --glass-bg: rgba(30, 30, 35, 0.75);
+                --glass-border: rgba(255, 255, 255, 0.15);
+                --shadow-soft: 0 10px 40px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+
+                --header-bg: linear-gradient(180deg, rgba(30,30,35,0.8) 0%, rgba(18,18,18,0) 100%);
+                --header-text: #FFFFFF;
+                --watermark-color: rgba(255, 255, 255, 0.03);
+
+                --svg-fill: #2C2C2E;
+                --svg-stroke: #94A8B3;
+                --table-bg: rgba(44, 44, 46, 0.6);
+                --table-row-hover: rgba(255, 255, 255, 0.05);
+                --highlight-bg: rgba(209, 140, 140, 0.15);
+                
+                --editor-bg: rgba(44, 44, 46, 0.6);
+                --editor-toolbar-bg: rgba(60, 60, 64, 0.8);
+                --hr-color: rgba(255, 255, 255, 0.2);
+            }
         }
 
         body {
             font-family: var(--font-stack);
             margin: 0;
             padding: 0;
-            color: var(--m-dark);
+            color: var(--text-main);
+            background-color: var(--bg-base);
             -webkit-font-smoothing: antialiased;
             padding-bottom: 100px;
             min-height: 100vh;
             overflow-x: hidden;
             width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
             
-            /* 流體背景 */
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(214, 198, 176, 0.3), transparent 60%),
-                radial-gradient(circle at 90% 20%, rgba(125, 138, 147, 0.2), transparent 50%),
-                radial-gradient(circle at 50% 90%, rgba(184, 120, 120, 0.1), transparent 50%),
-                var(--m-bg);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(125, 138, 147, 0.15), transparent 60%),
+                radial-gradient(circle at 90% 20%, rgba(184, 120, 120, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(158, 175, 162, 0.1), transparent 50%);
             background-attachment: fixed;
             background-size: cover;
         }
@@ -65,31 +115,32 @@
         .modern-header {
             padding: 70px 24px 40px;
             position: relative;
-            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0) 100%);
+            background: var(--header-bg);
             overflow: hidden;
             border-bottom-left-radius: 50px;
             border-bottom-right-radius: 50px;
             margin-bottom: 20px;
-            box-shadow: 0 20px 40px -20px rgba(125, 138, 147, 0.15);
+            box-shadow: var(--shadow-soft);
             text-align: center;
+            border-bottom: 1px solid var(--glass-border);
         }
         .modern-header::before {
             content: '2026'; position: absolute; top: -30px; right: -20px; font-size: 160px; font-weight: 900;
-            color: rgba(125, 138, 147, 0.05); z-index: 0; line-height: 1; font-family: var(--font-serif);
+            color: var(--watermark-color); z-index: 0; line-height: 1; font-family: var(--font-serif);
             transform: rotate(-10deg); pointer-events: none;
         }
         .header-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
         .top-pill {
-            background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(125, 138, 147, 0.2); color: var(--m-blue);
+            background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--m-blue);
             font-size: 11px; font-weight: 700; padding: 6px 16px; border-radius: 20px; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            display: flex; align-items: center; gap: 6px;
+            text-transform: uppercase; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px);
         }
         .top-pill::before { content: ''; display: block; width: 6px; height: 6px; background: var(--m-red); border-radius: 50%; }
         .main-title-group { text-align: center; position: relative; margin-bottom: 15px; }
         .title-city {
             font-family: var(--font-serif); font-size: 64px; font-weight: 700; line-height: 0.85;
-            color: #2c3e50; letter-spacing: -2px; display: block; text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+            color: var(--header-text); letter-spacing: -2px; display: block; text-shadow: 2px 2px 0px rgba(125,125,125,0.1);
         }
         .title-event {
             font-family: var(--font-stack); font-size: 16px; font-weight: 900; color: var(--m-red);
@@ -100,7 +151,7 @@
             background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px);
             border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7;
         }
-        .sub-caption { margin-top: 15px; font-size: 14px; color: #666; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .sub-caption { margin-top: 15px; font-size: 14px; color: var(--text-sub); font-weight: 600; display: flex; align-items: center; gap: 8px; }
 
         /* --- Flight Widget --- */
         .flight-widget {
@@ -112,25 +163,25 @@
             content: ''; position: absolute; top: 10px; bottom: 10px; left: 10px; right: 10px;
             border: 1px dashed rgba(184, 120, 120, 0.3); border-radius: 24px; pointer-events: none;
         }
-        .flight-label { font-size: 12px; color: #999; margin-bottom: 2px; font-weight: 600; }
-        .flight-val { font-family: var(--font-serif); font-size: 24px; font-weight: 800; color: #555; }
+        .flight-label { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
+        .flight-val { font-family: var(--font-serif); font-size: 24px; font-weight: 800; color: var(--text-main); }
         .flight-icon { font-size: 20px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
 
         /* --- Tabs --- */
         .tabs-container {
             position: sticky; top: 15px; z-index: 100; margin: 0 20px; padding: 6px;
-            background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; display: flex; justify-content: flex-start; gap: 5px;
-            overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 50px; display: flex; justify-content: flex-start; gap: 5px;
+            overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-btn {
             flex: 0 0 auto; border: none; background: transparent; padding: 10px 18px; border-radius: 40px;
-            font-family: var(--font-stack); font-size: 15px; color: #777; cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 60px; font-weight: 500;
+            font-family: var(--font-stack); font-size: 15px; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 60px; font-weight: 500;
         }
-        .tab-btn.active { background: #FFF; color: var(--m-blue); font-weight: 800; box-shadow: 0 4px 10px rgba(125, 138, 147, 0.2); }
+        .tab-btn.active { background: var(--text-main); color: var(--bg-base); font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .tab-btn.wbc-special { color: var(--m-red); font-weight: 700; }
-        .tab-btn.wbc-special.active { background: var(--m-red); color: white; box-shadow: 0 4px 10px rgba(184, 120, 120, 0.3); }
+        .tab-btn.wbc-special.active { background: var(--m-red); color: white; box-shadow: 0 4px 15px rgba(184, 120, 120, 0.4); }
 
         /* --- Content Layout --- */
         .day-content { display: none; padding: 30px 20px 20px; animation: slideUp 0.6s ease-out; }
@@ -141,18 +192,18 @@
         .timeline-item { display: flex; margin-bottom: 40px; position: relative; }
         .timeline-item::before {
             content: ''; position: absolute; left: 24px; top: 18px; bottom: -45px; width: 2px;
-            background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(0,0,0,0) 100%);
             z-index: 0; opacity: 0.3;
         }
         .timeline-item:last-child::before { display: none; }
         .time-col { min-width: 50px; padding-top: 2px; z-index: 1; display: flex; flex-direction: column; align-items: center; }
         .diamond-dot {
-            width: 12px; height: 12px; background: #FFF; border: 3px solid var(--m-blue); transform: rotate(45deg); margin-bottom: 6px;
+            width: 12px; height: 12px; background: var(--bg-base); border: 3px solid var(--m-blue); transform: rotate(45deg); margin-bottom: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .time-text {
-            font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700; color: var(--m-blue);
-            background: rgba(255,255,255,0.8); padding: 2px 6px; border-radius: 6px;
+            font-size: 16px; font-weight: 700; color: var(--m-blue);
+            background: var(--glass-bg); padding: 2px 6px; border-radius: 6px;
         }
 
         /* --- Card System --- */
@@ -163,68 +214,80 @@
         }
         .card-title {
             font-family: var(--font-stack); font-size: 20px; font-weight: 800; margin-bottom: 12px;
-            color: #444; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;
+            color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;
         }
         .info-grid { display: grid; gap: 14px; }
-        .info-row { font-size: 15px; line-height: 1.6; color: #666; display: flex; align-items: baseline; font-weight: 500; }
+        .info-row { font-size: 15px; line-height: 1.6; color: var(--text-sub); display: flex; align-items: baseline; font-weight: 500; }
         .badge {
             flex-shrink: 0; font-size: 12px; font-weight: 700; color: #FFF; padding: 4px 10px; border-radius: 6px; margin-right: 12px;
             min-width: 30px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #555; }
+        .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #444; }
         .badge.wear { background: var(--m-blue); } .badge.move { background: var(--m-grey); color: #FFF; } .badge.stay { background: #8C8C8C; }
 
         /* --- Game Card --- */
-        .card.game-card { background: linear-gradient(135deg, #FFF, #F0F4F8); border-left: 4px solid var(--m-blue); }
+        .card.game-card { 
+            background: linear-gradient(135deg, var(--glass-bg), rgba(125, 138, 147, 0.1)); 
+            border-left: 4px solid var(--m-blue); 
+        }
         .game-header { font-size: 12px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
-        .game-title { font-size: 24px; font-weight: 800; color: #333; margin-bottom: 12px; }
+        .game-title { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
         .analysis-box {
-            background: rgba(184, 120, 120, 0.08); border-radius: 8px; padding: 12px 14px;
+            background: var(--highlight-bg); border-radius: 8px; padding: 12px 14px;
             margin-bottom: 15px; border: 1px solid rgba(184, 120, 120, 0.2);
         }
         .analysis-title {
             font-size: 12px; color: var(--m-red); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px;
         }
-        .analysis-text { font-size: 14px; color: #555; line-height: 1.6; text-align: justify; font-weight: 400; }
+        .analysis-text { font-size: 14px; color: var(--text-sub); line-height: 1.6; text-align: justify; font-weight: 400; }
 
         .nav-btn {
             display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box;
-            background: rgba(255,255,255,0.5); color: var(--m-blue); font-weight: 700; font-size: 15px; padding: 12px; border-radius: 12px;
-            text-decoration: none; margin-top: 15px; border: 1px solid rgba(125, 138, 147, 0.3); transition: all 0.2s;
+            background: rgba(125, 138, 147, 0.15); color: var(--m-blue); font-weight: 700; font-size: 15px; padding: 12px; border-radius: 12px;
+            text-decoration: none; margin-top: 15px; border: 1px solid var(--glass-border); transition: all 0.2s;
         }
-        .nav-btn:active { background: rgba(255,255,255,0.8); }
+        .nav-btn:active { background: rgba(125, 138, 147, 0.3); }
 
-        /* --- Shopping List Styles (New) --- */
-        .shopping-textarea {
-            width: 100%;
-            height: 350px;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(125, 138, 147, 0.3);
-            border-radius: 16px;
-            padding: 20px;
-            font-family: var(--font-stack);
-            font-size: 16px;
-            color: #444;
-            resize: none;
-            outline: none;
-            box-sizing: border-box;
-            line-height: 1.7;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        /* --- Rich Text Editor Styles (Enhanced) --- */
+        .editor-container {
+            display: flex; flex-direction: column; gap: 10px;
         }
-        .shopping-textarea:focus {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: var(--m-blue);
-            box-shadow: 0 0 20px rgba(125, 138, 147, 0.15);
+        .editor-toolbar {
+            display: flex; gap: 8px; background: var(--editor-toolbar-bg); padding: 8px 12px; border-radius: 12px;
+            border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+            align-items: center; flex-wrap: wrap;
         }
-        .shopping-textarea::placeholder {
-            color: #999;
-            font-weight: 400;
+        .tool-btn {
+            background: transparent; border: 1px solid var(--glass-border); color: var(--text-sub);
+            padding: 6px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px;
+            transition: all 0.2s; min-width: 36px; display: flex; justify-content: center; align-items: center;
         }
+        .tool-btn:hover, .tool-btn:active { background: var(--m-blue); color: #FFF; border-color: var(--m-blue); }
+        
+        /* Color Input Styling */
+        .color-wrapper { position: relative; display: flex; align-items: center; }
+        .color-input-hidden {
+            position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer;
+        }
+        
+        .shopping-editor {
+            width: 100%; min-height: 350px;
+            background: var(--editor-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 20px;
+            font-family: var(--font-stack); font-size: 16px; color: var(--text-main);
+            outline: none; box-sizing: border-box; line-height: 1.7;
+            transition: all 0.3s ease; backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+        .shopping-editor:focus { border-color: var(--m-blue); box-shadow: 0 0 15px rgba(125, 138, 147, 0.2); }
+        .shopping-editor ul, .shopping-editor ol { padding-left: 20px; margin: 5px 0; }
+        .shopping-editor li { margin-bottom: 5px; }
+        .shopping-editor hr { border: 0; border-top: 2px dashed var(--hr-color); margin: 15px 0; }
 
         /* --- SVG Bracket Styles --- */
         .svg-container {
-            width: 100%; max-width: 100%; overflow-x: auto; background: rgba(255,255,255,0.5); border-radius: var(--radius-m);
+            width: 100%; max-width: 100%; overflow-x: auto; background: var(--glass-bg); border-radius: var(--radius-m);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; padding: 35px 0; -webkit-overflow-scrolling: touch;
         }
         .scroll-hint { text-align: center; font-size: 12px; color: var(--m-blue); margin-bottom: 10px; opacity: 0.8; animation: pulse 2s infinite; font-weight: 600; }
@@ -232,21 +295,21 @@
 
         .bracket-svg { min-width: 1200px; height: auto; display: block; margin: 0 auto; }
         
-        .svg-box-pool { fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 12; filter: drop-shadow(0 2px 3px rgba(125, 138, 147, 0.3)); }
+        .svg-box-pool { fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2px; rx: 12; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); }
         
         .svg-box-match { 
-            fill: #FFFFFF; stroke: var(--m-blue); stroke-width: 2px; rx: 4; 
-            filter: drop-shadow(0 4px 6px rgba(125, 138, 147, 0.2));
+            fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2px; rx: 4; 
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
-        .svg-line { stroke: var(--m-blue); stroke-width: 2.5px; opacity: 0.8; fill: none; stroke-linecap: round; }
-        .base-dot { fill: #FFF; stroke: var(--m-blue); stroke-width: 2.5px; }
+        .svg-line { stroke: var(--svg-stroke); stroke-width: 2.5px; opacity: 0.8; fill: none; stroke-linecap: round; }
+        .base-dot { fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2.5px; }
         
-        .svg-home-plate { fill: linear-gradient(135deg, #FFF 30%, #FDF8F0 100%); stroke: var(--m-gold); stroke-width: 3px; filter: drop-shadow(0 4px 10px rgba(197, 160, 101, 0.4)); }
+        .svg-home-plate { fill: linear-gradient(135deg, var(--svg-fill) 30%, #FDF8F0 100%); stroke: var(--m-gold); stroke-width: 3px; filter: drop-shadow(0 4px 10px rgba(197, 160, 101, 0.4)); }
 
         .svg-title { font-family: var(--font-serif); fill: var(--m-blue); font-size: 13px; font-weight: 800; letter-spacing: 1px; }
-        .svg-text { font-family: var(--font-stack); fill: #444; font-size: 14px; font-weight: 700; }
-        .svg-sub { fill: #888; font-size: 12px; font-weight: 500; }
+        .svg-text { font-family: var(--font-stack); fill: var(--text-main); font-size: 14px; font-weight: 700; }
+        .svg-sub { fill: var(--text-muted); font-size: 12px; font-weight: 500; }
         
         .svg-loc { 
             font-family: var(--font-stack); fill: var(--m-red); font-size: 11px; font-weight: 800; 
@@ -257,20 +320,21 @@
 
         /* --- WBC Table --- */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .wbc-table { width: 100%; border-collapse: collapse; font-size: 14px; background: rgba(255,255,255,0.7); table-layout: fixed; }
+        .wbc-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--table-bg); table-layout: fixed; }
         .wbc-table th:first-child, .wbc-table td:first-child { width: 45px; background: var(--m-blue); color: white; font-weight: 700; padding: 12px 5px; text-align: center; white-space: nowrap; }
-        .wbc-table td:first-child { background: transparent; color: #555; }
+        .wbc-table td:first-child { background: transparent; color: var(--text-main); }
         .wbc-table th:nth-child(2), .wbc-table td:nth-child(2) { padding: 14px 12px; text-align: left; white-space: normal; word-wrap: break-word; }
         .wbc-table th:nth-child(2) { background: var(--m-blue); color: white; }
         .wbc-table th:nth-child(3), .wbc-table td:nth-child(3) { width: 50px; padding: 12px 5px; text-align: center; white-space: nowrap; }
         .wbc-table th:nth-child(3) { background: var(--m-blue); color: white; }
         .wbc-table tr:last-child td { border-bottom: none; }
-        .wbc-table tr:nth-child(even) { background-color: rgba(125, 138, 147, 0.05); }
-        .tpe-highlight { background-color: rgba(184, 120, 120, 0.08) !important; }
+        .wbc-table tr:nth-child(even) { background-color: var(--table-row-hover); }
+        .tpe-highlight { background-color: var(--highlight-bg) !important; }
         .point-text { display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); font-weight: 500; line-height: 1.5; }
-        .team-name { font-weight: 800; font-size: 18px; color: #333; display: block; line-height: 1.4; margin-bottom: 2px; }
-        .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: #777; line-height: 1.5; }
-        footer { text-align: center; font-size: 13px; color: #AAA; padding: 50px 20px; font-style: italic; }
+        
+        .team-name { font-weight: 800; font-size: 18px; color: var(--text-main); display: block; line-height: 1.4; margin-bottom: 2px; }
+        .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: var(--text-sub); line-height: 1.5; }
+        footer { text-align: center; font-size: 13px; color: var(--text-muted); padding: 50px 20px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -291,13 +355,13 @@
         <div>
             <div class="flight-label">去程 (3/5)</div>
             <div class="flight-val">BR190</div>
-            <div style="color:#999; font-size:13px; font-weight:500;">16:30 松山 TSA</div>
+            <div style="color:var(--text-muted); font-size:13px; font-weight:500;">16:30 松山 TSA</div>
         </div>
         <div class="flight-icon">✈</div>
         <div style="text-align:right;">
             <div class="flight-label">回程 (3/9)</div>
             <div class="flight-val">BR189</div>
-            <div style="color:#999; font-size:13px; font-weight:500;">10:25 羽田 HND</div>
+            <div style="color:var(--text-muted); font-size:13px; font-weight:500;">10:25 羽田 HND</div>
         </div>
     </div>
 
@@ -491,17 +555,36 @@
         <div class="card" style="margin-left:0;">
             <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
                 必買清單 🛍️
-                <span style="font-size:12px; font-weight:400; color:#888;">Auto-saved</span>
+                <span style="font-size:12px; font-weight:400; color:var(--text-muted);">Auto-saved</span>
             </div>
-            <div class="info-grid">
-                <div class="info-row" style="color:#666; font-size:13px; margin-bottom:10px;">
-                    輸入您想購買的伴手禮、藥妝或球隊周邊，系統會自動儲存您的筆記。
+            
+            <div class="editor-container">
+                <div class="editor-toolbar">
+                    <button class="tool-btn" onclick="formatDoc('bold')" title="粗體"><b>B</b></button>
+                    <button class="tool-btn" onclick="formatDoc('italic')" title="斜體"><i>I</i></button>
+                    <button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="清單">≣</button>
+                    <button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="分隔線">―</button>
+                    <button class="tool-btn color-wrapper" title="文字顏色">
+                        🎨
+                        <input type="color" class="color-input-hidden" onchange="formatDoc('foreColor', this.value)">
+                    </button>
                 </div>
-                <textarea id="shoppingNote" class="shopping-textarea" placeholder="例如：
-1. 薯條三兄弟 (機場)
-2. 合利他命 (藥妝店)
-3. 侍Japan球衣 (巨蛋)
-..."></textarea>
+                
+                <div id="shoppingNote" class="shopping-editor" contenteditable="true">
+                    <div>在此輸入您的購物清單...</div>
+                    <hr>
+                    <div><b>藥妝類：</b></div>
+                    <ul>
+                        <li>合利他命</li>
+                        <li>EVE 止痛藥</li>
+                    </ul>
+                    <hr>
+                    <div><b>機場伴手禮：</b></div>
+                    <ul>
+                        <li>薯條三兄弟</li>
+                        <li>NY Perfect Cheese</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -705,7 +788,7 @@
     </footer>
 
     <script>
-        // 頁籤切換邏輯
+        // Tab Switching Logic
         function showTab(dayId, btn) {
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(c => c.classList.remove('active'));
@@ -719,17 +802,29 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 自動儲存筆記功能 (Local Storage)
+        // Rich Text Editor & Auto Save
+        function formatDoc(cmd, value=null) {
+            document.execCommand(cmd, false, value);
+            // Save immediately after formatting
+            const editor = document.getElementById('shoppingNote');
+            if (editor) {
+                localStorage.setItem('wbc_shopping_note_html_v2', editor.innerHTML);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            const savedNote = localStorage.getItem('wbc_shopping_note');
-            const textarea = document.getElementById('shoppingNote');
-            if (savedNote && textarea) {
-                textarea.value = savedNote;
+            const editor = document.getElementById('shoppingNote');
+            
+            // Load saved content (using v2 key to avoid conflicts with previous versions)
+            const savedContent = localStorage.getItem('wbc_shopping_note_html_v2');
+            if (savedContent && editor) {
+                editor.innerHTML = savedContent;
             }
             
-            if(textarea) {
-                textarea.addEventListener('input', (e) => {
-                    localStorage.setItem('wbc_shopping_note', e.target.value);
+            // Auto-save on input
+            if(editor) {
+                editor.addEventListener('input', () => {
+                    localStorage.setItem('wbc_shopping_note_html_v2', editor.innerHTML);
                 });
             }
         });
