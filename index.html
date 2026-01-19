@@ -44,9 +44,7 @@
             --header-text: #2c3e50;
             --watermark-color: rgba(125, 138, 147, 0.05);
             
-            /* SVG Specific */
-            --svg-fill: #FFFFFF;
-            --svg-stroke: var(--m-blue);
+            /* Table Specific */
             --table-bg: rgba(255,255,255,0.7);
             --table-row-hover: rgba(125, 138, 147, 0.05);
             --highlight-bg: rgba(184, 120, 120, 0.08);
@@ -55,8 +53,13 @@
             --editor-bg: rgba(255, 255, 255, 0.8);
             --editor-toolbar-bg: rgba(255, 255, 255, 0.9);
             --hr-color: rgba(125, 138, 147, 0.3);
-            /* Editor Border - Stronger for emphasis */
             --editor-border: 2px solid rgba(125, 138, 147, 0.6);
+            
+            /* Nav Specific */
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --nav-active: #444444;
+            --nav-inactive: #999999;
+            --input-bg: rgba(255, 255, 255, 0.6);
         }
 
         /* --- Dark Mode Overrides --- */
@@ -80,8 +83,6 @@
                 --header-text: #FFFFFF;
                 --watermark-color: rgba(255, 255, 255, 0.03);
 
-                --svg-fill: #2C2C2E;
-                --svg-stroke: #94A8B3;
                 --table-bg: rgba(44, 44, 46, 0.6);
                 --table-row-hover: rgba(255, 255, 255, 0.05);
                 --highlight-bg: rgba(209, 140, 140, 0.15);
@@ -90,6 +91,11 @@
                 --editor-toolbar-bg: rgba(60, 60, 64, 0.9);
                 --hr-color: rgba(255, 255, 255, 0.2);
                 --editor-border: 2px solid rgba(148, 168, 179, 0.5);
+                
+                --nav-bg: rgba(30, 30, 35, 0.9);
+                --nav-active: #FFFFFF;
+                --nav-inactive: #666666;
+                --input-bg: rgba(60, 60, 65, 0.6);
             }
         }
 
@@ -100,7 +106,7 @@
             color: var(--text-main);
             background-color: var(--bg-base);
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             min-height: 100vh;
             overflow-x: hidden;
             width: 100%;
@@ -116,12 +122,12 @@
 
         /* --- Header (Magazine Style) --- */
         .modern-header {
-            padding: 70px 24px 40px;
+            padding: 60px 24px 20px;
             position: relative;
             background: var(--header-bg);
             overflow: hidden;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
             margin-bottom: 20px;
             box-shadow: var(--shadow-soft);
             text-align: center;
@@ -135,68 +141,96 @@
         .header-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
         .top-pill {
             background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--m-blue);
-            font-size: 11px; font-weight: 700; padding: 6px 16px; border-radius: 20px; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px);
         }
         .top-pill::before { content: ''; display: block; width: 6px; height: 6px; background: var(--m-red); border-radius: 50%; }
-        .main-title-group { text-align: center; position: relative; margin-bottom: 15px; }
         .title-city {
-            font-family: var(--font-serif); font-size: 64px; font-weight: 700; line-height: 0.85;
-            color: var(--header-text); letter-spacing: -2px; display: block; text-shadow: 2px 2px 0px rgba(125,125,125,0.1);
+            font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 0.9;
+            color: var(--header-text); letter-spacing: -1px; display: block;
         }
         .title-event {
-            font-family: var(--font-stack); font-size: 16px; font-weight: 900; color: var(--m-red);
-            letter-spacing: 6px; display: block; margin-top: 8px; margin-left: 6px;
+            font-family: var(--font-stack); font-size: 14px; font-weight: 900; color: var(--m-red);
+            letter-spacing: 4px; display: block; margin-top: 6px; margin-left: 4px;
         }
         .stitch-curve {
-            margin-top: 15px; width: 50px; height: 6px;
+            margin-top: 10px; width: 40px; height: 4px;
             background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px);
             border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7;
         }
-        .sub-caption { margin-top: 15px; font-size: 14px; color: var(--text-sub); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Bottom Navigation --- */
+        .bottom-nav {
+            position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            height: 65px; border-radius: 35px;
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .nav-item {
+            flex: 1; text-align: center; cursor: pointer; color: var(--nav-inactive);
+            font-size: 10px; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .nav-item.active { color: var(--nav-active); transform: scale(1.05); }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+
+        /* --- Top Sub-Navigation --- */
+        .sub-nav-wrapper {
+            position: sticky; top: 10px; z-index: 900; margin: 0 20px 15px;
+            display: none;
+        }
+        .sub-nav-wrapper.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .sub-tabs-container {
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 50px; padding: 4px;
+            display: flex; justify-content: flex-start; gap: 4px;
+            overflow-x: auto; scrollbar-width: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .sub-tabs-container::-webkit-scrollbar { display: none; }
+        
+        .sub-tab-btn {
+            flex: 0 0 auto; border: none; background: transparent; padding: 8px 16px; border-radius: 40px;
+            font-family: var(--font-stack); font-size: 13px; color: var(--text-muted); cursor: pointer;
+            transition: all 0.2s ease; text-align: center; font-weight: 600; min-width: 50px;
+        }
+        .sub-tab-btn.active {
+            background: var(--text-main); color: var(--bg-base); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
         /* --- Flight Widget --- */
         .flight-widget {
-            margin: 0 20px 25px; padding: 24px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-l);
+            margin: 0 20px 15px; padding: 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px;
             box-shadow: var(--shadow-soft); display: flex; justify-content: space-between; align-items: center; position: relative;
         }
         .flight-widget::before {
-            content: ''; position: absolute; top: 10px; bottom: 10px; left: 10px; right: 10px;
-            border: 1px dashed rgba(184, 120, 120, 0.3); border-radius: 24px; pointer-events: none;
+            content: ''; position: absolute; top: 8px; bottom: 8px; left: 8px; right: 8px;
+            border: 1px dashed rgba(125, 138, 147, 0.3); border-radius: 20px; pointer-events: none;
         }
-        .flight-label { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
-        .flight-val { font-family: var(--font-serif); font-size: 24px; font-weight: 800; color: var(--text-main); }
-        .flight-icon { font-size: 20px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
-
-        /* --- Tabs --- */
-        .tabs-container {
-            position: sticky; top: 15px; z-index: 100; margin: 0 20px; padding: 6px;
-            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 50px; display: flex; justify-content: flex-start; gap: 5px;
-            overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        .tabs-container::-webkit-scrollbar { display: none; }
-        .tab-btn {
-            flex: 0 0 auto; border: none; background: transparent; padding: 10px 18px; border-radius: 40px;
-            font-family: var(--font-stack); font-size: 15px; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 60px; font-weight: 500;
-        }
-        .tab-btn.active { background: var(--text-main); color: var(--bg-base); font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .tab-btn.wbc-special { color: var(--m-red); font-weight: 700; }
-        .tab-btn.wbc-special.active { background: var(--m-red); color: white; box-shadow: 0 4px 15px rgba(184, 120, 120, 0.4); }
+        .flight-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
+        .flight-val { font-family: var(--font-serif); font-size: 20px; font-weight: 800; color: var(--text-main); }
+        .flight-icon { font-size: 18px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
 
         /* --- Content Layout --- */
-        .day-content { display: none; padding: 30px 20px 20px; animation: slideUp 0.6s ease-out; }
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+        
+        .day-content { display: none; padding: 10px 20px 20px; animation: slideUp 0.4s ease-out; }
         .day-content.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- Timeline --- */
-        .timeline-item { display: flex; margin-bottom: 40px; position: relative; }
+        /* --- Timeline & Cards --- */
+        .timeline-item { display: flex; margin-bottom: 30px; position: relative; }
         .timeline-item::before {
-            content: ''; position: absolute; left: 24px; top: 18px; bottom: -45px; width: 2px;
-            background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(0,0,0,0) 100%);
-            z-index: 0; opacity: 0.3;
+            content: ''; position: absolute; left: 24px; top: 18px; bottom: -35px; width: 2px;
+            background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(0,0,0,0) 100%); z-index: 0; opacity: 0.3;
         }
         .timeline-item:last-child::before { display: none; }
         .time-col { min-width: 50px; padding-top: 2px; z-index: 1; display: flex; flex-direction: column; align-items: center; }
@@ -205,126 +239,82 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .time-text {
-            font-size: 16px; font-weight: 700; color: var(--m-blue);
-            background: var(--glass-bg); padding: 2px 6px; border-radius: 6px;
+            font-size: 15px; font-weight: 700; color: var(--m-blue);
+            background: var(--glass-bg); padding: 2px 5px; border-radius: 6px;
         }
 
-        /* --- Card System --- */
         .card {
-            flex: 1; margin-left: 15px; padding: 26px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            flex: 1; margin-left: 15px; padding: 22px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-m);
             box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform 0.2s;
         }
         .card-title {
-            font-family: var(--font-stack); font-size: 20px; font-weight: 800; margin-bottom: 12px;
-            color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;
+            font-family: var(--font-stack); font-size: 18px; font-weight: 800; margin-bottom: 10px;
+            color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;
         }
-        .info-grid { display: grid; gap: 14px; }
-        .info-row { font-size: 15px; line-height: 1.6; color: var(--text-sub); display: flex; align-items: baseline; font-weight: 500; }
+        .info-grid { display: grid; gap: 10px; }
+        .info-row { font-size: 14px; line-height: 1.6; color: var(--text-sub); display: flex; align-items: baseline; font-weight: 500; }
         .badge {
-            flex-shrink: 0; font-size: 12px; font-weight: 700; color: #FFF; padding: 4px 10px; border-radius: 6px; margin-right: 12px;
-            min-width: 30px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-shrink: 0; font-size: 11px; font-weight: 700; color: #FFF; padding: 3px 8px; border-radius: 6px; margin-right: 10px;
+            min-width: 28px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #444; }
         .badge.wear { background: var(--m-blue); } .badge.move { background: var(--m-grey); color: #FFF; } .badge.stay { background: #8C8C8C; }
 
-        /* --- Game Card --- */
-        .card.game-card { 
-            background: linear-gradient(135deg, var(--glass-bg), rgba(125, 138, 147, 0.1)); 
-            border-left: 4px solid var(--m-blue); 
-        }
-        .game-header { font-size: 12px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
-        .game-title { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
-        .analysis-box {
-            background: var(--highlight-bg); border-radius: 8px; padding: 12px 14px;
-            margin-bottom: 15px; border: 1px solid rgba(184, 120, 120, 0.2);
-        }
-        .analysis-title {
-            font-size: 12px; color: var(--m-red); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px;
-        }
-        .analysis-text { font-size: 14px; color: var(--text-sub); line-height: 1.6; text-align: justify; font-weight: 400; }
+        .card.game-card { background: linear-gradient(135deg, var(--glass-bg), rgba(125, 138, 147, 0.1)); border-left: 4px solid var(--m-blue); }
+        .game-header { font-size: 11px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
+        .game-title { font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
+        .analysis-box { background: var(--highlight-bg); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; border: 1px solid rgba(184, 120, 120, 0.2); }
+        .analysis-title { font-size: 11px; color: var(--m-red); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 4px; letter-spacing: 1px; }
+        .analysis-text { font-size: 13px; color: var(--text-sub); line-height: 1.6; text-align: justify; font-weight: 400; }
+        .analysis-box ol { padding-left: 18px; margin: 4px 0; }
+        .analysis-box li { margin-bottom: 3px; font-size: 13px; color: var(--text-sub); }
 
         .nav-btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-sizing: border-box;
-            background: rgba(125, 138, 147, 0.15); color: var(--m-blue); font-weight: 700; font-size: 15px; padding: 12px; border-radius: 12px;
-            text-decoration: none; margin-top: 15px; border: 1px solid var(--glass-border); transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box;
+            background: rgba(125, 138, 147, 0.15); color: var(--m-blue); font-weight: 700; font-size: 14px; padding: 10px; border-radius: 12px;
+            text-decoration: none; margin-top: 12px; border: 1px solid var(--glass-border); transition: all 0.2s;
         }
         .nav-btn:active { background: rgba(125, 138, 147, 0.3); }
 
-        /* --- Rich Text Editor Styles (Updated for Emphasis) --- */
-        .editor-container {
-            display: flex; flex-direction: column; gap: 10px;
+        /* --- Calculator Styles --- */
+        .calc-container { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .calc-row { display: flex; flex-direction: column; gap: 5px; }
+        .calc-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .calc-input-wrapper { position: relative; }
+        .calc-input {
+            width: 100%; box-sizing: border-box; background: var(--input-bg); border: 2px solid transparent;
+            border-radius: 16px; padding: 15px 15px 15px 50px; font-size: 28px; font-weight: 700;
+            color: var(--text-main); font-family: var(--font-serif); outline: none; transition: all 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
-        .editor-toolbar {
-            display: flex; gap: 8px; background: var(--editor-toolbar-bg); padding: 8px 12px; border-radius: 12px;
-            border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
-            align-items: center; flex-wrap: wrap;
-        }
+        .calc-input:focus { border-color: var(--m-blue); background: var(--glass-bg); }
+        .currency-flag { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 24px; }
+        .rate-display { text-align: center; font-size: 13px; color: var(--text-sub); margin-top: 5px; font-weight: 500; }
+        .rate-display span { color: var(--m-red); font-weight: 700; }
+
+        /* --- Editor Styles (Enhanced Border) --- */
+        .editor-container { display: flex; flex-direction: column; gap: 10px; }
+        .editor-toolbar { display: flex; gap: 8px; padding: 8px; border-radius: 12px; border: 1px solid var(--glass-border); flex-wrap: wrap; }
         .tool-btn {
             background: transparent; border: 1px solid var(--glass-border); color: var(--text-sub);
             padding: 6px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px;
-            transition: all 0.2s; min-width: 36px; display: flex; justify-content: center; align-items: center;
+            min-width: 36px; display: flex; justify-content: center; align-items: center;
         }
-        .tool-btn:hover, .tool-btn:active { background: var(--m-blue); color: #FFF; border-color: var(--m-blue); }
-        
         .color-wrapper { position: relative; display: flex; align-items: center; }
-        .color-input-hidden {
-            position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer;
-        }
+        .color-input-hidden { position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer; }
         
         .shopping-editor {
-            width: 100%; min-height: 350px;
-            background: var(--editor-bg);
-            /* EMPHASIZED BORDER: Thicker and stronger color */
+            width: 100%; min-height: 350px; background: var(--editor-bg);
+            /* Enhanced Border for Emphasis */
             border: var(--editor-border);
-            border-radius: 16px; padding: 20px;
-            font-family: var(--font-stack); font-size: 16px; color: var(--text-main);
-            outline: none; box-sizing: border-box; line-height: 1.7;
-            transition: all 0.3s ease; backdrop-filter: blur(10px);
-            overflow-y: auto;
+            border-radius: 16px; padding: 20px; font-family: var(--font-stack); font-size: 16px; color: var(--text-main);
+            outline: none; box-sizing: border-box; line-height: 1.7; overflow-y: auto;
         }
-        /* Focus State for Emphasis */
-        .shopping-editor:focus { 
-            border-color: var(--m-blue); 
-            box-shadow: 0 0 0 4px rgba(125, 138, 147, 0.25); 
-        }
-        
+        /* Stronger Focus State */
+        .shopping-editor:focus { border-color: var(--m-blue); box-shadow: 0 0 0 4px rgba(125, 138, 147, 0.4); }
         .shopping-editor ul, .shopping-editor ol { padding-left: 20px; margin: 5px 0; }
-        .shopping-editor li { margin-bottom: 5px; }
         .shopping-editor hr { border: 0; border-top: 2px dashed var(--hr-color); margin: 15px 0; }
-
-        /* --- SVG Bracket Styles --- */
-        .svg-container {
-            width: 100%; max-width: 100%; overflow-x: auto; background: var(--glass-bg); border-radius: var(--radius-m);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center; padding: 35px 0; -webkit-overflow-scrolling: touch;
-        }
-        .scroll-hint { text-align: center; font-size: 12px; color: var(--m-blue); margin-bottom: 10px; opacity: 0.8; animation: pulse 2s infinite; font-weight: 600; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        .bracket-svg { min-width: 1200px; height: auto; display: block; margin: 0 auto; }
-        
-        .svg-box-pool { fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2px; rx: 12; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); }
-        
-        .svg-box-match { 
-            fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2px; rx: 4; 
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        .svg-line { stroke: var(--svg-stroke); stroke-width: 2.5px; opacity: 0.8; fill: none; stroke-linecap: round; }
-        .base-dot { fill: var(--svg-fill); stroke: var(--svg-stroke); stroke-width: 2.5px; }
-        
-        .svg-home-plate { fill: linear-gradient(135deg, var(--svg-fill) 30%, #FDF8F0 100%); stroke: var(--m-gold); stroke-width: 3px; filter: drop-shadow(0 4px 10px rgba(197, 160, 101, 0.4)); }
-
-        .svg-title { font-family: var(--font-serif); fill: var(--m-blue); font-size: 13px; font-weight: 800; letter-spacing: 1px; }
-        .svg-text { font-family: var(--font-stack); fill: var(--text-main); font-size: 14px; font-weight: 700; }
-        .svg-sub { fill: var(--text-muted); font-size: 12px; font-weight: 500; }
-        
-        .svg-loc { 
-            font-family: var(--font-stack); fill: var(--m-red); font-size: 11px; font-weight: 800; 
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .svg-final-title { fill: var(--m-gold); font-weight: 900; font-size: 15px; letter-spacing: 1px; }
-        .svg-final-loc { fill: var(--m-red); font-weight: 800; font-size: 13px; }
 
         /* --- WBC Table --- */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -339,10 +329,8 @@
         .wbc-table tr:nth-child(even) { background-color: var(--table-row-hover); }
         .tpe-highlight { background-color: var(--highlight-bg) !important; }
         .point-text { display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); font-weight: 500; line-height: 1.5; }
-        
         .team-name { font-weight: 800; font-size: 18px; color: var(--text-main); display: block; line-height: 1.4; margin-bottom: 2px; }
         .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: var(--text-sub); line-height: 1.5; }
-        footer { text-align: center; font-size: 13px; color: var(--text-muted); padding: 50px 20px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -350,478 +338,362 @@
     <header class="modern-header">
         <div class="header-inner">
             <div class="top-pill">Fred's Journey</div>
-            <div class="main-title-group">
-                <span class="title-city">TOKYO</span>
-                <span class="title-event">WBC 2026</span>
-            </div>
+            <div class="title-city">TOKYO</div>
+            <div class="title-event">WBC 2026</div>
             <div class="stitch-curve"></div>
-            <div class="sub-caption">Cheering for <span style="color:var(--m-red); font-weight:800;">TPE 🇹🇼</span></div>
         </div>
     </header>
 
-    <div class="flight-widget">
-        <div>
-            <div class="flight-label">去程 (3/5)</div>
-            <div class="flight-val">BR190</div>
-            <div style="color:var(--text-muted); font-size:13px; font-weight:500;">16:30 松山 TSA</div>
-        </div>
-        <div class="flight-icon">✈</div>
-        <div style="text-align:right;">
-            <div class="flight-label">回程 (3/9)</div>
-            <div class="flight-val">BR189</div>
-            <div style="color:var(--text-muted); font-size:13px; font-weight:500;">10:25 羽田 HND</div>
+    <div id="sub-nav-itinerary" class="sub-nav-wrapper active">
+        <div class="sub-tabs-container">
+            <button class="sub-tab-btn active" onclick="showSubTab('d1', this)">3/5 (四)</button>
+            <button class="sub-tab-btn" onclick="showSubTab('d2', this)">3/6 (五)</button>
+            <button class="sub-tab-btn" onclick="showSubTab('d3', this)">3/7 (六)</button>
+            <button class="sub-tab-btn" onclick="showSubTab('d4', this)">3/8 (日)</button>
+            <button class="sub-tab-btn" onclick="showSubTab('d5', this)">3/9 (一)</button>
         </div>
     </div>
 
-    <div class="tabs-container">
-        <button class="tab-btn active" onclick="showTab('d1', this)">3/5<br>抵達</button>
-        <button class="tab-btn" onclick="showTab('d2', this)">3/6<br>抗日</button>
-        <button class="tab-btn" onclick="showTab('d3', this)">3/7<br>捷克</button>
-        <button class="tab-btn" onclick="showTab('d4', this)">3/8<br>韓國</button>
-        <button class="tab-btn" onclick="showTab('d5', this)">3/9<br>返程</button>
-        <button class="tab-btn" style="color:var(--m-tan); font-weight:700;" onclick="showTab('shop', this)">必買<br>清單</button>
-        <button class="tab-btn wbc-special" onclick="showTab('wbc', this)">WBC<br>戰情</button>
-    </div>
-
-    <div id="d1" class="day-content active">
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">20:20</div></div>
-            <div class="card">
-                <div class="card-title">羽田機場 (HND)</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge move">行</span>入境手續約 60 分鐘。出關後請搭乘「京急線」往橫濱方向。</div>
-                    <div class="info-row"><span class="badge wear">衣</span>本日無觀賽，穿著舒適輕便的飛機裝即可。</div>
-                    <div class="info-row"><span class="badge eat">食</span>建議在機上用餐，或於機場便利商店購買輕食。</div>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 開始導航</a>
-            </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">22:00</div></div>
-            <div class="card">
-                <div class="card-title">橫濱關內 (Base)</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge stay">住</span>抵達朋友家安置行李。</div>
-                    <div class="info-row"><span class="badge eat">食</span>推薦宵夜：伊勢佐木町商店街的「一蘭拉麵」或「三田製麵所」。</div>
-                </div>
-            </div>
+    <div id="sub-nav-tools" class="sub-nav-wrapper">
+        <div class="sub-tabs-container" style="justify-content: center;">
+            <button class="sub-tab-btn active" onclick="showSubTab('shop', this)">必買清單</button>
+            <button class="sub-tab-btn" onclick="showSubTab('calc', this)">匯率換算</button>
         </div>
     </div>
 
-    <div id="d2" class="day-content">
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
-            <div class="card">
-                <div class="card-title">橫濱紅磚倉庫</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge play">樂</span>在海風中漫步，欣賞歷史紅磚建築與橫濱港灣美景。</div>
-                    <div class="info-row"><span class="badge eat">食</span>早午餐推薦：世界第一早餐 Bills 鬆餅 (建議事先預約)。</div>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse" target="_blank" class="nav-btn">📍 導航 Bills</a>
+    <div id="view-itinerary" class="view-section active">
+        <div class="flight-widget">
+            <div>
+                <div class="flight-label">去程 (3/5)</div>
+                <div class="flight-val">BR190</div>
+                <div style="color:var(--text-muted); font-size:13px; font-weight:500;">16:30 TSA</div>
+            </div>
+            <div class="flight-icon">✈</div>
+            <div style="text-align:right;">
+                <div class="flight-label">回程 (3/9)</div>
+                <div class="flight-val">BR189</div>
+                <div style="color:var(--text-muted); font-size:13px; font-weight:500;">10:25 HND</div>
             </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">15:00</div></div>
-            <div class="card">
-                <div class="card-title">橫濱散策 & 移動</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge play">樂</span>搭乘 YOKOHAMA AIR CABIN 空中纜車，俯瞰港未來美景。</div>
-                    <div class="info-row"><span class="badge eat">食</span>橫濱中華街品嚐小吃。</div>
-                    <div class="info-row"><span class="badge move">行</span>傍晚前往橫濱或東京市區的運動酒吧。</div>
+        <div id="d1" class="day-content active">
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">20:20</div></div>
+                <div class="card">
+                    <div class="card-title">羽田機場 (HND)</div>
+                    <div class="analysis-box">
+                        <span class="analysis-title">🇯🇵 入境通關指南</span>
+                        <ol>
+                            <li><strong>檢疫</strong>：依指示前進。</li>
+                            <li><strong>入國審查</strong>：出示護照與 VJW QR Code。</li>
+                            <li><strong>提取行李</strong>：確認航班行李轉盤。</li>
+                            <li><strong>稅關申報</strong>：掃描 VJW 申報 QR Code。</li>
+                        </ol>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge move">行</span>出關後依指標搭乘「京急線」往橫濱。</div>
+                    </div>
+                    <div class="action-row">
+                        <a href="https://vjw-lp.digital.go.jp/en/" target="_blank" class="nav-btn">🔗 Visit Japan Web</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 開始導航</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
-            <div class="card game-card">
-                <div class="game-header">Pool C • Game 1 (Live Viewing)</div>
-                <div class="card-title" style="color:#2B4560;">🇹🇼 TPE vs 🇯🇵 JPN</div>
-                <div class="analysis-box">
-                    <span class="analysis-title">📺 賽事直播應援</span>
-                    <span class="analysis-text">雖然遺憾未搶到門票，但這場頂上對決絕不能錯過！建議前往運動酒吧（如 HUB British Pub），與現場球迷一同透過大螢幕為中華隊吶喊，氣氛同樣熱血沸騰！</span>
-                </div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge play">樂</span>體驗日本 Sports Bar 的熱鬧應援文化。</div>
-                    <div class="info-row"><span class="badge eat">食</span>啤酒、炸雞、毛豆，享受最道地的球賽饗宴。</div>
-                </div>
-                <a href="https://www.pub-hub.com/index.php/en/shop" target="_blank" class="nav-btn">📍 尋找附近的 HUB</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="d3" class="day-content">
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
-            <div class="card">
-                <div class="card-title">早晨移動</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋站。</div>
-                    <div class="info-row"><span class="badge eat">食</span>早餐以便利商店飯糰為主，保留體力。</div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">22:00</div></div>
+                <div class="card">
+                    <div class="card-title">橫濱關內 (Base)</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge stay">住</span>抵達朋友家安置行李。</div>
+                        <div class="info-row"><span class="badge eat">食</span>宵夜：伊勢佐木町「一蘭」或「三田製麵所」。</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
-            <div class="card game-card">
-                <div class="game-header">Pool C • Game 2</div>
-                <div class="card-title" style="color:#2B4560;">🇨🇿 CZE vs 🇹🇼 TPE</div>
-                <div class="match-note">
-                    <span class="match-note-title">⚾ 觀戰重點</span>
-                    <strong>斜槓鬥士 vs 職業菁英</strong><br>
-                    捷克球風穩健且鬥志高昂，中華隊需穩紮穩打，避免被爆冷。
+        <div id="d2" class="day-content">
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                <div class="card">
+                    <div class="card-title">橫濱紅磚倉庫</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge play">樂</span>海風漫步，欣賞歷史建築。</div>
+                        <div class="info-row"><span class="badge eat">食</span>早午餐：Bills 鬆餅 (需預約)。</div>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse" target="_blank" class="nav-btn">📍 導航 Bills</a>
                 </div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge wear">衣</span>巨蛋內有空調，建議洋蔥式穿搭。</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">15:00</div></div>
+                <div class="card">
+                    <div class="card-title">橫濱散策 & 移動</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge play">樂</span>搭乘 YOKOHAMA AIR CABIN 空中纜車。</div>
+                        <div class="info-row"><span class="badge eat">食</span>橫濱中華街小吃。</div>
+                        <div class="info-row"><span class="badge move">行</span>傍晚前往運動酒吧。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
+                <div class="card game-card">
+                    <div class="game-header">Pool C • Game 1 (Live Viewing)</div>
+                    <div class="card-title" style="color:var(--text-main);">🇹🇼 TPE vs 🇯🇵 JPN</div>
+                    <div class="analysis-box">
+                        <span class="analysis-title">📺 賽事直播應援</span>
+                        <span class="analysis-text">建議前往運動酒吧（如 HUB），與現場球迷一同為中華隊吶喊！</span>
+                    </div>
+                    <a href="https://www.pub-hub.com/index.php/en/shop" target="_blank" class="nav-btn">📍 尋找附近的 HUB</a>
                 </div>
             </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:30</div></div>
-            <div class="card">
-                <div class="card-title">SHIBUYA SKY</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge play">樂</span>賽後搭地鐵至澀谷。預約日落時段，在 229m 高空俯瞰東京絕美夕陽。</div>
-                    <div class="info-row"><span class="badge eat">食</span>晚餐推薦「澀谷橫丁」，感受熱鬧的居酒屋氛圍慶功。</div>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=SHIBUYA+SKY" target="_blank" class="nav-btn">📍 導航</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="d4" class="day-content">
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
-            <div class="card">
-                <div class="card-title">早晨移動</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge move">行</span>週日電車較空，但仍建議提早出門。</div>
-                    <div class="info-row"><span class="badge eat">食</span>補充水分與喉糖，準備吶喊。</div>
+        <div id="d3" class="day-content">
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                <div class="card">
+                    <div class="card-title">早晨移動</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋。</div>
+                        <div class="info-row"><span class="badge eat">食</span>早餐：便利商店飯糰。</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
-            <div class="card game-card">
-                <div class="game-header">Pool C • Game 3</div>
-                <div class="card-title" style="color:#2B4560;">🇰🇷 KOR vs 🇹🇼 TPE</div>
-                <div class="analysis-box">
-                    <span class="analysis-title">⚾ 戰情短評</span>
-                    <span class="analysis-text">宿命對決！這絕對是攸關分組晉級的最關鍵戰役。韓國隊背負著不能輸的壓力，氣氛將比日韓戰更為緊繃肅殺。請準備好最強的應援火力，Team Taiwan！</span>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
+                <div class="card game-card">
+                    <div class="game-header">Pool C • Game 2</div>
+                    <div class="card-title" style="color:var(--text-main);">🇨🇿 CZE vs 🇹🇼 TPE</div>
+                    <div class="match-note">
+                        <span class="match-note-title">⚾ 觀戰重點</span>
+                        捷克球風穩健，中華隊需穩紮穩打，這是搶下晉級門票的必勝之戰。
+                    </div>
                 </div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge wear">衣</span>全力應援！藍白配色！</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:30</div></div>
+                <div class="card">
+                    <div class="card-title">SHIBUYA SKY</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge play">樂</span>預約日落時段，俯瞰東京夕陽。</div>
+                        <div class="info-row"><span class="badge eat">食</span>晚餐：澀谷橫丁居酒屋。</div>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=SHIBUYA+SKY" target="_blank" class="nav-btn">📍 導航</a>
                 </div>
             </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
-            <div class="card">
-                <div class="card-title">銀座 & 東京鐵塔</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge shop">買</span>賽後前往銀座步行者天國。逛 Uniqlo 旗艦店、伊東屋文具。</div>
-                    <div class="info-row"><span class="badge play">樂</span>晚上至增上寺或芝公園，拍攝東京鐵塔夜景，為旅程畫下句點。</div>
-                    <div class="info-row"><span class="badge eat">食</span>晚餐：銀座或新橋周邊燒肉。</div>
+        <div id="d4" class="day-content">
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                <div class="card">
+                    <div class="card-title">早晨移動</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge move">行</span>週日電車較空，但仍建議提早。</div>
+                        <div class="info-row"><span class="badge eat">食</span>補充水分與喉糖。</div>
+                    </div>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
             </div>
-        </div>
-    </div>
-
-    <div id="d5" class="day-content">
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">07:00</div></div>
-            <div class="card">
-                <div class="card-title">前往羽田機場</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge move">行</span>週一上班日電車極度擁擠，務必 07:00 前出發。</div>
-                    <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
+                <div class="card game-card">
+                    <div class="game-header">Pool C • Game 3</div>
+                    <div class="card-title" style="color:var(--text-main);">🇰🇷 KOR vs 🇹🇼 TPE</div>
+                    <div class="analysis-box">
+                        <span class="analysis-title">⚾ 戰情短評</span>
+                        <span class="analysis-text">宿命對決！攸關分組晉級的最關鍵戰役。氣氛將比日韓戰更為緊繃，請準備好最強火力！</span>
+                    </div>
                 </div>
-                <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:25</div></div>
-            <div class="card">
-                <div class="card-title">BR189 返台</div>
-                <div class="info-grid">
-                    <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店 (薯條三兄弟、NY Perfect Cheese)。</div>
-                    <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山 (TSA)。</div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
+                <div class="card">
+                    <div class="card-title">銀座 & 東京鐵塔</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge shop">買</span>銀座 Uniqlo 旗艦店、伊東屋。</div>
+                        <div class="info-row"><span class="badge play">樂</span>增上寺或芝公園看鐵塔夜景。</div>
+                        <div class="info-row"><span class="badge eat">食</span>晚餐：銀座/新橋燒肉。</div>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="shop" class="day-content">
-        <div class="card" style="margin-left:0;">
-            <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
-                必買清單 🛍️
-                <span style="font-size:12px; font-weight:400; color:var(--text-muted);">Auto-saved</span>
-            </div>
-            
-            <div class="editor-container">
-                <div class="editor-toolbar">
-                    <button class="tool-btn" onclick="formatDoc('bold')" title="粗體"><b>B</b></button>
-                    <button class="tool-btn" onclick="formatDoc('italic')" title="斜體"><i>I</i></button>
-                    <button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="清單">≣</button>
-                    <button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="分隔線">―</button>
-                    <button class="tool-btn color-wrapper" title="文字顏色">
-                        🎨
-                        <input type="color" class="color-input-hidden" onchange="formatDoc('foreColor', this.value)">
-                    </button>
-                    <button class="tool-btn" onclick="selectAllContent()" title="全選">全選</button>
+        <div id="d5" class="day-content">
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">07:00</div></div>
+                <div class="card">
+                    <div class="card-title">前往羽田機場</div>
+                    <div class="analysis-box">
+                        <span class="analysis-title">✈️ 出境離日流程</span>
+                        <ol>
+                            <li><strong>報到</strong>: 3F 出發大廳。</li>
+                            <li><strong>安檢</strong>: 取出筆電液體。</li>
+                            <li><strong>出境</strong>: 使用 Face Express 或人工。</li>
+                        </ol>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge move">行</span>上班日電車擁擠，務必 07:00 出發。</div>
+                        <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
+                    </div>
+                    <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
                 </div>
-                
-                <div id="shoppingNote" class="shopping-editor" contenteditable="true">
-                    <div>在此輸入您的購物清單...</div>
-                    <hr>
-                    <div><b>藥妝類：</b></div>
-                    <ul>
-                        <li>合利他命</li>
-                        <li>EVE 止痛藥</li>
-                    </ul>
-                    <hr>
-                    <div><b>機場伴手禮：</b></div>
-                    <ul>
-                        <li>薯條三兄弟</li>
-                        <li>NY Perfect Cheese</li>
-                    </ul>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:25</div></div>
+                <div class="card">
+                    <div class="card-title">BR189 返台</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店。</div>
+                        <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山。</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="wbc" class="day-content">
-        <div class="scroll-hint">← 滑動查看完整晉級路線 →</div>
-        
-        <div class="svg-container">
-            <svg class="bracket-svg" viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-line" d="M140 60 C160 60, 160 100, 180 100" />
-                <path class="svg-line" d="M140 140 C160 140, 160 100, 180 100" />
-                <path class="svg-line" d="M140 220 C160 220, 160 260, 180 260" />
-                <path class="svg-line" d="M140 300 C160 300, 160 260, 180 260" />
-                <path class="svg-line" d="M320 100 C360 100, 360 180, 400 180" />
-                <path class="svg-line" d="M320 260 C360 260, 360 180, 400 180" />
-                <path class="svg-line" d="M1060 60 C1040 60, 1040 100, 1020 100" />
-                <path class="svg-line" d="M1060 140 C1040 140, 1040 100, 1020 100" />
-                <path class="svg-line" d="M1060 220 C1040 220, 1040 260, 1020 260" />
-                <path class="svg-line" d="M1060 300 C1040 300, 1040 260, 1020 260" />
-                <path class="svg-line" d="M880 100 C840 100, 840 180, 800 180" />
-                <path class="svg-line" d="M880 260 C840 260, 840 180, 800 180" />
-                <path class="svg-line" d="M495 180 C550 180, 550 80, 600 80" marker-end="url(#baseDot)"/>
-                <path class="svg-line" d="M705 180 C650 180, 650 80, 600 80" marker-end="url(#baseDot)"/>
-
-                <circle class="base-dot" cx="180" cy="100" r="5" />
-                <circle class="base-dot" cx="180" cy="260" r="5" />
-                <circle class="base-dot" cx="400" cy="180" r="5" />
-                <circle class="base-dot" cx="1020" cy="100" r="5" />
-                <circle class="base-dot" cx="1020" cy="260" r="5" />
-                <circle class="base-dot" cx="800" cy="180" r="5" />
-
-                <rect x="20" y="40" width="120" height="40" class="svg-box-pool" />
-                <text x="80" y="60" text-anchor="middle" class="svg-title">POOL A</text>
-                <text x="80" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="120" width="120" height="40" class="svg-box-pool" />
-                <text x="80" y="140" text-anchor="middle" class="svg-title">POOL B</text>
-                <text x="80" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="200" width="120" height="40" class="svg-box-pool" />
-                <text x="80" y="220" text-anchor="middle" class="svg-title">POOL A</text>
-                <text x="80" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="20" y="280" width="120" height="40" class="svg-box-pool" />
-                <text x="80" y="300" text-anchor="middle" class="svg-title">POOL B</text>
-                <text x="80" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-
-                <rect x="180" y="75" width="140" height="50" class="svg-box-match" />
-                <text x="250" y="93" text-anchor="middle" class="svg-title">QUARTERFINAL 1</text>
-                <text x="250" y="106" text-anchor="middle" class="svg-text">B-1st vs A-2nd</text>
-                <text x="250" y="119" text-anchor="middle" class="svg-loc">📍 HOUSTON</text>
-                <rect x="180" y="235" width="140" height="50" class="svg-box-match" />
-                <text x="250" y="253" text-anchor="middle" class="svg-title">QUARTERFINAL 2</text>
-                <text x="250" y="266" text-anchor="middle" class="svg-text">A-1st vs B-2nd</text>
-                <text x="250" y="279" text-anchor="middle" class="svg-loc">📍 HOUSTON</text>
-
-                <rect x="375" y="155" width="120" height="50" class="svg-box-match" />
-                <text x="435" y="173" text-anchor="middle" class="svg-title">SEMIFINAL 1</text>
-                <text x="435" y="186" text-anchor="middle" class="svg-text">QF1 vs QF3</text>
-                <text x="435" y="199" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
-
-                <path d="M 520 10 L 680 10 L 680 60 L 600 95 L 520 60 Z" class="svg-home-plate" />
-                <text x="600" y="38" text-anchor="middle" class="svg-final-title">CHAMPIONSHIP</text>
-                <text x="600" y="60" text-anchor="middle" class="svg-final-loc">📍 MIAMI</text>
-
-                <rect x="705" y="155" width="120" height="50" class="svg-box-match" />
-                <text x="765" y="173" text-anchor="middle" class="svg-title">SEMIFINAL 2</text>
-                <text x="765" y="186" text-anchor="middle" class="svg-text">QF2 vs QF4</text>
-                <text x="765" y="199" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
-
-                <rect x="880" y="75" width="140" height="50" class="svg-box-match" />
-                <text x="950" y="93" text-anchor="middle" class="svg-title">QUARTERFINAL 3</text>
-                <text x="950" y="106" text-anchor="middle" class="svg-text">D-1st vs C-2nd</text>
-                <text x="950" y="119" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
-                <rect x="880" y="235" width="140" height="50" class="svg-box-match" />
-                <text x="950" y="253" text-anchor="middle" class="svg-title">QUARTERFINAL 4</text>
-                <text x="950" y="266" text-anchor="middle" class="svg-text">C-1st vs D-2nd</text>
-                <text x="950" y="279" text-anchor="middle" class="svg-loc">📍 MIAMI</text>
-
-                <rect x="1060" y="120" width="120" height="40" class="svg-box-pool" style="stroke:var(--m-red);"/>
-                <text x="1120" y="140" text-anchor="middle" class="svg-title" style="fill:var(--m-red);">POOL C (TOKYO)</text>
-                <text x="1120" y="153" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-
-                <rect x="1060" y="40" width="120" height="40" class="svg-box-pool" />
-                <text x="1120" y="60" text-anchor="middle" class="svg-title">POOL D</text>
-                <text x="1120" y="73" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                
-                <rect x="1060" y="200" width="120" height="40" class="svg-box-pool" style="stroke:var(--m-red);"/>
-                <text x="1120" y="220" text-anchor="middle" class="svg-title" style="fill:var(--m-red);">POOL C (TOKYO)</text>
-                <text x="1120" y="233" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-                <rect x="1060" y="280" width="120" height="40" class="svg-box-pool" />
-                <text x="1120" y="300" text-anchor="middle" class="svg-title">POOL D</text>
-                <text x="1120" y="313" text-anchor="middle" class="svg-sub">1st & 2nd</text>
-            </svg>
+    <div id="view-tools" class="view-section">
+        <div id="shop" class="day-content active">
+            <div class="card" style="margin-left:0;">
+                <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
+                    必買清單 🛍️
+                    <span style="font-size:12px; font-weight:400; color:var(--text-muted);">Auto-saved</span>
+                </div>
+                <div class="editor-container">
+                    <div class="editor-toolbar">
+                        <button class="tool-btn" onclick="formatDoc('bold')" title="粗體"><b>B</b></button>
+                        <button class="tool-btn" onclick="formatDoc('italic')" title="斜體"><i>I</i></button>
+                        <button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="清單">≣</button>
+                        <button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="分隔線">―</button>
+                        <button class="tool-btn color-wrapper" title="文字顏色">
+                            🎨
+                            <input type="color" class="color-input-hidden" onchange="formatDoc('foreColor', this.value)">
+                        </button>
+                        <button class="tool-btn" onclick="selectAllContent()" title="全選">全選</button>
+                    </div>
+                    <div id="shoppingNote" class="shopping-editor" contenteditable="true">
+                        <div>輸入購物清單...</div>
+                        <hr>
+                        <div><b>藥妝：</b></div>
+                        <ul><li>合利他命</li><li>EVE 止痛藥</li></ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="card" style="margin-left:0; margin-bottom:20px;">
-            <div class="card-title">
-                Pool C (Tokyo)
-                <span class="pool-teams">🇹🇼 台灣・🇯🇵 日本・🇰🇷 韓國・🇦🇺 澳洲・🇨🇿 捷克</span>
-            </div>
-            <div class="wbc-table-container">
-                <table class="wbc-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Matchup & Key Point</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>3/5</td>
-                            <td>
-                                <span class="team-name">🇦🇺 AUS vs 🇹🇼 TPE</span>
-                                <span class="point-text">首戰即決戰！澳洲近年長打實力大增，且擁有多位美職體系新秀。中華隊需靠靈活調度與戰術搶下開門紅，避免陷入苦戰。</span>
-                            </td>
-                            <td>12:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/5</td>
-                            <td>
-                                <span class="team-name">🇰🇷 KOR vs 🇨🇿 CZE</span>
-                                <span class="point-text">韓國隊上屆爆冷出局的陰影猶在，此戰勢必精銳盡出以求穩住陣腳。捷克隊的「斜槓傳奇」能否再次創造驚奇是最大看點。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/6</td>
-                            <td>
-                                <span class="team-name">🇨🇿 CZE vs 🇦🇺 AUS</span>
-                                <span class="point-text">歐洲與大洋洲的球風碰撞。捷克隊的團隊默契極佳，對抗澳洲隊的美式強力棒球，勝負將取決於投手群的壓制力。</span>
-                            </td>
-                            <td>12:00</td>
-                        </tr>
-                        <tr class="tpe-highlight">
-                            <td>3/6</td>
-                            <td>
-                                <span class="team-name" style="color:var(--m-blue);">🇹🇼 TPE vs 🇯🇵 JPN</span>
-                                <span class="point-text">萬眾矚目！台灣黃金打線挑戰日本「侍Japan」全明星陣容。無論勝負，能在東京巨蛋與世界最強球隊交手，將是球員與球迷最難忘的時刻。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr class="tpe-highlight">
-                            <td>3/7</td>
-                            <td>
-                                <span class="team-name" style="color:var(--m-blue);">🇨🇿 CZE vs 🇹🇼 TPE</span>
-                                <span class="point-text">絕對不能輕敵！捷克投手的球速雖不快，但怪異的出手點與節奏容易讓打者熄火。中華隊需保持耐心選球，這是累積淨勝分的關鍵戰。</span>
-                            </td>
-                            <td>12:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/7</td>
-                            <td>
-                                <span class="team-name">🇰🇷 KOR vs 🇯🇵 JPN</span>
-                                <span class="point-text">亞洲棒球最高殿堂的「世仇對決」！無需多言的歷史情仇，兩隊皆會毫無保留地押上最強投手，東京巨蛋將化身為沸騰的壓力鍋。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr class="tpe-highlight">
-                            <td>3/8</td>
-                            <td>
-                                <span class="team-name" style="color:var(--m-blue);">🇰🇷 KOR vs 🇹🇼 TPE</span>
-                                <span class="point-text">宿命復仇戰！這場比賽極高機率決定誰能以分組第二晉級。韓國隊背負著國內輿論的巨大壓力，中華隊需展現強大抗壓性，力拚致勝一擊。</span>
-                            </td>
-                            <td>12:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/8</td>
-                            <td>
-                                <span class="team-name">🇦🇺 AUS vs 🇯🇵 JPN</span>
-                                <span class="point-text">日本隊面對澳洲的強力揮擊，考驗投手的控球精準度。澳洲若能咬住比分，將有機會製造本屆賽事最大冷門。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/9</td>
-                            <td>
-                                <span class="team-name">🇦🇺 AUS vs 🇰🇷 KOR</span>
-                                <span class="point-text">小組賽尾聲的關鍵戰役。若前幾場戰況膠著，此戰可能成為決定晉級名額的「驟死賽」，雙方將毫無保留。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr>
-                            <td>3/10</td>
-                            <td>
-                                <span class="team-name">🇯🇵 JPN vs 🇨🇿 CZE</span>
-                                <span class="point-text">充滿敬意的友誼之戰。上屆經典賽佐佐木朗希對捷克選手的觸身球後續互動傳為佳話，預計將是一場氣氛溫馨但技術含金量極高的比賽。</span>
-                            </td>
-                            <td>19:00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="action-row" style="justify-content:center; margin-top:30px;">
-                <a href="https://www.mlb.com/world-baseball-classic" target="_blank" class="nav-btn">前往 WBC 官方網站 ↗</a>
+        <div id="calc" class="day-content">
+            <div class="card" style="margin-left:0;">
+                <div class="card-title">匯率換算 💱</div>
+                <div class="analysis-box" style="margin-bottom:20px;">
+                    <span class="analysis-text">以即時匯率換算 (若離線則使用 0.215)</span>
+                </div>
+                <div class="calc-container">
+                    <div class="calc-row">
+                        <span class="calc-label">JPY 日幣</span>
+                        <div class="calc-input-wrapper">
+                            <span class="currency-flag">🇯🇵</span>
+                            <input type="number" id="input-jpy" class="calc-input" placeholder="0">
+                        </div>
+                    </div>
+                    <div style="text-align:center; color:var(--m-blue); font-size:20px;">⇅</div>
+                    <div class="calc-row">
+                        <span class="calc-label">TWD 台幣</span>
+                        <div class="calc-input-wrapper">
+                            <span class="currency-flag">🇹🇼</span>
+                            <input type="number" id="input-twd" class="calc-input" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="rate-display">目前匯率: 1 JPY ≈ <span id="rate-val">0.215</span> TWD</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>Light Morandi x Baseball<br>Designed for Fred</p>
-    </footer>
+    <div id="view-wbc" class="view-section">
+        <div class="day-content active" style="padding-top:10px;">
+            <div class="card" style="margin-left:0; margin-top:20px;">
+                <div class="card-title">
+                    Pool C (Tokyo)
+                    <span class="pool-teams">🇹🇼 台灣・🇯🇵 日本・🇰🇷 韓國・🇦🇺 澳洲・🇨🇿 捷克</span>
+                </div>
+                <div class="wbc-table-container">
+                    <table class="wbc-table">
+                        <thead>
+                            <tr><th>Date</th><th>Matchup & Key Point</th><th>Time</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>3/5</td><td><span class="team-name">🇦🇺 AUS vs 🇹🇼 TPE</span><span class="point-text">首戰即決戰！澳洲近年長打實力大增，且擁有多位美職體系新秀。中華隊需靠靈活調度與戰術搶下開門紅。</span></td><td>12:00</td></tr>
+                            <tr><td>3/5</td><td><span class="team-name">🇰🇷 KOR vs 🇨🇿 CZE</span><span class="point-text">韓國隊上屆爆冷出局的陰影猶在，此戰勢必精銳盡出以求穩住陣腳。</span></td><td>19:00</td></tr>
+                            <tr><td>3/6</td><td><span class="team-name">🇨🇿 CZE vs 🇦🇺 AUS</span><span class="point-text">歐洲與大洋洲的球風碰撞。捷克隊的團隊默契對抗澳洲隊的美式強力棒球。</span></td><td>12:00</td></tr>
+                            <tr class="tpe-highlight"><td>3/6</td><td><span class="team-name" style="color:var(--m-blue);">🇹🇼 TPE vs 🇯🇵 JPN</span><span class="point-text">萬眾矚目！台灣黃金打線挑戰日本「侍Japan」全明星陣容。無論勝負都是最難忘的時刻。</span></td><td>19:00</td></tr>
+                            <tr class="tpe-highlight"><td>3/7</td><td><span class="team-name" style="color:var(--m-blue);">🇨🇿 CZE vs 🇹🇼 TPE</span><span class="point-text">絕對不能輕敵！捷克投手的球速雖不快，但怪異的出手點容易讓打者熄火。這是累積淨勝分的關鍵戰。</span></td><td>12:00</td></tr>
+                            <tr><td>3/7</td><td><span class="team-name">🇰🇷 KOR vs 🇯🇵 JPN</span><span class="point-text">亞洲棒球最高殿堂的「世仇對決」！東京巨蛋將化身為沸騰的壓力鍋。</span></td><td>19:00</td></tr>
+                            <tr class="tpe-highlight"><td>3/8</td><td><span class="team-name" style="color:var(--m-blue);">🇰🇷 KOR vs 🇹🇼 TPE</span><span class="point-text">宿命復仇戰！這場比賽極高機率決定誰能以分組第二晉級。請準備好最強的應援火力。</span></td><td>12:00</td></tr>
+                            <tr><td>3/8</td><td><span class="team-name">🇦🇺 AUS vs 🇯🇵 JPN</span><span class="point-text">澳洲若能咬住比分，將有機會製造本屆賽事最大冷門。</span></td><td>19:00</td></tr>
+                            <tr><td>3/9</td><td><span class="team-name">🇦🇺 AUS vs 🇰🇷 KOR</span><span class="point-text">小組賽尾聲的關鍵戰役。若戰況膠著，此戰可能成為「驟死賽」。</span></td><td>19:00</td></tr>
+                            <tr><td>3/10</td><td><span class="team-name">🇯🇵 JPN vs 🇨🇿 CZE</span><span class="point-text">充滿敬意的友誼之戰，預計將是一場氣氛溫馨的比賽。</span></td><td>19:00</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchMainView('itinerary', this)">
+            <span class="nav-icon">📅</span>
+            <span>行程</span>
+        </div>
+        <div class="nav-item" onclick="switchMainView('wbc', this)">
+            <span class="nav-icon">⚾</span>
+            <span>戰情</span>
+        </div>
+        <div class="nav-item" onclick="switchMainView('tools', this)">
+            <span class="nav-icon">🧰</span>
+            <span>工具</span>
+        </div>
+    </div>
 
     <script>
-        // Tab Switching Logic
-        function showTab(dayId, btn) {
-            const contents = document.querySelectorAll('.day-content');
-            contents.forEach(c => c.classList.remove('active'));
-            
-            const btns = document.querySelectorAll('.tab-btn');
-            btns.forEach(b => b.classList.remove('active'));
+        let currentRate = 0.215; // Default rate
 
-            document.getElementById(dayId).classList.add('active');
+        // --- Navigation Logic ---
+        function switchMainView(viewName, btn) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewName).classList.add('active');
+            
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
             btn.classList.add('active');
 
+            document.querySelectorAll('.sub-nav-wrapper').forEach(el => el.classList.remove('active'));
+            if (viewName === 'itinerary') {
+                document.getElementById('sub-nav-itinerary').classList.add('active');
+            } else if (viewName === 'tools') {
+                document.getElementById('sub-nav-tools').classList.add('active');
+            }
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Rich Text Editor & Auto Save
-        function formatDoc(cmd, value=null) {
-            document.execCommand(cmd, false, value);
-            // Save immediately after formatting
-            const editor = document.getElementById('shoppingNote');
-            if (editor) {
-                localStorage.setItem('wbc_shopping_note_html_v2', editor.innerHTML);
-            }
+        function showSubTab(tabId, btn) {
+            const parentView = btn.closest('.sub-nav-wrapper').id === 'sub-nav-itinerary' ? 'view-itinerary' : 'view-tools';
+            
+            btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const container = document.getElementById(parentView);
+            container.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Select All Content Function
+        // --- Shopping List Logic ---
+        function formatDoc(cmd, value=null) {
+            document.execCommand(cmd, false, value);
+            saveNote();
+        }
+        
         function selectAllContent() {
             const editor = document.getElementById('shoppingNote');
             const range = document.createRange();
@@ -831,21 +703,50 @@
             sel.addRange(range);
         }
 
+        function saveNote() {
+            const editor = document.getElementById('shoppingNote');
+            if (editor) localStorage.setItem('wbc_shopping_note_v7', editor.innerHTML);
+        }
+
+        // --- Calculator Logic ---
+        async function fetchRate() {
+            try {
+                const res = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
+                const data = await res.json();
+                if (data && data.rates && data.rates.TWD) {
+                    currentRate = data.rates.TWD;
+                    document.getElementById('rate-val').innerText = currentRate.toFixed(3);
+                }
+            } catch (e) {
+                console.log('Using default rate');
+            }
+        }
+
+        function calc(source) {
+            const jpyInput = document.getElementById('input-jpy');
+            const twdInput = document.getElementById('input-twd');
+            
+            if (source === 'jpy') {
+                const val = parseFloat(jpyInput.value);
+                if (!isNaN(val)) twdInput.value = (val * currentRate).toFixed(0);
+                else twdInput.value = '';
+            } else {
+                const val = parseFloat(twdInput.value);
+                if (!isNaN(val)) jpyInput.value = (val / currentRate).toFixed(0);
+                else jpyInput.value = '';
+            }
+        }
+
+        // --- Init ---
         document.addEventListener('DOMContentLoaded', () => {
             const editor = document.getElementById('shoppingNote');
-            
-            // Load saved content (using v2 key to avoid conflicts with previous versions)
-            const savedContent = localStorage.getItem('wbc_shopping_note_html_v2');
-            if (savedContent && editor) {
-                editor.innerHTML = savedContent;
-            }
-            
-            // Auto-save on input
-            if(editor) {
-                editor.addEventListener('input', () => {
-                    localStorage.setItem('wbc_shopping_note_html_v2', editor.innerHTML);
-                });
-            }
+            const savedContent = localStorage.getItem('wbc_shopping_note_v7');
+            if (savedContent && editor) editor.innerHTML = savedContent;
+            if (editor) editor.addEventListener('input', saveNote);
+
+            fetchRate();
+            document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
+            document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
         });
     </script>
 </body>
