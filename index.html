@@ -51,7 +51,6 @@
             
             /* Editor Specific */
             --editor-bg: rgba(255, 255, 255, 0.8);
-            /* New: Contrast Toolbar Background */
             --editor-toolbar-bg: rgba(220, 225, 230, 0.95); 
             --hr-color: rgba(125, 138, 147, 0.3);
             --editor-border: 2px solid rgba(125, 138, 147, 0.6);
@@ -91,7 +90,6 @@
                 --highlight-bg: rgba(209, 140, 140, 0.15);
                 
                 --editor-bg: rgba(44, 44, 46, 0.8);
-                /* New: Dark Mode Contrast Toolbar */
                 --editor-toolbar-bg: rgba(60, 60, 65, 0.95);
                 --hr-color: rgba(255, 255, 255, 0.2);
                 --editor-border: 2px solid rgba(148, 168, 179, 0.5);
@@ -266,7 +264,6 @@
         .flight-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
         .flight-val { font-family: var(--font-serif); font-size: 20px; font-weight: 800; color: var(--text-main); }
         .flight-icon { font-size: 18px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
-        /* NEW: Terminal Tag Style */
         .term-tag { font-size: 10px; background: var(--m-red); color: #fff; padding: 1px 5px; border-radius: 4px; margin-left: 4px; font-family: var(--font-stack); vertical-align: middle; }
 
         /* --- Timeline & Cards --- */
@@ -337,10 +334,8 @@
         .rate-display span { color: var(--m-red); font-weight: 700; }
         .reset-btn { position:absolute; right:0; top:0; font-size:12px; color:var(--m-red); background:transparent; border:none; cursor:pointer; padding:5px; font-weight:700; }
 
-        /* --- Editor Styles (Contrast Toolbar) --- */
+        /* --- Editor Styles --- */
         .editor-container { display: flex; flex-direction: column; gap: 10px; }
-        
-        /* New: Distinct Background Color for Toolbar */
         .editor-toolbar { 
             display: flex; gap: 8px; 
             background: var(--editor-toolbar-bg); 
@@ -471,35 +466,58 @@
             <div class="timeline-item">
                 <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
                 <div class="card">
-                    <div class="card-title">橫濱紅磚倉庫</div>
+                    <div class="card-title">橫須賀軍港之旅</div>
                     <div class="info-grid">
-                        <div class="info-row"><span class="badge play">樂</span>海風漫步，欣賞歷史建築。</div>
-                        <div class="info-row"><span class="badge eat">食</span>早午餐：Bills 鬆餅 (需預約)。</div>
+                        <div class="info-row"><span class="badge move">行</span>搭乘京急線至「橫須賀中央站」或 JR 至「橫須賀站」。</div>
+                        <div class="info-row"><span class="badge play">樂</span>三笠公園參觀世界三大紀念艦「三笠號」。</div>
                     </div>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse" target="_blank" class="nav-btn">📍 導航 Bills</a>
+                    <a href="https://www.google.com/maps?q=Mikasa+Park" target="_blank" class="nav-btn">📍 導航三笠公園</a>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">15:00</div></div>
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">13:00</div></div>
                 <div class="card">
-                    <div class="card-title">橫濱散策 & 移動</div>
+                    <div class="card-title">海軍咖哩 & 溝板通</div>
                     <div class="info-grid">
-                        <div class="info-row"><span class="badge play">樂</span>搭乘 YOKOHAMA AIR CABIN 空中纜車。</div>
-                        <div class="info-row"><span class="badge eat">食</span>橫濱中華街小吃。</div>
-                        <div class="info-row"><span class="badge move">行</span>傍晚前往運動酒吧。</div>
+                        <div class="info-row"><span class="badge eat">食</span>品嚐道地「橫須賀海軍咖哩」或「海軍漢堡」。</div>
+                        <div class="info-row"><span class="badge play">樂</span>漫步 Dobuita Street，感受濃厚美式風情，選購 Sukajan 刺繡外套。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:00</div></div>
+                <div class="card">
+                    <div class="card-title">橫濱站前大採購</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge shop">買</span><strong>Bic Camera</strong>：橫濱站西口店，採購電器 3C。</div>
+                        <div class="info-row"><span class="badge shop">買</span><strong>無印良品</strong>：相鐵 JOINUS 或 NEWoMan 橫濱店。</div>
+                        <div class="info-row"><span class="badge shop">買</span><strong>藥妝店</strong>：松本清、SunDrug 補貨。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:30</div></div>
+                <div class="card">
+                    <div class="card-title">返回住所 (備戰)</div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge move">行</span>帶著戰利品返回橫濱關內住所。</div>
+                        <div class="info-row"><span class="badge eat">食</span>沿途採買晚餐與應援酒水。</div>
                     </div>
                 </div>
             </div>
             <div class="timeline-item">
                 <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
                 <div class="card game-card">
-                    <div class="game-header">Pool C • Game 1 (Live Viewing)</div>
+                    <div class="game-header">Pool C • Game 1 (Online Streaming)</div>
                     <div class="card-title" style="color:var(--text-main);">🇹🇼 TPE vs 🇯🇵 JPN</div>
                     <div class="analysis-box">
-                        <span class="analysis-title">📺 賽事直播應援</span>
-                        <span class="analysis-text">建議前往運動酒吧（如 HUB），與現場球迷一同為中華隊吶喊！</span>
+                        <span class="analysis-title">📺 住所線上應援</span>
+                        <span class="analysis-text">雖然未進場，但在住所舒適地觀看直播，不用人擠人，更能專注於每一個精彩好球！</span>
                     </div>
-                    <a href="https://www.pub-hub.com/index.php/en/shop" target="_blank" class="nav-btn">📍 尋找附近的 HUB</a>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge wear">衣</span>換上舒適居家服，披上中華隊毛巾！</div>
+                        <div class="info-row"><span class="badge eat">食</span>享用剛買好的豐盛晚餐與飲料。</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -520,33 +538,35 @@
                 <div class="card game-card">
                     <div class="game-header">Pool C • Game 2</div>
                     <div class="card-title" style="color:var(--text-main);">🇨🇿 CZE vs 🇹🇼 TPE</div>
-                    <div class="match-note">
-                        <span class="match-note-title">⚾ 觀戰重點</span>
-                        捷克球風穩健，中華隊需穩紮穩打，這是搶下晉級門票的必勝之戰。
+                    <div class="analysis-box">
+                        <span class="analysis-title">⚾ 戰情短評</span>
+                        <span class="analysis-text">斜槓鬥士 vs 職業菁英。捷克隊以「平日上班、假日打球」的熱血故事聞名，球風穩健且鬥志高昂。中華隊需穩紮穩打，避免被爆冷，這是搶下晉級門票的必勝之戰。</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row"><span class="badge wear">衣</span>巨蛋內有空調，建議洋蔥式穿搭。</div>
                     </div>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:30</div></div>
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
                 <div class="card">
-                    <div class="card-title">SHIBUYA SKY</div>
+                    <div class="card-title">東京鐵塔</div>
                     <div class="info-grid">
-                        <div class="info-row"><span class="badge play">樂</span>預約日落時段，俯瞰東京夕陽。</div>
-                        <div class="info-row"><span class="badge eat">食</span>晚餐：澀谷橫丁居酒屋。</div>
+                        <div class="info-row"><span class="badge play">樂</span>賽後前往芝公園或赤羽橋，拍攝經典紅白鐵塔與黃昏美景。晚餐可於附近的麻布台之丘或新橋享用。</div>
                     </div>
-                    <a href="https://www.google.com/maps/search/?api=1&query=SHIBUYA+SKY" target="_blank" class="nav-btn">📍 導航</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
                 </div>
             </div>
         </div>
 
         <div id="d4" class="day-content">
             <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">08:30</div></div>
                 <div class="card">
-                    <div class="card-title">早晨移動</div>
+                    <div class="card-title">淺草寺參拜</div>
                     <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>週日電車較空，但仍建議提早。</div>
-                        <div class="info-row"><span class="badge eat">食</span>補充水分與喉糖。</div>
+                        <div class="info-row"><span class="badge play">樂</span>早起前往淺草雷門，避開人潮，參拜觀音祈求中華隊必勝。</div>
+                        <div class="info-row"><span class="badge move">行</span>參拜後搭乘銀座線/丸之內線前往東京巨蛋。</div>
                     </div>
                 </div>
             </div>
@@ -562,15 +582,14 @@
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
+                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:00</div></div>
                 <div class="card">
-                    <div class="card-title">銀座 & 東京鐵塔</div>
+                    <div class="card-title">ALEGRIA 慶功宴</div>
                     <div class="info-grid">
-                        <div class="info-row"><span class="badge shop">買</span>銀座 Uniqlo 旗艦店、伊東屋。</div>
-                        <div class="info-row"><span class="badge play">樂</span>增上寺或芝公園看鐵塔夜景。</div>
-                        <div class="info-row"><span class="badge eat">食</span>晚餐：銀座/新橋燒肉。</div>
+                        <div class="info-row"><span class="badge eat">食</span>賽後移動回橫濱，於 <strong>ALEGRIA Minatomirai</strong> 享用 20 種巴西烤肉吃到飽與啤酒，大口吃肉慶祝勝利！</div>
+                        <div class="info-row"><span class="badge play">樂</span>餐後漫步港未來，欣賞摩天輪夜景。</div>
                     </div>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
+                    <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="nav-btn">📍 導航 ALEGRIA</a>
                 </div>
             </div>
         </div>
