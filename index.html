@@ -121,7 +121,7 @@
                 radial-gradient(circle at 50% 90%, rgba(158, 175, 162, 0.1), transparent 50%);
             background-attachment: fixed;
             background-size: cover;
-            overscroll-behavior-x: none;
+            overscroll-behavior-x: none; /* Prevent browser swipe navigation */
         }
 
         /* --- Header (Magazine Style) --- */
@@ -166,49 +166,19 @@
 
         /* --- Bottom Navigation (Slim) --- */
         .bottom-nav {
-            position: fixed; 
-            bottom: 20px; 
-            left: 50%; 
-            transform: translateX(-50%);
-            width: 280px;
-            
-            background: var(--nav-bg);
-            backdrop-filter: var(--nav-blur); 
-            -webkit-backdrop-filter: var(--nav-blur);
-            border: 1px solid var(--nav-border);
-            height: 50px; 
-            border-radius: 30px;
-            
-            display: flex; 
-            justify-content: space-evenly;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 280px;
+            background: var(--nav-bg); backdrop-filter: var(--nav-blur); -webkit-backdrop-filter: var(--nav-blur);
+            border: 1px solid var(--nav-border); height: 50px; border-radius: 30px;
+            display: flex; justify-content: space-evenly; align-items: center;
+            z-index: 1000; box-shadow: 0 5px 25px rgba(0,0,0,0.15);
         }
         .nav-item {
-            flex: 0 0 auto; 
-            width: 60px;
-            text-align: center; 
-            cursor: pointer; 
-            color: var(--nav-inactive);
-            font-size: 9px; 
-            font-weight: 700; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 2px;
+            flex: 0 0 auto; width: 60px; text-align: center; cursor: pointer; color: var(--nav-inactive);
+            font-size: 9px; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
         }
-        .nav-item.active { 
-            color: var(--nav-active); 
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
-        }
-        .nav-icon { 
-            font-size: 18px; 
-            display: block; 
-            margin-bottom: 0;
-        }
+        .nav-item.active { color: var(--nav-active); transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .nav-icon { font-size: 18px; display: block; margin-bottom: 0; }
 
         /* --- Top Sub-Navigation --- */
         .sub-nav-wrapper {
@@ -230,26 +200,34 @@
             font-family: var(--font-stack); font-size: 13px; color: var(--text-muted); cursor: pointer;
             transition: all 0.2s ease; text-align: center; font-weight: 600; min-width: 50px;
         }
-        .sub-tab-btn.active {
-            background: var(--text-main); color: var(--bg-base); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .sub-tab-btn.active { background: var(--text-main); color: var(--bg-base); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
         /* --- Content Layout & Animations --- */
         .view-section { display: none; }
         .view-section.active { display: block; }
         
-        .day-content { display: none; padding: 10px 20px 20px; }
-        .day-content.active { display: block; }
-        
-        /* Animations */
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .anim-up { animation: slideUp 0.4s ease-out; }
-        .anim-right { animation: slideInRight 0.3s ease-out; }
-        .anim-left { animation: slideInLeft 0.3s ease-out; }
+        /* --- SMOOTH SLIDER STYLES (NEW) --- */
+        .slider-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .slider-track {
+            display: flex;
+            width: 100%;
+            /* Smooth transition for sliding and height change */
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            align-items: flex-start; /* Ensures height aligns to top */
+        }
+        .day-content {
+            display: block; /* Always block, controlled by slider */
+            min-width: 100%; /* Each day takes full width */
+            padding: 10px 20px 20px;
+            box-sizing: border-box;
+            opacity: 1; /* Always visible */
+        }
 
         /* --- Flight Widget --- */
         .flight-widget {
@@ -294,6 +272,7 @@
         }
         .info-grid { display: grid; gap: 10px; }
         .info-row { font-size: 14px; line-height: 1.6; color: var(--text-sub); display: flex; align-items: baseline; font-weight: 500; }
+        .info-text { flex: 1; word-wrap: break-word; overflow-wrap: break-word; }
         .badge {
             flex-shrink: 0; font-size: 11px; font-weight: 700; color: #FFF; padding: 3px 8px; border-radius: 6px; margin-right: 10px;
             min-width: 28px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -427,205 +406,220 @@
             </div>
         </div>
 
-        <div id="d1" class="day-content active anim-up">
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">20:20</div></div>
-                <div class="card">
-                    <div class="card-title">羽田機場 (HND)</div>
-                    <div class="analysis-box">
-                        <span class="analysis-title">🇯🇵 入境通關指南</span>
-                        <ol>
-                            <li><strong>檢疫</strong>：依指示前進。</li>
-                            <li><strong>入國審查</strong>：出示護照與 VJW QR Code。</li>
-                            <li><strong>提取行李</strong>：確認航班行李轉盤。</li>
-                            <li><strong>稅關申報</strong>：掃描 VJW 申報 QR Code。</li>
-                        </ol>
+        <div class="slider-viewport" id="itinerary-slider-view">
+            <div class="slider-track" id="itinerary-track">
+                
+                <div id="d1" class="day-content">
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">20:20</div></div>
+                        <div class="card">
+                            <div class="card-title">羽田機場 (HND)</div>
+                            <div class="analysis-box">
+                                <span class="analysis-title">🇯🇵 入境通關指南</span>
+                                <ol>
+                                    <li><strong>檢疫</strong>：依指示前進。</li>
+                                    <li><strong>入國審查</strong>：出示護照與 VJW QR Code。</li>
+                                    <li><strong>提取行李</strong>：確認航班行李轉盤。</li>
+                                    <li><strong>稅關申報</strong>：掃描 VJW 申報 QR Code。</li>
+                                </ol>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge move">行</span>出關後依指標搭乘「京急線」往橫濱。</div>
+                            </div>
+                            <div class="action-row">
+                                <a href="https://vjw-lp.digital.go.jp/en/" target="_blank" class="nav-btn">🔗 Visit Japan Web</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 開始導航</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>出關後依指標搭乘「京急線」往橫濱。</div>
-                    </div>
-                    <div class="action-row">
-                        <a href="https://vjw-lp.digital.go.jp/en/" target="_blank" class="nav-btn">🔗 Visit Japan Web</a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 開始導航</a>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">22:00</div></div>
+                        <div class="card">
+                            <div class="card-title">橫濱關內 (Base)</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge stay">住</span>抵達朋友家安置行李。</div>
+                                <div class="info-row"><span class="badge eat">食</span>宵夜：伊勢佐木町「一蘭」或「三田製麵所」。</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">22:00</div></div>
-                <div class="card">
-                    <div class="card-title">橫濱關內 (Base)</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge stay">住</span>抵達朋友家安置行李。</div>
-                        <div class="info-row"><span class="badge eat">食</span>宵夜：伊勢佐木町「一蘭」或「三田製麵所」。</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div id="d2" class="day-content">
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
-                <div class="card">
-                    <div class="card-title">橫須賀軍港之旅</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>搭乘京急線至「橫須賀中央站」或 JR 至「橫須賀站」。</div>
-                        <div class="info-row"><span class="badge play">樂</span>三笠公園參觀世界三大紀念艦「三笠號」。</div>
+                <div id="d2" class="day-content">
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                        <div class="card">
+                            <div class="card-title">橫須賀軍港之旅</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge move">行</span>搭乘京急線至「橫須賀中央站」或 JR 至「橫須賀站」。</div>
+                                <div class="info-row"><span class="badge play">樂</span>三笠公園參觀世界三大紀念艦「三笠號」。</div>
+                            </div>
+                            <a href="https://www.google.com/maps?q=Mikasa+Park" target="_blank" class="nav-btn">📍 導航三笠公園</a>
+                        </div>
                     </div>
-                    <a href="https://www.google.com/maps?q=Mikasa+Park" target="_blank" class="nav-btn">📍 導航三笠公園</a>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">13:00</div></div>
+                        <div class="card">
+                            <div class="card-title">海軍咖哩 & 溝板通</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge eat">食</span>品嚐道地「橫須賀海軍咖哩」或「海軍漢堡」。</div>
+                                <div class="info-row"><span class="badge play">樂</span>漫步 Dobuita Street，感受濃厚美式風情，選購 Sukajan 刺繡外套。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:00</div></div>
+                        <div class="card">
+                            <div class="card-title">橫濱站前大採購</div>
+                            <div class="info-grid">
+                                <div class="info-row">
+                                    <span class="badge shop">買</span>
+                                    <span class="info-text"><strong>Bic Camera</strong>：橫濱站西口店，採購電器 3C。</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="badge shop">買</span>
+                                    <span class="info-text"><strong>無印良品</strong>：相鐵 JOINUS 或 NEWoMan 橫濱店。</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="badge shop">買</span>
+                                    <span class="info-text"><strong>藥妝店</strong>：松本清、SunDrug 補貨。</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:30</div></div>
+                        <div class="card">
+                            <div class="card-title">返回住所 (備戰)</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge move">行</span>帶著戰利品返回橫濱關內住所。</div>
+                                <div class="info-row"><span class="badge eat">食</span>沿途採買晚餐與應援酒水。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
+                        <div class="card game-card">
+                            <div class="game-header">Pool C • Game 1 (Online Streaming)</div>
+                            <div class="card-title" style="color:var(--text-main);">🇹🇼 TPE vs 🇯🇵 JPN</div>
+                            <div class="analysis-box">
+                                <span class="analysis-title">📺 住所線上應援</span>
+                                <span class="analysis-text">雖然未進場，但在住所舒適地觀看直播，不用人擠人，更能專注於每一個精彩好球！</span>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge wear">衣</span>換上舒適居家服，披上中華隊毛巾！</div>
+                                <div class="info-row"><span class="badge eat">食</span>享用剛買好的豐盛晚餐與飲料。</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">13:00</div></div>
-                <div class="card">
-                    <div class="card-title">海軍咖哩 & 溝板通</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge eat">食</span>品嚐道地「橫須賀海軍咖哩」或「海軍漢堡」。</div>
-                        <div class="info-row"><span class="badge play">樂</span>漫步 Dobuita Street，感受濃厚美式風情，選購 Sukajan 刺繡外套。</div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:00</div></div>
-                <div class="card">
-                    <div class="card-title">橫濱站前大採購</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge shop">買</span><strong>Bic Camera</strong>：橫濱站西口店，採購電器 3C。</div>
-                        <div class="info-row"><span class="badge shop">買</span><strong>無印良品</strong>：相鐵 JOINUS 或 NEWoMan 橫濱店。</div>
-                        <div class="info-row"><span class="badge shop">買</span><strong>藥妝店</strong>：松本清、SunDrug 補貨。</div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:30</div></div>
-                <div class="card">
-                    <div class="card-title">返回住所 (備戰)</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>帶著戰利品返回橫濱關內住所。</div>
-                        <div class="info-row"><span class="badge eat">食</span>沿途採買晚餐與應援酒水。</div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">19:00</div></div>
-                <div class="card game-card">
-                    <div class="game-header">Pool C • Game 1 (Online Streaming)</div>
-                    <div class="card-title" style="color:var(--text-main);">🇹🇼 TPE vs 🇯🇵 JPN</div>
-                    <div class="analysis-box">
-                        <span class="analysis-title">📺 住所線上應援</span>
-                        <span class="analysis-text">雖然未進場，但在住所舒適地觀看直播，不用人擠人，更能專注於每一個精彩好球！</span>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge wear">衣</span>換上舒適居家服，披上中華隊毛巾！</div>
-                        <div class="info-row"><span class="badge eat">食</span>享用剛買好的豐盛晚餐與飲料。</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div id="d3" class="day-content">
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
-                <div class="card">
-                    <div class="card-title">早晨移動</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋。</div>
-                        <div class="info-row"><span class="badge eat">食</span>早餐：便利商店飯糰。</div>
+                <div id="d3" class="day-content">
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:00</div></div>
+                        <div class="card">
+                            <div class="card-title">早晨移動</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋。</div>
+                                <div class="info-row"><span class="badge eat">食</span>早餐：便利商店飯糰。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
+                        <div class="card game-card">
+                            <div class="game-header">Pool C • Game 2</div>
+                            <div class="card-title" style="color:var(--text-main);">🇨🇿 CZE vs 🇹🇼 TPE</div>
+                            <div class="analysis-box">
+                                <span class="analysis-title">⚾ 戰情短評</span>
+                                <span class="analysis-text">斜槓鬥士 vs 職業菁英。捷克隊以「平日上班、假日打球」的熱血故事聞名，球風穩健且鬥志高昂。中華隊需穩紮穩打，避免被爆冷，這是搶下晉級門票的必勝之戰。</span>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge wear">衣</span>巨蛋內有空調，建議洋蔥式穿搭。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
+                        <div class="card">
+                            <div class="card-title">東京鐵塔</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge play">樂</span>賽後前往芝公園或赤羽橋，拍攝經典紅白鐵塔與黃昏美景。晚餐可於附近的麻布台之丘或新橋享用。</div>
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
-                <div class="card game-card">
-                    <div class="game-header">Pool C • Game 2</div>
-                    <div class="card-title" style="color:var(--text-main);">🇨🇿 CZE vs 🇹🇼 TPE</div>
-                    <div class="analysis-box">
-                        <span class="analysis-title">⚾ 戰情短評</span>
-                        <span class="analysis-text">斜槓鬥士 vs 職業菁英。捷克隊以「平日上班、假日打球」的熱血故事聞名，球風穩健且鬥志高昂。中華隊需穩紮穩打，避免被爆冷，這是搶下晉級門票的必勝之戰。</span>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge wear">衣</span>巨蛋內有空調，建議洋蔥式穿搭。</div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
-                <div class="card">
-                    <div class="card-title">東京鐵塔</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge play">樂</span>賽後前往芝公園或赤羽橋，拍攝經典紅白鐵塔與黃昏美景。晚餐可於附近的麻布台之丘或新橋享用。</div>
-                    </div>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
-                </div>
-            </div>
-        </div>
 
-        <div id="d4" class="day-content">
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">08:30</div></div>
-                <div class="card">
-                    <div class="card-title">淺草寺參拜</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge play">樂</span>早起前往淺草雷門，避開人潮，參拜觀音祈求中華隊必勝。</div>
-                        <div class="info-row"><span class="badge move">行</span>參拜後搭乘銀座線/丸之內線前往東京巨蛋。</div>
+                <div id="d4" class="day-content">
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">08:30</div></div>
+                        <div class="card">
+                            <div class="card-title">淺草寺參拜</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge play">樂</span>早起前往淺草雷門，避開人潮，參拜觀音祈求中華隊必勝。</div>
+                                <div class="info-row"><span class="badge move">行</span>參拜後搭乘銀座線/丸之內線前往東京巨蛋。</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
+                        <div class="card game-card">
+                            <div class="game-header">Pool C • Game 3</div>
+                            <div class="card-title" style="color:var(--text-main);">🇰🇷 KOR vs 🇹🇼 TPE</div>
+                            <div class="analysis-box">
+                                <span class="analysis-title">⚾ 戰情短評</span>
+                                <span class="analysis-text">宿命對決！攸關分組晉級的最關鍵戰役。氣氛將比日韓戰更為緊繃，請準備好最強火力！</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:00</div></div>
+                        <div class="card">
+                            <div class="card-title">ALEGRIA 慶功宴</div>
+                            <div class="info-grid">
+                                <div class="info-row">
+                                    <span class="badge eat">食</span>
+                                    <span class="info-text">賽後移動回橫濱，於 <strong>ALEGRIA Minatomirai</strong> 享用 20 種巴西烤肉吃到飽與啤酒，大口吃肉慶祝勝利！</span>
+                                </div>
+                                <div class="info-row"><span class="badge play">樂</span>餐後漫步港未來，欣賞摩天輪夜景。</div>
+                            </div>
+                            <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="nav-btn">📍 導航 ALEGRIA</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot" style="background:var(--m-red); border-color:var(--m-red);"></div><div class="time-text" style="color:var(--m-red);">12:00</div></div>
-                <div class="card game-card">
-                    <div class="game-header">Pool C • Game 3</div>
-                    <div class="card-title" style="color:var(--text-main);">🇰🇷 KOR vs 🇹🇼 TPE</div>
-                    <div class="analysis-box">
-                        <span class="analysis-title">⚾ 戰情短評</span>
-                        <span class="analysis-text">宿命對決！攸關分組晉級的最關鍵戰役。氣氛將比日韓戰更為緊繃，請準備好最強火力！</span>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">18:00</div></div>
-                <div class="card">
-                    <div class="card-title">ALEGRIA 慶功宴</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge eat">食</span>賽後移動回橫濱，於 <strong>ALEGRIA Minatomirai</strong> 享用 20 種巴西烤肉吃到飽與啤酒，大口吃肉慶祝勝利！</div>
-                        <div class="info-row"><span class="badge play">樂</span>餐後漫步港未來，欣賞摩天輪夜景。</div>
-                    </div>
-                    <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="nav-btn">📍 導航 ALEGRIA</a>
-                </div>
-            </div>
-        </div>
 
-        <div id="d5" class="day-content">
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">07:00</div></div>
-                <div class="card">
-                    <div class="card-title">前往羽田機場</div>
-                    <div class="analysis-box">
-                        <span class="analysis-title">✈️ 出境離日流程</span>
-                        <ol>
-                            <li><strong>報到</strong>: 3F 出發大廳。</li>
-                            <li><strong>安檢</strong>: 取出筆電液體。</li>
-                            <li><strong>出境</strong>: 使用 Face Express 或人工。</li>
-                        </ol>
+                <div id="d5" class="day-content">
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">07:00</div></div>
+                        <div class="card">
+                            <div class="card-title">前往羽田機場</div>
+                            <div class="analysis-box">
+                                <span class="analysis-title">✈️ 出境離日流程</span>
+                                <ol>
+                                    <li><strong>報到</strong>: 3F 出發大廳。</li>
+                                    <li><strong>安檢</strong>: 取出筆電液體。</li>
+                                    <li><strong>出境</strong>: 使用 Face Express 或人工。</li>
+                                </ol>
+                            </div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge move">行</span>上班日電車擁擠，務必 07:00 出發。</div>
+                                <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
+                            </div>
+                            <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
+                        </div>
                     </div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge move">行</span>上班日電車擁擠，務必 07:00 出發。</div>
-                        <div class="info-row"><span class="badge stay">住</span>整理行李，感謝朋友招待。</div>
+                    <div class="timeline-item">
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:25</div></div>
+                        <div class="card">
+                            <div class="card-title">BR189 返台</div>
+                            <div class="info-grid">
+                                <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店。</div>
+                                <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山。</div>
+                            </div>
+                        </div>
                     </div>
-                    <a href="https://www.keikyu.co.jp/" target="_blank" class="nav-btn">📍 時刻表 (日文官網)</a>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time-col"><div class="diamond-dot"></div><div class="time-text">10:25</div></div>
-                <div class="card">
-                    <div class="card-title">BR189 返台</div>
-                    <div class="info-grid">
-                        <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店。</div>
-                        <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山。</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            </div> </div> </div>
 
     <div id="view-tools" class="view-section">
         <div id="shop" class="day-content active">
@@ -682,6 +676,7 @@
                         </div>
                     </div>
                     <div class="rate-display">目前匯率: 1 JPY ≈ <span id="rate-val">0.215</span> TWD</div>
+                    <div id="rate-source" class="rate-source">資料來源: 載入中...</div>
                 </div>
             </div>
         </div>
@@ -746,6 +741,12 @@
             document.querySelectorAll('.sub-nav-wrapper').forEach(el => el.classList.remove('active'));
             if (viewName === 'itinerary') {
                 document.getElementById('sub-nav-itinerary').classList.add('active');
+                // Force update height on view switch (fix for height 0 bug)
+                const currentTabBtn = document.querySelector('#sub-nav-itinerary .sub-tab-btn.active');
+                if(currentTabBtn) {
+                    const tabId = currentTabBtn.getAttribute('data-tab');
+                    updateSliderHeight(tabId);
+                }
             } else if (viewName === 'tools') {
                 document.getElementById('sub-nav-tools').classList.add('active');
             }
@@ -753,23 +754,45 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showSubTab(tabId, btn, animationClass = 'anim-up') {
-            const parentView = btn.closest('.sub-nav-wrapper').id === 'sub-nav-itinerary' ? 'view-itinerary' : 'view-tools';
+        function showSubTab(tabId, btn) {
+            const parentViewId = btn.closest('.sub-nav-wrapper').id;
             
-            btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            if (parentViewId === 'sub-nav-itinerary') {
+                // Slider Logic for Itinerary
+                const allBtns = document.querySelectorAll('#sub-nav-itinerary .sub-tab-btn');
+                allBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            const container = document.getElementById(parentView);
-            const contents = container.querySelectorAll('.day-content');
-            
-            contents.forEach(c => {
-                c.classList.remove('active', 'anim-up', 'anim-left', 'anim-right');
-            });
-            
-            const target = document.getElementById(tabId);
-            target.classList.add('active', animationClass);
+                // Calculate index (d1 -> 0, d2 -> 1, ...)
+                const index = parseInt(tabId.replace('d', '')) - 1;
+                const track = document.getElementById('itinerary-track');
+                track.style.transform = `translateX(-${index * 100}%)`;
+                
+                // Update Height
+                updateSliderHeight(tabId);
+
+            } else {
+                // Standard Tab Logic for Tools
+                const parentView = 'view-tools';
+                btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const container = document.getElementById(parentView);
+                container.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateSliderHeight(tabId) {
+            const activeSlide = document.getElementById(tabId);
+            const track = document.getElementById('itinerary-track');
+            if(activeSlide && track) {
+                // Small delay to ensure content is rendered
+                setTimeout(() => {
+                    track.style.height = activeSlide.offsetHeight + 'px';
+                }, 10);
+            }
         }
 
         // --- Swipe Logic for Itinerary ---
@@ -802,14 +825,14 @@
                     if (currentIndex < days.length - 1) {
                         const nextId = days[currentIndex + 1];
                         const nextBtn = document.querySelector(`[data-tab="${nextId}"]`);
-                        showSubTab(nextId, nextBtn, 'anim-right'); // Content comes from right
+                        showSubTab(nextId, nextBtn); 
                     }
                 } else {
                     // Swipe Right -> Prev Day
                     if (currentIndex > 0) {
                         const prevId = days[currentIndex - 1];
                         const prevBtn = document.querySelector(`[data-tab="${prevId}"]`);
-                        showSubTab(prevId, prevBtn, 'anim-left'); // Content comes from left
+                        showSubTab(prevId, prevBtn);
                     }
                 }
             }
@@ -843,9 +866,13 @@
                 if (data && data.rates && data.rates.TWD) {
                     currentRate = data.rates.TWD;
                     document.getElementById('rate-val').innerText = currentRate.toFixed(3);
+                    
+                    const dateStr = data.date || new Date().toISOString().split('T')[0];
+                    const timeStr = new Date().toLocaleTimeString('zh-TW', {hour: '2-digit', minute:'2-digit'});
+                    document.getElementById('rate-source').innerText = `資料來源: ExchangeRate-API | 更新: ${dateStr} ${timeStr}`;
                 }
             } catch (e) {
-                console.log('Using default rate');
+                document.getElementById('rate-source').innerText = `資料來源: 預設值 (離線模式)`;
             }
         }
 
@@ -879,6 +906,9 @@
             fetchRate();
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
+            
+            // Init Slider Height
+            setTimeout(() => updateSliderHeight('d1'), 100);
         });
     </script>
 </body>
