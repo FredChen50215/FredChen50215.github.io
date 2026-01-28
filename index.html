@@ -7,14 +7,14 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
 
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
         :root {
             --radius-l: 32px; --radius-m: 20px; --radius-s: 12px;
             --font-stack: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-            --font-serif: 'Cormorant Garamond', serif;
+            --font-sport: 'Russo One', sans-serif; /* New Sports Font */
             
             /* Light Mode */
             --bg-base: #F5F5F0; --text-main: #444444; --text-sub: #666666; --text-muted: #999999;
@@ -23,8 +23,9 @@
             --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(255, 255, 255, 0.9); --glass-blur: blur(35px);
             --shadow-soft: 0 10px 30px -5px rgba(125, 138, 147, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.9);
             
-            --header-bg: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0) 100%);
-            --header-text: #2c3e50; --watermark-color: rgba(125, 138, 147, 0.05);
+            /* Header Specific (New) */
+            --header-bg: #FDFDFD;
+            --header-stitch: #D64F4F; /* Baseball Stitch Red */
             
             --table-bg: rgba(255,255,255,0.7); --table-row-hover: rgba(125, 138, 147, 0.05); --highlight-bg: rgba(184, 120, 120, 0.08);
             
@@ -45,9 +46,10 @@
                 --glass-bg: rgba(30, 30, 35, 0.75); --glass-border: rgba(255, 255, 255, 0.15);
                 --shadow-soft: 0 10px 40px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
                 
-                --header-bg: linear-gradient(180deg, rgba(30,30,35,0.8) 0%, rgba(18,18,18,0) 100%);
-                --header-text: #FFFFFF; --watermark-color: rgba(255, 255, 255, 0.03);
-                
+                /* Header Specific (Dark) */
+                --header-bg: #1E1E24;
+                --header-stitch: #E57373;
+
                 --table-bg: rgba(44, 44, 46, 0.6); --table-row-hover: rgba(255, 255, 255, 0.05); --highlight-bg: rgba(209, 140, 140, 0.15);
                 
                 --editor-bg: rgba(44, 44, 46, 0.8); --editor-toolbar-bg: rgba(60, 60, 65, 0.95);
@@ -67,17 +69,84 @@
             background-attachment: fixed; background-size: cover; overscroll-behavior-x: none;
         }
 
-        /* --- Header --- */
-        .modern-header { padding: 60px 24px 20px; position: relative; background: var(--header-bg); overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 20px; box-shadow: var(--shadow-soft); text-align: center; border-bottom: 1px solid var(--glass-border); }
-        .modern-header::before { content: '2026'; position: absolute; top: -30px; right: -20px; font-size: 160px; font-weight: 900; color: var(--watermark-color); z-index: 0; line-height: 1; font-family: var(--font-serif); transform: rotate(-10deg); pointer-events: none; }
-        .header-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-        .top-pill { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--m-blue); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px); }
-        .top-pill::before { content: ''; display: block; width: 6px; height: 6px; background: var(--m-red); border-radius: 50%; }
-        .title-city { font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 0.9; color: var(--header-text); letter-spacing: -1px; display: block; }
-        .title-event { font-family: var(--font-stack); font-size: 14px; font-weight: 900; color: var(--m-red); letter-spacing: 4px; display: block; margin-top: 6px; margin-left: 4px; }
-        .stitch-curve { margin-top: 10px; width: 40px; height: 4px; background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px); border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7; }
+        /* --- NEW BASEBALL HEADER --- */
+        .baseball-header {
+            position: relative;
+            background-color: var(--header-bg);
+            /* Baseball Leather Texture */
+            background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 20px;
+            padding-top: 50px; /* Safe area */
+            border-bottom-left-radius: 45px;
+            border-bottom-right-radius: 45px;
+            box-shadow: 0 15px 40px -10px rgba(0,0,0,0.15);
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--m-blue);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .baseball-header { background-image: radial-gradient(#333 1px, transparent 1px); border-bottom-color: var(--glass-border); }
+        }
 
-        /* --- Sync Status Indicator (New Design) --- */
+        /* Baseball Stitches */
+        .stitch-line {
+            position: absolute; top: 0; bottom: 0; width: 80px;
+            background: transparent;
+            border-left: 3px dashed var(--header-stitch);
+            border-right: 3px dashed var(--header-stitch);
+            opacity: 0.6;
+        }
+        .stitch-left { left: -25px; transform: rotate(-15deg); }
+        .stitch-right { right: -25px; transform: rotate(15deg); }
+        
+        .header-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+
+        /* Team Taiwan Badge */
+        .team-badge {
+            background: linear-gradient(90deg, #1d365d 0%, #b22222 100%); /* CT Colors */
+            color: white; font-size: 10px; font-weight: 900; letter-spacing: 2px;
+            padding: 4px 16px; border-radius: 20px; margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(178, 34, 34, 0.3);
+            text-transform: uppercase;
+        }
+
+        /* Main Title */
+        .main-title {
+            margin: 0; padding: 0;
+            font-family: var(--font-sport); /* New Font */
+            font-size: 60px; line-height: 0.9;
+            background: linear-gradient(180deg, var(--text-main) 0%, var(--m-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 0px rgba(0,0,0,0.1));
+            letter-spacing: -2px;
+        }
+        
+        .sub-title-row {
+            display: flex; align-items: center; gap: 10px; margin-top: 5px;
+            font-family: var(--font-sport);
+            color: var(--m-red); font-size: 20px; font-weight: 400;
+        }
+        .wbc-logo-circle {
+            width: 12px; height: 12px; border-radius: 50%;
+            border: 3px solid var(--m-gold);
+            position: relative;
+        }
+        
+        /* Tokyo Skyline Silhouette (CSS only) */
+        .city-skyline {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath fill='%237D8A93' fill-opacity='0.1' d='M0,100 L0,80 L50,80 L50,60 L70,60 L80,20 L90,60 L120,60 L120,90 L180,90 L180,50 L220,50 L220,90 L300,90 L300,40 L340,10 L380,40 L380,90 L450,90 L450,70 L500,70 L500,90 L1000,90 L1000,100 Z'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Sync Status Indicator --- */
         .sync-container {
             position: absolute; top: 15px; left: 15px; z-index: 1000;
             display: flex; align-items: center; gap: 6px;
@@ -91,8 +160,7 @@
             .sync-container { background: rgba(30, 30, 35, 0.6); border: 1px solid rgba(255,255,255,0.1); }
         }
         .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); transition: background 0.3s; }
-        .sync-text { font-size: 10px; font-weight: 700; color: var(--text-sub); }
-        
+        .sync-text { font-size: 10px; font-weight: 700; color: var(--text-sub); width: 85px; text-align: left; }
         .sync-dot.active { background: var(--status-ok); box-shadow: 0 0 5px var(--status-ok); }
         .sync-dot.working { background: var(--status-warn); animation: pulse-warn 1s infinite; }
         .sync-dot.error { background: var(--status-err); }
@@ -174,7 +242,7 @@
         
         .add-btn, .reset-btn { position: relative; top: -2px; font-size: 12px; color: #FFF; background: var(--m-red); border: none; cursor: pointer; padding: 4px 14px; font-weight: 700; border-radius: 15px; box-shadow: 0 2px 5px rgba(184,120,120,0.4); transition: transform 0.1s; }
         .add-btn:active, .reset-btn:active { transform: scale(0.95); }
-        .reset-btn { position: absolute; right: 0; }
+        .reset-btn { position: absolute; right: 0; top: -2px; padding: 6px 16px; border-radius: 20px; box-shadow: 0 3px 8px rgba(184,120,120,0.5); letter-spacing: 1px; }
 
         .packing-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .packing-table td { padding: 8px 5px; border-bottom: 1px solid rgba(125,138,147,0.1); vertical-align: middle; }
@@ -218,16 +286,14 @@
         <span class="sync-text" id="sync-text">連線中...</span>
     </div>
 
-    <header class="modern-header">
-        <div class="header-inner">
-            <div class="top-pill">Fred's Journey</div>
-            <div class="main-title-group">
-                <span class="title-city">TOKYO</span>
-                <span class="title-event">WBC 2026</span>
-            </div>
-            <div class="stitch-curve"></div>
-            <div class="sub-caption">Cheering for <span style="color:var(--m-red); font-weight:800;">TPE 🇹🇼</span></div>
+    <header class="baseball-header">
+        <div class="stitch-line stitch-left"></div>
+        <div class="stitch-line stitch-right"></div>
+        <div class="header-content">
+            <div class="team-badge">FIGHT FOR TAIWAN</div>
+            <h1 class="main-title">TOKYO<br><div class="sub-title-row"><div class="wbc-logo-circle"></div>2026</div></h1>
         </div>
+        <div class="city-skyline"></div>
     </header>
 
     <div id="sub-nav-itinerary" class="sub-nav-wrapper active">
@@ -243,8 +309,8 @@
     <div id="sub-nav-tools" class="sub-nav-wrapper">
         <div class="sub-tabs-container" style="justify-content: center;">
             <button class="sub-tab-btn active" onclick="showSubTab('shop', this)">必買清單</button>
-            <button class="sub-tab-btn" onclick="showSubTab('calc', this)">匯率換算</button>
             <button class="sub-tab-btn" onclick="showSubTab('packing', this)">行李清單</button>
+            <button class="sub-tab-btn" onclick="showSubTab('calc', this)">匯率換算</button>
         </div>
     </div>
 
@@ -508,6 +574,19 @@
             </div>
         </div>
 
+        <div id="packing" class="day-content">
+            <div class="card" style="margin-left:0;">
+                <div class="card-title" style="position:relative;">
+                    行李清單 🧳
+                    <button class="add-btn" onclick="addPackingItem()">+ 新增</button>
+                </div>
+                <div style="margin-top:10px;">
+                    <table class="packing-table" id="packing-table">
+                        </table>
+                </div>
+            </div>
+        </div>
+
         <div id="calc" class="day-content">
             <div class="card" style="margin-left:0;">
                 <div class="card-title" style="position:relative;">
@@ -515,7 +594,7 @@
                     <button class="reset-btn" onclick="resetCalc()">↺ 重設</button>
                 </div>
                 <div class="analysis-box" style="margin-bottom:20px;">
-                    <span class="analysis-text">以即時匯率換算 (若離線則使用 0.215)</span>
+                    <span class="analysis-text">以<strong>台灣市場</strong>匯率換算 (需連網)</span>
                 </div>
                 <div class="calc-container">
                     <div class="calc-row">
@@ -535,19 +614,6 @@
                     </div>
                     <div class="rate-display">目前匯率: 1 JPY ≈ <span id="rate-val">0.215</span> TWD</div>
                     <div id="rate-source" class="rate-source">資料來源: 載入中...</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="packing" class="day-content">
-            <div class="card" style="margin-left:0;">
-                <div class="card-title" style="position:relative;">
-                    行李清單 🧳
-                    <button class="add-btn" onclick="addPackingItem()">+ 新增</button>
-                </div>
-                <div style="margin-top:10px;">
-                    <table class="packing-table" id="packing-table">
-                        </table>
                 </div>
             </div>
         </div>
@@ -603,6 +669,8 @@
         const API_KEY = "$2a$10$ZlTu6LnI34CcBg2pLHujRucoqxSgwivLsQcsdpnLOwhz/q8QWBWQO";
         const BIN_ID = "697a0edbd0ea881f408d4ed5";
         let debounceTimer;
+        let countdownInterval;
+        let timeLeft = 10;
 
         function updateSyncStatus(status, text) {
             const dot = document.getElementById('sync-dot');
@@ -638,8 +706,26 @@
         }
 
         function triggerSyncToCloud() {
+            // Reset timers
             clearTimeout(debounceTimer);
-            updateSyncStatus('working', '上傳中...');
+            clearInterval(countdownInterval);
+            
+            // Reset countdown logic
+            timeLeft = 10;
+            updateSyncStatus('working', `等待上傳 (${timeLeft}s)...`);
+            
+            // Start visible countdown
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                if(timeLeft > 0) {
+                    updateSyncStatus('working', `等待上傳 (${timeLeft}s)...`);
+                } else {
+                    clearInterval(countdownInterval);
+                    updateSyncStatus('working', '上傳中...');
+                }
+            }, 1000);
+
+            // Actual upload trigger
             debounceTimer = setTimeout(async () => {
                 const data = {
                     shopping: document.getElementById('shoppingNote').innerHTML,
@@ -657,7 +743,7 @@
                     if(res.ok) updateSyncStatus('active', '已同步');
                     else updateSyncStatus('error', '上傳失敗');
                 } catch(e) { updateSyncStatus('error', '上傳錯誤'); }
-            }, 1000);
+            }, 10000); // 10 seconds
         }
 
         // --- Standard Logic ---
@@ -684,6 +770,7 @@
             const parentViewId = btn.closest('.sub-nav-wrapper').id;
             
             if (parentViewId === 'sub-nav-itinerary') {
+                // Slider
                 const allBtns = document.querySelectorAll('#sub-nav-itinerary .sub-tab-btn');
                 allBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -691,15 +778,18 @@
                 document.getElementById('itinerary-track').style.transform = `translateX(-${index * 100}%)`;
                 updateSliderHeight(tabId);
             } else {
+                // Tools (Fixed: Hide/Show)
                 const parentView = document.getElementById('view-tools');
                 btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
+                // Explicitly hide all tool contents
                 parentView.querySelectorAll('.day-content').forEach(c => {
                     c.style.display = 'none';
                     c.classList.remove('active', 'anim-up');
                 });
                 
+                // Show specific
                 const target = document.getElementById(tabId);
                 target.style.display = 'block';
                 setTimeout(() => target.classList.add('active', 'anim-up'), 10);
@@ -758,26 +848,60 @@
                 table.appendChild(tr);
             });
             localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData));
-            // Trigger sync inside render only if driven by user action, but here we just call it on updates
         }
         function addPackingItem() { packingData.push({ id: Date.now(), text: '', checked: false }); renderPackingList(); triggerSyncToCloud(); }
         function deleteItem(index) { packingData.splice(index, 1); renderPackingList(); triggerSyncToCloud(); }
         function toggleCheck(index) { packingData[index].checked = !packingData[index].checked; renderPackingList(); triggerSyncToCloud(); }
         function updateText(index, value) { packingData[index].text = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
 
-        // Calculator
-        async function fetchRate() {
+        // Calculator (Rter.info via AllOrigins Proxy for Taiwan Rates)
+        async function fetchTaiwanRate() {
+            // Check offline first
+            if (!navigator.onLine) {
+                document.getElementById('rate-source').innerText = `⚠️ 資料來源: 預設值 (目前離線)`;
+                return;
+            }
+
+            try {
+                // Use AllOrigins to bypass CORS for Rter.info (which aggregates Taiwan banks)
+                const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://tw.rter.info/capi.php'));
+                const data = await res.json();
+                const rates = JSON.parse(data.contents); // AllOrigins wraps response
+                
+                // Calculate JPY/TWD from USD base
+                const usdtwd = rates.USDTWD.Exrate;
+                const usdjpy = rates.USDJPY.Exrate;
+                const jpyToTwd = usdtwd / usdjpy;
+
+                if (!isNaN(jpyToTwd)) {
+                    currentRate = jpyToTwd;
+                    document.getElementById('rate-val').innerText = currentRate.toFixed(4);
+                    
+                    const now = new Date();
+                    const dateStr = now.toLocaleDateString('zh-TW');
+                    const timeStr = now.toLocaleTimeString('zh-TW', {hour: '2-digit', minute:'2-digit'});
+                    document.getElementById('rate-source').innerText = `資料來源: 台灣市場匯率 (Rter.info) | 更新: ${dateStr} ${timeStr}`;
+                    return;
+                }
+                throw new Error("Calculation Error");
+            } catch (e) {
+                console.log("Taiwan Rate Fetch failed, using fallback.");
+                fetchRateFallback();
+            }
+        }
+
+        async function fetchRateFallback() {
             try {
                 const res = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
                 const data = await res.json();
                 if (data && data.rates && data.rates.TWD) {
                     currentRate = data.rates.TWD;
                     document.getElementById('rate-val').innerText = currentRate.toFixed(3);
-                    const d = new Date();
-                    document.getElementById('rate-source').innerText = `資料來源: API | 更新: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+                    document.getElementById('rate-source').innerText = `資料來源: 國際匯率 API (備援)`;
                 }
             } catch (e) { document.getElementById('rate-source').innerText = `資料來源: 預設值 (離線)`; }
         }
+
         function calc(source) {
             const jpy = parseFloat(document.getElementById('input-jpy').value);
             const twd = parseFloat(document.getElementById('input-twd').value);
@@ -793,7 +917,7 @@
             if (savedContent) editor.innerHTML = savedContent;
             editor.addEventListener('input', saveNote);
 
-            fetchRate();
+            fetchTaiwanRate(); // Try Taiwan Rate first
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
             
