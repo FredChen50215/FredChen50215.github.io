@@ -12,304 +12,141 @@
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
         :root {
-            /* Common Base */
-            --radius-l: 32px;
-            --radius-m: 20px;
-            --radius-s: 12px;
+            --radius-l: 32px; --radius-m: 20px; --radius-s: 12px;
             --font-stack: "Microsoft JhengHei", "微軟正黑體", sans-serif;
             --font-serif: 'Cormorant Garamond', serif;
             
-            /* Light Mode (Default) */
-            --bg-base: #F5F5F0;
-            --text-main: #444444;
-            --text-sub: #666666;
-            --text-muted: #999999;
-            
-            /* Morandi Colors */
-            --m-blue: #7D8A93;
-            --m-red: #B87878;
-            --m-green: #9EAFA2;
-            --m-tan: #D6C6B0;
-            --m-grey: #A0A0A0;
-            --m-gold: #C5A065;
-
-            /* Glass Effect */
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --glass-blur: blur(35px);
+            /* Light Mode */
+            --bg-base: #F5F5F0; --text-main: #444444; --text-sub: #666666; --text-muted: #999999;
+            --m-blue: #7D8A93; --m-red: #B87878; --m-green: #9EAFA2; --m-tan: #D6C6B0;
+            --m-grey: #A0A0A0; --m-gold: #C5A065;
+            --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(255, 255, 255, 0.9); --glass-blur: blur(35px);
             --shadow-soft: 0 10px 30px -5px rgba(125, 138, 147, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.9);
             
-            /* Header Specific */
             --header-bg: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0) 100%);
-            --header-text: #2c3e50;
-            --watermark-color: rgba(125, 138, 147, 0.05);
+            --header-text: #2c3e50; --watermark-color: rgba(125, 138, 147, 0.05);
             
-            /* Table Specific */
-            --table-bg: rgba(255,255,255,0.7);
-            --table-row-hover: rgba(125, 138, 147, 0.05);
-            --highlight-bg: rgba(184, 120, 120, 0.08);
+            --table-bg: rgba(255,255,255,0.7); --table-row-hover: rgba(125, 138, 147, 0.05); --highlight-bg: rgba(184, 120, 120, 0.08);
             
-            /* Editor Specific */
-            --editor-bg: rgba(255, 255, 255, 0.8);
-            --editor-toolbar-bg: rgba(220, 225, 230, 0.95); 
-            --hr-color: rgba(125, 138, 147, 0.3);
-            --editor-border: 2px solid rgba(125, 138, 147, 0.6);
+            --editor-bg: rgba(255, 255, 255, 0.8); --editor-toolbar-bg: rgba(220, 225, 230, 0.95); 
+            --hr-color: rgba(125, 138, 147, 0.3); --editor-border: 2px solid rgba(125, 138, 147, 0.6);
             
-            /* Nav Specific */
-            --nav-bg: rgba(255, 255, 255, 0.25);
-            --nav-blur: blur(50px);
-            --nav-border: rgba(255, 255, 255, 0.3);
-            --nav-active: #444444;
-            --nav-inactive: #888888;
-            --input-bg: rgba(255, 255, 255, 0.6);
+            --nav-bg: rgba(255, 255, 255, 0.25); --nav-blur: blur(50px); --nav-border: rgba(255, 255, 255, 0.3);
+            --nav-active: #444444; --nav-inactive: #888888; --input-bg: rgba(255, 255, 255, 0.6);
+            
+            --status-ok: #4CAF50; --status-warn: #FFC107; --status-err: #F44336;
+            --svg-fill: #FFFFFF; --svg-stroke: var(--m-blue);
         }
 
-        /* --- Dark Mode Overrides --- */
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-base: #121212;
-                --text-main: #E0E0E0;
-                --text-sub: #B0B0B0;
-                --text-muted: #777777;
-
-                --m-blue: #94A8B3; 
-                --m-red: #D18C8C; 
-                --m-green: #B3C7B7;
-                --m-tan: #E0D0BA;
-                
-                --glass-bg: rgba(30, 30, 35, 0.75);
-                --glass-border: rgba(255, 255, 255, 0.15);
+                --bg-base: #121212; --text-main: #E0E0E0; --text-sub: #B0B0B0; --text-muted: #777777;
+                --m-blue: #94A8B3; --m-red: #D18C8C; --m-green: #B3C7B7; --m-tan: #E0D0BA;
+                --glass-bg: rgba(30, 30, 35, 0.75); --glass-border: rgba(255, 255, 255, 0.15);
                 --shadow-soft: 0 10px 40px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-
+                
                 --header-bg: linear-gradient(180deg, rgba(30,30,35,0.8) 0%, rgba(18,18,18,0) 100%);
-                --header-text: #FFFFFF;
-                --watermark-color: rgba(255, 255, 255, 0.03);
-
-                --table-bg: rgba(44, 44, 46, 0.6);
-                --table-row-hover: rgba(255, 255, 255, 0.05);
-                --highlight-bg: rgba(209, 140, 140, 0.15);
+                --header-text: #FFFFFF; --watermark-color: rgba(255, 255, 255, 0.03);
                 
-                --editor-bg: rgba(44, 44, 46, 0.8);
-                --editor-toolbar-bg: rgba(60, 60, 65, 0.95);
-                --hr-color: rgba(255, 255, 255, 0.2);
-                --editor-border: 2px solid rgba(148, 168, 179, 0.5);
+                --table-bg: rgba(44, 44, 46, 0.6); --table-row-hover: rgba(255, 255, 255, 0.05); --highlight-bg: rgba(209, 140, 140, 0.15);
                 
-                --nav-bg: rgba(30, 30, 35, 0.35);
-                --nav-border: rgba(255, 255, 255, 0.1);
-                --nav-active: #FFFFFF;
-                --nav-inactive: #888888;
-                --input-bg: rgba(60, 60, 65, 0.6);
+                --editor-bg: rgba(44, 44, 46, 0.8); --editor-toolbar-bg: rgba(60, 60, 65, 0.95);
+                --hr-color: rgba(255, 255, 255, 0.2); --editor-border: 2px solid rgba(148, 168, 179, 0.5);
+                
+                --nav-bg: rgba(30, 30, 35, 0.35); --nav-border: rgba(255, 255, 255, 0.1);
+                --nav-active: #FFFFFF; --nav-inactive: #888888; --input-bg: rgba(60, 60, 65, 0.6);
+                --svg-fill: #2C2C2E; --svg-stroke: #94A8B3;
             }
         }
 
         body {
-            font-family: var(--font-stack);
-            margin: 0;
-            padding: 0;
-            color: var(--text-main);
-            background-color: var(--bg-base);
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: 120px;
-            min-height: 100vh;
-            overflow-x: hidden;
-            width: 100%;
+            font-family: var(--font-stack); margin: 0; padding: 0; color: var(--text-main); background-color: var(--bg-base);
+            -webkit-font-smoothing: antialiased; padding-bottom: 120px; min-height: 100vh; overflow-x: hidden; width: 100%;
             transition: background-color 0.3s ease, color 0.3s ease;
-            
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(125, 138, 147, 0.15), transparent 60%),
-                radial-gradient(circle at 90% 20%, rgba(184, 120, 120, 0.1), transparent 50%),
-                radial-gradient(circle at 50% 90%, rgba(158, 175, 162, 0.1), transparent 50%);
-            background-attachment: fixed;
-            background-size: cover;
-            overscroll-behavior-x: none;
+            background-image: radial-gradient(circle at 10% 10%, rgba(125, 138, 147, 0.15), transparent 60%), radial-gradient(circle at 90% 20%, rgba(184, 120, 120, 0.1), transparent 50%), radial-gradient(circle at 50% 90%, rgba(158, 175, 162, 0.1), transparent 50%);
+            background-attachment: fixed; background-size: cover; overscroll-behavior-x: none;
         }
 
-        /* --- Header (Magazine Style) --- */
-        .modern-header {
-            padding: 60px 24px 20px;
-            position: relative;
-            background: var(--header-bg);
-            overflow: hidden;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-soft);
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .modern-header::before {
-            content: '2026'; position: absolute; top: -30px; right: -20px; font-size: 160px; font-weight: 900;
-            color: var(--watermark-color); z-index: 0; line-height: 1; font-family: var(--font-serif);
-            transform: rotate(-10deg); pointer-events: none;
-        }
+        /* --- Header --- */
+        .modern-header { padding: 60px 24px 20px; position: relative; background: var(--header-bg); overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 20px; box-shadow: var(--shadow-soft); text-align: center; border-bottom: 1px solid var(--glass-border); }
+        .modern-header::before { content: '2026'; position: absolute; top: -30px; right: -20px; font-size: 160px; font-weight: 900; color: var(--watermark-color); z-index: 0; line-height: 1; font-family: var(--font-serif); transform: rotate(-10deg); pointer-events: none; }
         .header-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-        .top-pill {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--m-blue);
-            font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px);
-        }
+        .top-pill { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--m-blue); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px); }
         .top-pill::before { content: ''; display: block; width: 6px; height: 6px; background: var(--m-red); border-radius: 50%; }
-        .title-city {
-            font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 0.9;
-            color: var(--header-text); letter-spacing: -1px; display: block;
-        }
-        .title-event {
-            font-family: var(--font-stack); font-size: 14px; font-weight: 900; color: var(--m-red);
-            letter-spacing: 4px; display: block; margin-top: 6px; margin-left: 4px;
-        }
-        .stitch-curve {
-            margin-top: 10px; width: 40px; height: 4px;
-            background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px);
-            border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7;
-        }
+        .title-city { font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 0.9; color: var(--header-text); letter-spacing: -1px; display: block; }
+        .title-event { font-family: var(--font-stack); font-size: 14px; font-weight: 900; color: var(--m-red); letter-spacing: 4px; display: block; margin-top: 6px; margin-left: 4px; }
+        .stitch-curve { margin-top: 10px; width: 40px; height: 4px; background: repeating-linear-gradient(90deg, var(--m-red) 0, var(--m-red) 3px, transparent 3px, transparent 7px); border-top: 2px solid var(--m-blue); border-bottom: 2px solid var(--m-blue); border-radius: 4px; opacity: 0.7; }
 
-        /* --- Bottom Navigation (Slim) --- */
-        .bottom-nav {
-            position: fixed; 
-            bottom: 20px; 
-            left: 50%; 
-            transform: translateX(-50%);
-            width: 280px;
-            background: var(--nav-bg);
-            backdrop-filter: var(--nav-blur); 
-            -webkit-backdrop-filter: var(--nav-blur);
-            border: 1px solid var(--nav-border);
-            height: 50px; 
-            border-radius: 30px;
-            display: flex; 
-            justify-content: space-evenly;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        /* --- Sync Status Indicator (New Design) --- */
+        .sync-container {
+            position: absolute; top: 15px; left: 15px; z-index: 1000;
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 4px 10px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .nav-item {
-            flex: 0 0 auto; 
-            width: 60px;
-            text-align: center; 
-            cursor: pointer; 
-            color: var(--nav-inactive);
-            font-size: 9px; 
-            font-weight: 700; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 2px;
+        @media (prefers-color-scheme: dark) {
+            .sync-container { background: rgba(30, 30, 35, 0.6); border: 1px solid rgba(255,255,255,0.1); }
         }
-        .nav-item.active { 
-            color: var(--nav-active); 
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
-        }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); transition: background 0.3s; }
+        .sync-text { font-size: 10px; font-weight: 700; color: var(--text-sub); }
+        
+        .sync-dot.active { background: var(--status-ok); box-shadow: 0 0 5px var(--status-ok); }
+        .sync-dot.working { background: var(--status-warn); animation: pulse-warn 1s infinite; }
+        .sync-dot.error { background: var(--status-err); }
+        @keyframes pulse-warn { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* --- Navigation --- */
+        .bottom-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 280px; background: var(--nav-bg); backdrop-filter: var(--nav-blur); -webkit-backdrop-filter: var(--nav-blur); border: 1px solid var(--nav-border); height: 50px; border-radius: 30px; display: flex; justify-content: space-evenly; align-items: center; z-index: 1000; box-shadow: 0 5px 25px rgba(0,0,0,0.15); }
+        .nav-item { flex: 0 0 auto; width: 60px; text-align: center; cursor: pointer; color: var(--nav-inactive); font-size: 9px; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .nav-item.active { color: var(--nav-active); transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.2); }
         .nav-icon { font-size: 18px; display: block; margin-bottom: 0; }
 
-        /* --- Top Sub-Navigation --- */
-        .sub-nav-wrapper {
-            position: sticky; top: 10px; z-index: 900; margin: 0 20px 15px;
-            display: none;
-        }
+        .sub-nav-wrapper { position: sticky; top: 10px; z-index: 900; margin: 0 20px 15px; display: none; }
         .sub-nav-wrapper.active { display: block; animation: fadeIn 0.3s ease; }
-        
-        .sub-tabs-container {
-            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); border-radius: 50px; padding: 4px;
-            display: flex; justify-content: flex-start; gap: 4px;
-            overflow-x: auto; scrollbar-width: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
+        .sub-tabs-container { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 50px; padding: 4px; display: flex; justify-content: flex-start; gap: 4px; overflow-x: auto; scrollbar-width: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .sub-tabs-container::-webkit-scrollbar { display: none; }
-        
-        .sub-tab-btn {
-            flex: 0 0 auto; border: none; background: transparent; padding: 8px 16px; border-radius: 40px;
-            font-family: var(--font-stack); font-size: 13px; color: var(--text-muted); cursor: pointer;
-            transition: all 0.2s ease; text-align: center; font-weight: 600; min-width: 50px;
-        }
-        .sub-tab-btn.active {
-            background: var(--text-main); color: var(--bg-base); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .sub-tab-btn { flex: 0 0 auto; border: none; background: transparent; padding: 8px 16px; border-radius: 40px; font-family: var(--font-stack); font-size: 13px; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; text-align: center; font-weight: 600; min-width: 50px; }
+        .sub-tab-btn.active { background: var(--text-main); color: var(--bg-base); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
         /* --- Content Layout --- */
         .view-section { display: none; }
         .view-section.active { display: block; }
-        
-        /* Default Day Content (Used in Tools/WBC, hidden by default) */
         .day-content { display: none; padding: 10px 20px 20px; }
         .day-content.active { display: block; }
-
-        /* --- SMOOTH SLIDER STYLES (ITINERARY ONLY) --- */
+        
         .slider-viewport { overflow: hidden; width: 100%; position: relative; }
-        .slider-track {
-            display: flex; 
-            width: 100%; 
-            align-items: flex-start;
-            /* Ultra Smooth Transition - Heavy easing */
-            will-change: transform, height;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        /* Specific rule for content INSIDE the slider */
-        .slider-track > .day-content {
-            display: block !important; /* Force block so flex works */
-            min-width: 100%;
-            opacity: 1;
-            padding: 10px 20px 20px;
-            box-sizing: border-box;
-        }
+        .slider-track { display: flex; width: 100%; align-items: flex-start; will-change: transform, height; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), height 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slider-track > .day-content { display: block !important; min-width: 100%; opacity: 1; padding: 10px 20px 20px; box-sizing: border-box; }
 
-        /* Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .anim-up { animation: slideUp 0.4s ease-out; }
 
-        /* --- Flight Widget --- */
-        .flight-widget {
-            margin: 0 20px 15px; padding: 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px;
-            box-shadow: var(--shadow-soft); display: flex; justify-content: space-between; align-items: center; position: relative;
-        }
-        .flight-widget::before {
-            content: ''; position: absolute; top: 8px; bottom: 8px; left: 8px; right: 8px;
-            border: 1px dashed rgba(125, 138, 147, 0.3); border-radius: 20px; pointer-events: none;
-        }
+        /* --- Components --- */
+        .flight-widget { margin: 0 20px 15px; padding: 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--shadow-soft); display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .flight-widget::before { content: ''; position: absolute; top: 8px; bottom: 8px; left: 8px; right: 8px; border: 1px dashed rgba(125, 138, 147, 0.3); border-radius: 20px; pointer-events: none; }
         .flight-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
         .flight-val { font-family: var(--font-serif); font-size: 20px; font-weight: 800; color: var(--text-main); }
         .flight-icon { font-size: 18px; color: var(--m-blue); transform: rotate(45deg); opacity: 0.8; }
         .term-tag { font-size: 10px; background: var(--m-red); color: #fff; padding: 1px 5px; border-radius: 4px; margin-left: 4px; font-family: var(--font-stack); vertical-align: middle; }
 
-        /* --- Timeline & Cards --- */
         .timeline-item { display: flex; margin-bottom: 30px; position: relative; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: 24px; top: 18px; bottom: -35px; width: 2px;
-            background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(0,0,0,0) 100%); z-index: 0; opacity: 0.3;
-        }
+        .timeline-item::before { content: ''; position: absolute; left: 24px; top: 18px; bottom: -35px; width: 2px; background: linear-gradient(to bottom, var(--m-blue) 0%, rgba(0,0,0,0) 100%); z-index: 0; opacity: 0.3; }
         .timeline-item:last-child::before { display: none; }
         .time-col { min-width: 50px; padding-top: 2px; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-        .diamond-dot {
-            width: 12px; height: 12px; background: var(--bg-base); border: 3px solid var(--m-blue); transform: rotate(45deg); margin-bottom: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .time-text {
-            font-size: 15px; font-weight: 700; color: var(--m-blue);
-            background: var(--glass-bg); padding: 2px 5px; border-radius: 6px;
-        }
+        .diamond-dot { width: 12px; height: 12px; background: var(--bg-base); border: 3px solid var(--m-blue); transform: rotate(45deg); margin-bottom: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .time-text { font-size: 15px; font-weight: 700; color: var(--m-blue); background: var(--glass-bg); padding: 2px 5px; border-radius: 6px; }
 
-        .card {
-            flex: 1; margin-left: 15px; padding: 22px; background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-m);
-            box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform 0.2s;
-        }
-        .card-title {
-            font-family: var(--font-stack); font-size: 18px; font-weight: 800; margin-bottom: 10px;
-            color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;
-        }
+        .card { flex: 1; margin-left: 15px; padding: 22px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-m); box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform 0.2s; }
+        .card-title { font-family: var(--font-stack); font-size: 18px; font-weight: 800; margin-bottom: 10px; color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
         .info-grid { display: grid; gap: 10px; }
         .info-row { font-size: 14px; line-height: 1.6; color: var(--text-sub); display: flex; align-items: baseline; font-weight: 500; }
         .info-text { flex: 1; word-wrap: break-word; overflow-wrap: break-word; }
-        .badge {
-            flex-shrink: 0; font-size: 11px; font-weight: 700; color: #FFF; padding: 3px 8px; border-radius: 6px; margin-right: 10px;
-            min-width: 28px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #444; }
-        .badge.wear { background: var(--m-blue); } .badge.move { background: var(--m-grey); color: #FFF; } .badge.stay { background: #8C8C8C; }
+        .badge { flex-shrink: 0; font-size: 11px; font-weight: 700; color: #FFF; padding: 3px 8px; border-radius: 6px; margin-right: 10px; min-width: 28px; text-align: center; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .badge.eat { background: var(--m-red); } .badge.play { background: var(--m-green); } .badge.shop { background: var(--m-tan); color: #444; } .badge.wear { background: var(--m-blue); } .badge.move { background: var(--m-grey); color: #FFF; } .badge.stay { background: #8C8C8C; }
 
         .card.game-card { background: linear-gradient(135deg, var(--glass-bg), rgba(125, 138, 147, 0.1)); border-left: 4px solid var(--m-blue); }
         .game-header { font-size: 11px; color: var(--m-blue); letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
@@ -320,59 +157,44 @@
         .analysis-box ol { padding-left: 18px; margin: 4px 0; }
         .analysis-box li { margin-bottom: 3px; font-size: 13px; color: var(--text-sub); }
 
-        .nav-btn {
-            display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box;
-            background: rgba(125, 138, 147, 0.15); color: var(--m-blue); font-weight: 700; font-size: 14px; padding: 10px; border-radius: 12px;
-            text-decoration: none; margin-top: 12px; border: 1px solid var(--glass-border); transition: all 0.2s;
-        }
+        .nav-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box; background: rgba(125, 138, 147, 0.15); color: var(--m-blue); font-weight: 700; font-size: 14px; padding: 10px; border-radius: 12px; text-decoration: none; margin-top: 12px; border: 1px solid var(--glass-border); transition: all 0.2s; }
         .nav-btn:active { background: rgba(125, 138, 147, 0.3); }
 
-        /* --- Calculator Styles --- */
+        /* Tools */
         .calc-container { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
         .calc-row { display: flex; flex-direction: column; gap: 5px; }
         .calc-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .calc-input-wrapper { position: relative; }
-        .calc-input {
-            width: 100%; box-sizing: border-box; background: var(--input-bg); border: 2px solid transparent;
-            border-radius: 16px; padding: 15px 15px 15px 50px; font-size: 28px; font-weight: 700;
-            color: var(--text-main); font-family: var(--font-serif); outline: none; transition: all 0.3s;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-        }
+        .calc-input { width: 100%; box-sizing: border-box; background: var(--input-bg); border: 2px solid transparent; border-radius: 16px; padding: 15px 15px 15px 50px; font-size: 28px; font-weight: 700; color: var(--text-main); font-family: var(--font-serif); outline: none; transition: all 0.3s; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); }
         .calc-input:focus { border-color: var(--m-blue); background: var(--glass-bg); }
         .currency-flag { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 24px; }
         .rate-display { text-align: center; font-size: 13px; color: var(--text-sub); margin-top: 5px; font-weight: 500; }
         .rate-display span { color: var(--m-red); font-weight: 700; }
         .rate-source { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-        .reset-btn { position:absolute; right:0; top:0; font-size:12px; color:#FFF; background:var(--m-red); border:none; cursor:pointer; padding:4px 14px; font-weight:700; border-radius:15px; box-shadow: 0 2px 5px rgba(184,120,120,0.4); transition: transform 0.1s;}
-        .reset-btn:active { transform: scale(0.95); }
+        
+        .add-btn, .reset-btn { position: relative; top: -2px; font-size: 12px; color: #FFF; background: var(--m-red); border: none; cursor: pointer; padding: 4px 14px; font-weight: 700; border-radius: 15px; box-shadow: 0 2px 5px rgba(184,120,120,0.4); transition: transform 0.1s; }
+        .add-btn:active, .reset-btn:active { transform: scale(0.95); }
+        .reset-btn { position: absolute; right: 0; }
 
-        /* --- Editor Styles --- */
+        .packing-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .packing-table td { padding: 8px 5px; border-bottom: 1px solid rgba(125,138,147,0.1); vertical-align: middle; }
+        .packing-check { width: 22px; height: 22px; accent-color: var(--m-blue); cursor: pointer; }
+        .packing-input { width: 100%; border: none; background: transparent; font-family: var(--font-stack); font-size: 15px; color: var(--text-main); outline: none; padding: 4px 0; }
+        .packing-input.checked { text-decoration: line-through; opacity: 0.5; }
+        .packing-del { color: var(--text-muted); background: none; border: none; font-size: 20px; padding: 0 5px; cursor: pointer; opacity: 0.5; }
+        .packing-del:hover { color: var(--m-red); opacity: 1; }
+
         .editor-container { display: flex; flex-direction: column; gap: 10px; }
-        .editor-toolbar { 
-            display: flex; gap: 8px; background: var(--editor-toolbar-bg); 
-            padding: 8px; border-radius: 12px; border: 1px solid var(--glass-border); 
-            flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .tool-btn {
-            background: transparent; border: 1px solid var(--glass-border); color: var(--text-main);
-            padding: 6px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px;
-            min-width: 36px; display: flex; justify-content: center; align-items: center;
-        }
+        .editor-toolbar { display: flex; gap: 8px; background: var(--editor-toolbar-bg); padding: 8px; border-radius: 12px; border: 1px solid var(--glass-border); flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tool-btn { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); padding: 6px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; min-width: 36px; display: flex; justify-content: center; align-items: center; }
         .color-wrapper { position: relative; display: flex; align-items: center; }
         .color-input-hidden { position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer; }
-        
-        .shopping-editor {
-            width: 100%; min-height: 350px; background: var(--editor-bg);
-            border: var(--editor-border);
-            border-radius: 16px; padding: 20px; font-family: var(--font-stack); font-size: 16px; color: var(--text-main);
-            outline: none; box-sizing: border-box; line-height: 1.7; overflow-y: auto;
-        }
+        .shopping-editor { width: 100%; min-height: 350px; background: var(--editor-bg); border: var(--editor-border); border-radius: 16px; padding: 20px; font-family: var(--font-stack); font-size: 16px; color: var(--text-main); outline: none; box-sizing: border-box; line-height: 1.7; overflow-y: auto; }
         .shopping-editor:focus { border-color: var(--m-blue); box-shadow: 0 0 0 4px rgba(125, 138, 147, 0.4); }
         .shopping-editor ul, .shopping-editor ol { padding-left: 20px; margin: 5px 0; }
-        .shopping-editor li { margin-bottom: 5px; }
         .shopping-editor hr { border: 0; border-top: 2px dashed var(--hr-color); margin: 15px 0; }
 
-        /* --- WBC Table --- */
+        /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .wbc-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--table-bg); table-layout: fixed; }
         .wbc-table th:first-child, .wbc-table td:first-child { width: 45px; background: var(--m-blue); color: white; font-weight: 700; padding: 12px 5px; text-align: center; white-space: nowrap; }
@@ -387,10 +209,14 @@
         .point-text { display: block; margin-top: 6px; font-size: 13px; color: var(--m-red); font-weight: 500; line-height: 1.5; }
         .team-name { font-weight: 800; font-size: 18px; color: var(--text-main); display: block; line-height: 1.4; margin-bottom: 2px; }
         .pool-teams { display: block; margin-top: 4px; font-size: 13px; font-weight: 500; color: var(--text-sub); line-height: 1.5; }
-        footer { text-align: center; font-size: 13px; color: var(--text-muted); padding: 50px 20px; font-style: italic; }
     </style>
 </head>
 <body>
+
+    <div class="sync-container">
+        <div class="sync-dot" id="sync-dot"></div>
+        <span class="sync-text" id="sync-text">連線中...</span>
+    </div>
 
     <header class="modern-header">
         <div class="header-inner">
@@ -418,6 +244,7 @@
         <div class="sub-tabs-container" style="justify-content: center;">
             <button class="sub-tab-btn active" onclick="showSubTab('shop', this)">必買清單</button>
             <button class="sub-tab-btn" onclick="showSubTab('calc', this)">匯率換算</button>
+            <button class="sub-tab-btn" onclick="showSubTab('packing', this)">行李清單</button>
         </div>
     </div>
 
@@ -652,6 +479,7 @@
             </div> </div> </div>
 
     <div id="view-tools" class="view-section">
+        
         <div id="shop" class="day-content active">
             <div class="card" style="margin-left:0;">
                 <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
@@ -710,6 +538,19 @@
                 </div>
             </div>
         </div>
+
+        <div id="packing" class="day-content">
+            <div class="card" style="margin-left:0;">
+                <div class="card-title" style="position:relative;">
+                    行李清單 🧳
+                    <button class="add-btn" onclick="addPackingItem()">+ 新增</button>
+                </div>
+                <div style="margin-top:10px;">
+                    <table class="packing-table" id="packing-table">
+                        </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="view-wbc" class="view-section">
@@ -758,9 +599,70 @@
     </div>
 
     <script>
-        let currentRate = 0.215; // Default rate
+        // --- Cloud Integration ---
+        const API_KEY = "$2a$10$ZlTu6LnI34CcBg2pLHujRucoqxSgwivLsQcsdpnLOwhz/q8QWBWQO";
+        const BIN_ID = "697a0edbd0ea881f408d4ed5";
+        let debounceTimer;
 
-        // --- Navigation Logic ---
+        function updateSyncStatus(status, text) {
+            const dot = document.getElementById('sync-dot');
+            const txt = document.getElementById('sync-text');
+            dot.className = 'sync-dot ' + status;
+            txt.innerText = text;
+        }
+
+        async function syncFromCloud() {
+            updateSyncStatus('working', '同步中...');
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    headers: { 'X-Master-Key': API_KEY }
+                });
+                if(res.ok) {
+                    const json = await res.json();
+                    const data = json.record;
+                    if(data.shopping) {
+                        document.getElementById('shoppingNote').innerHTML = data.shopping;
+                        localStorage.setItem('wbc_shopping_note_v7', data.shopping);
+                    }
+                    if(data.packing) {
+                        packingData = data.packing;
+                        renderPackingList();
+                    }
+                    updateSyncStatus('active', '已同步');
+                } else {
+                    updateSyncStatus('error', '同步失敗');
+                }
+            } catch(e) {
+                updateSyncStatus('error', '網路錯誤');
+            }
+        }
+
+        function triggerSyncToCloud() {
+            clearTimeout(debounceTimer);
+            updateSyncStatus('working', '上傳中...');
+            debounceTimer = setTimeout(async () => {
+                const data = {
+                    shopping: document.getElementById('shoppingNote').innerHTML,
+                    packing: packingData
+                };
+                try {
+                    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                        method: 'PUT',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': API_KEY 
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    if(res.ok) updateSyncStatus('active', '已同步');
+                    else updateSyncStatus('error', '上傳失敗');
+                } catch(e) { updateSyncStatus('error', '上傳錯誤'); }
+            }, 1000);
+        }
+
+        // --- Standard Logic ---
+        let currentRate = 0.215; 
+
         function switchMainView(viewName, btn) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-' + viewName).classList.add('active');
@@ -771,50 +673,37 @@
             document.querySelectorAll('.sub-nav-wrapper').forEach(el => el.classList.remove('active'));
             if (viewName === 'itinerary') {
                 document.getElementById('sub-nav-itinerary').classList.add('active');
-                // Force update height on view switch (fix for height 0 bug)
-                const currentTabBtn = document.querySelector('#sub-nav-itinerary .sub-tab-btn.active');
-                if(currentTabBtn) {
-                    const tabId = currentTabBtn.getAttribute('data-tab');
-                    updateSliderHeight(tabId);
-                }
+                setTimeout(() => updateSliderHeight(document.querySelector('#sub-nav-itinerary .sub-tab-btn.active').getAttribute('data-tab')), 10);
             } else if (viewName === 'tools') {
                 document.getElementById('sub-nav-tools').classList.add('active');
             }
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showSubTab(tabId, btn, animationClass = 'anim-up') {
+        function showSubTab(tabId, btn) {
             const parentViewId = btn.closest('.sub-nav-wrapper').id;
             
             if (parentViewId === 'sub-nav-itinerary') {
-                // Slider Logic for Itinerary
                 const allBtns = document.querySelectorAll('#sub-nav-itinerary .sub-tab-btn');
                 allBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
-                // Calculate index (d1 -> 0, d2 -> 1, ...)
                 const index = parseInt(tabId.replace('d', '')) - 1;
-                const track = document.getElementById('itinerary-track');
-                track.style.transform = `translateX(-${index * 100}%)`;
-                
-                // Update Height
+                document.getElementById('itinerary-track').style.transform = `translateX(-${index * 100}%)`;
                 updateSliderHeight(tabId);
-
             } else {
-                // Standard Tab Logic for Tools
                 const parentView = document.getElementById('view-tools');
-                
-                // Reset active class for buttons in this specific sub-nav
                 btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Toggle Content
-                parentView.querySelectorAll('.day-content').forEach(c => c.classList.remove('active', 'anim-up'));
+                parentView.querySelectorAll('.day-content').forEach(c => {
+                    c.style.display = 'none';
+                    c.classList.remove('active', 'anim-up');
+                });
+                
                 const target = document.getElementById(tabId);
-                target.classList.add('active', 'anim-up');
+                target.style.display = 'block';
+                setTimeout(() => target.classList.add('active', 'anim-up'), 10);
             }
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -822,76 +711,61 @@
             const activeSlide = document.getElementById(tabId);
             const track = document.getElementById('itinerary-track');
             if(activeSlide && track) {
-                setTimeout(() => {
-                    track.style.height = activeSlide.offsetHeight + 'px';
-                }, 10);
+                setTimeout(() => { track.style.height = activeSlide.offsetHeight + 'px'; }, 10);
             }
         }
 
-        // --- Swipe Logic for Itinerary ---
+        // Swipe
         let touchStartX = 0;
         const itineraryView = document.getElementById('view-itinerary');
         const days = ['d1', 'd2', 'd3', 'd4', 'd5'];
-
-        itineraryView.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        itineraryView.addEventListener('touchend', e => {
-            const touchEndX = e.changedTouches[0].screenX;
-            handleSwipe(touchStartX, touchEndX);
-        }, {passive: true});
+        itineraryView.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        itineraryView.addEventListener('touchend', e => { handleSwipe(touchStartX, e.changedTouches[0].screenX); }, {passive: true});
 
         function handleSwipe(start, end) {
-            const threshold = 60; // min swipe distance
             const diff = start - end;
-            
-            // Find current active day index
             const currentTab = document.querySelector('#sub-nav-itinerary .sub-tab-btn.active');
             if (!currentTab) return;
-            const currentId = currentTab.getAttribute('data-tab');
-            const currentIndex = days.indexOf(currentId);
+            const currentIndex = days.indexOf(currentTab.getAttribute('data-tab'));
 
-            if (Math.abs(diff) > threshold) {
-                if (diff > 0) {
-                    // Swipe Left -> Next Day
-                    if (currentIndex < days.length - 1) {
-                        const nextId = days[currentIndex + 1];
-                        const nextBtn = document.querySelector(`[data-tab="${nextId}"]`);
-                        showSubTab(nextId, nextBtn); 
-                    }
-                } else {
-                    // Swipe Right -> Prev Day
-                    if (currentIndex > 0) {
-                        const prevId = days[currentIndex - 1];
-                        const prevBtn = document.querySelector(`[data-tab="${prevId}"]`);
-                        showSubTab(prevId, prevBtn);
-                    }
+            if (Math.abs(diff) > 60) {
+                if (diff > 0 && currentIndex < days.length - 1) {
+                    showSubTab(days[currentIndex + 1], document.querySelector(`[data-tab="${days[currentIndex + 1]}"]`));
+                } else if (diff < 0 && currentIndex > 0) {
+                    showSubTab(days[currentIndex - 1], document.querySelector(`[data-tab="${days[currentIndex - 1]}"]`));
                 }
             }
         }
 
-        // --- Shopping List Logic ---
-        function formatDoc(cmd, value=null) {
-            document.execCommand(cmd, false, value);
-            saveNote();
-        }
-        
-        function selectAllContent() {
-            const editor = document.getElementById('shoppingNote');
-            const range = document.createRange();
-            range.selectNodeContents(editor);
-            const sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
+        // Shopping List
+        function formatDoc(cmd, value=null) { document.execCommand(cmd, false, value); saveNote(); triggerSyncToCloud(); }
+        function selectAllContent() { const range = document.createRange(); range.selectNodeContents(document.getElementById('shoppingNote')); window.getSelection().removeAllRanges(); window.getSelection().addRange(range); }
+        function saveNote() { 
+            const html = document.getElementById('shoppingNote').innerHTML;
+            localStorage.setItem('wbc_shopping_note_v7', html); 
+            triggerSyncToCloud();
         }
 
-        function saveNote() {
-            const editor = document.getElementById('shoppingNote');
-            if (editor) localStorage.setItem('wbc_shopping_note_v7', editor.innerHTML);
+        // Packing List
+        let packingData = JSON.parse(localStorage.getItem('wbc_packing_v1')) || [
+            { id: 1, text: '護照', checked: false }, { id: 2, text: '日幣', checked: false }, { id: 3, text: '網卡', checked: false }, { id: 4, text: '球衣', checked: false }
+        ];
+        function renderPackingList() {
+            const table = document.getElementById('packing-table'); table.innerHTML = '';
+            packingData.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td style="width:30px; text-align:center;"><input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="toggleCheck(${index})"></td><td><input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updateText(${index}, this.value)"></td><td style="width:30px; text-align:center;"><button class="packing-del" onclick="deleteItem(${index})">×</button></td>`;
+                table.appendChild(tr);
+            });
+            localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData));
+            // Trigger sync inside render only if driven by user action, but here we just call it on updates
         }
+        function addPackingItem() { packingData.push({ id: Date.now(), text: '', checked: false }); renderPackingList(); triggerSyncToCloud(); }
+        function deleteItem(index) { packingData.splice(index, 1); renderPackingList(); triggerSyncToCloud(); }
+        function toggleCheck(index) { packingData[index].checked = !packingData[index].checked; renderPackingList(); triggerSyncToCloud(); }
+        function updateText(index, value) { packingData[index].text = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
 
-        // --- Calculator Logic ---
+        // Calculator
         async function fetchRate() {
             try {
                 const res = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
@@ -899,48 +773,33 @@
                 if (data && data.rates && data.rates.TWD) {
                     currentRate = data.rates.TWD;
                     document.getElementById('rate-val').innerText = currentRate.toFixed(3);
-                    
-                    const dateStr = data.date || new Date().toISOString().split('T')[0];
-                    const timeStr = new Date().toLocaleTimeString('zh-TW', {hour: '2-digit', minute:'2-digit'});
-                    document.getElementById('rate-source').innerText = `資料來源: ExchangeRate-API | 更新: ${dateStr} ${timeStr}`;
+                    const d = new Date();
+                    document.getElementById('rate-source').innerText = `資料來源: API | 更新: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
                 }
-            } catch (e) {
-                document.getElementById('rate-source').innerText = `資料來源: 預設值 (離線模式)`;
-            }
+            } catch (e) { document.getElementById('rate-source').innerText = `資料來源: 預設值 (離線)`; }
         }
-
         function calc(source) {
-            const jpyInput = document.getElementById('input-jpy');
-            const twdInput = document.getElementById('input-twd');
-            
-            if (source === 'jpy') {
-                const val = parseFloat(jpyInput.value);
-                if (!isNaN(val)) twdInput.value = (val * currentRate).toFixed(0);
-                else twdInput.value = '';
-            } else {
-                const val = parseFloat(twdInput.value);
-                if (!isNaN(val)) jpyInput.value = (val / currentRate).toFixed(0);
-                else jpyInput.value = '';
-            }
+            const jpy = parseFloat(document.getElementById('input-jpy').value);
+            const twd = parseFloat(document.getElementById('input-twd').value);
+            if (source === 'jpy' && !isNaN(jpy)) document.getElementById('input-twd').value = (jpy * currentRate).toFixed(0);
+            else if (source === 'twd' && !isNaN(twd)) document.getElementById('input-jpy').value = (twd / currentRate).toFixed(0);
         }
+        function resetCalc() { document.getElementById('input-jpy').value = ''; document.getElementById('input-twd').value = ''; }
 
-        function resetCalc() {
-            document.getElementById('input-jpy').value = '';
-            document.getElementById('input-twd').value = '';
-        }
-
-        // --- Init ---
+        // Init
         document.addEventListener('DOMContentLoaded', () => {
             const editor = document.getElementById('shoppingNote');
             const savedContent = localStorage.getItem('wbc_shopping_note_v7');
-            if (savedContent && editor) editor.innerHTML = savedContent;
-            if (editor) editor.addEventListener('input', saveNote);
+            if (savedContent) editor.innerHTML = savedContent;
+            editor.addEventListener('input', saveNote);
 
             fetchRate();
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
             
-            // Init Slider Height
+            renderPackingList();
+            syncFromCloud(); // Auto-load
+            
             setTimeout(() => updateSliderHeight('d1'), 100);
         });
     </script>
