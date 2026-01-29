@@ -7,14 +7,15 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Russo+One&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
         :root {
             --radius-l: 32px; --radius-m: 20px; --radius-s: 12px;
             --font-stack: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-            --font-sport: 'Russo One', sans-serif; /* New Sports Font */
+            --font-sport: 'Russo One', sans-serif; 
+            --font-ukiyo: 'Noto Serif JP', serif;
             
             /* Light Mode */
             --bg-base: #F5F5F0; --text-main: #444444; --text-sub: #666666; --text-muted: #999999;
@@ -23,17 +24,21 @@
             --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(255, 255, 255, 0.9); --glass-blur: blur(35px);
             --shadow-soft: 0 10px 30px -5px rgba(125, 138, 147, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.9);
             
-            /* Header Specific (New) */
-            --header-bg: #FDFDFD;
-            --header-stitch: #D64F4F; /* Baseball Stitch Red */
+            /* Header Specific (Ukiyo-e Palette) */
+            --ukiyo-bg: #F4F1EA;      
+            --ukiyo-navy: #1D365D;    
+            --ukiyo-red: #C63D0F;     
             
+            /* Gold Medal Colors */
+            --gold-light: #F9E79F;
+            --gold-main: #D4AC0D;
+            --gold-dark: #9A7D0A;
+
             --table-bg: rgba(255,255,255,0.7); --table-row-hover: rgba(125, 138, 147, 0.05); --highlight-bg: rgba(184, 120, 120, 0.08);
             
-            --editor-bg: rgba(255, 255, 255, 0.8); --editor-toolbar-bg: rgba(220, 225, 230, 0.95); 
-            --hr-color: rgba(125, 138, 147, 0.3); --editor-border: 2px solid rgba(125, 138, 147, 0.6);
-            
+            --input-bg: rgba(255, 255, 255, 0.6);
             --nav-bg: rgba(255, 255, 255, 0.25); --nav-blur: blur(50px); --nav-border: rgba(255, 255, 255, 0.3);
-            --nav-active: #444444; --nav-inactive: #888888; --input-bg: rgba(255, 255, 255, 0.6);
+            --nav-active: #444444; --nav-inactive: #888888; 
             
             --status-ok: #4CAF50; --status-warn: #FFC107; --status-err: #F44336;
             --svg-fill: #FFFFFF; --svg-stroke: var(--m-blue);
@@ -46,18 +51,14 @@
                 --glass-bg: rgba(30, 30, 35, 0.75); --glass-border: rgba(255, 255, 255, 0.15);
                 --shadow-soft: 0 10px 40px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
                 
-                /* Header Specific (Dark) */
-                --header-bg: #1E1E24;
-                --header-stitch: #E57373;
-
+                --ukiyo-bg: #2B2B30;
+                --ukiyo-navy: #4A6fa5;
+                --ukiyo-red: #E57373;
+                
                 --table-bg: rgba(44, 44, 46, 0.6); --table-row-hover: rgba(255, 255, 255, 0.05); --highlight-bg: rgba(209, 140, 140, 0.15);
-                
-                --editor-bg: rgba(44, 44, 46, 0.8); --editor-toolbar-bg: rgba(60, 60, 65, 0.95);
-                --hr-color: rgba(255, 255, 255, 0.2); --editor-border: 2px solid rgba(148, 168, 179, 0.5);
-                
+                --input-bg: rgba(60, 60, 65, 0.6);
                 --nav-bg: rgba(30, 30, 35, 0.35); --nav-border: rgba(255, 255, 255, 0.1);
-                --nav-active: #FFFFFF; --nav-inactive: #888888; --input-bg: rgba(60, 60, 65, 0.6);
-                --svg-fill: #2C2C2E; --svg-stroke: #94A8B3;
+                --nav-active: #FFFFFF; --nav-inactive: #888888;
             }
         }
 
@@ -69,96 +70,28 @@
             background-attachment: fixed; background-size: cover; overscroll-behavior-x: none;
         }
 
-        /* --- NEW BASEBALL HEADER --- */
-        .baseball-header {
-            position: relative;
-            background-color: var(--header-bg);
-            /* Baseball Leather Texture */
-            background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
-            background-size: 20px 20px;
-            padding: 20px;
-            padding-top: 50px; /* Safe area */
-            border-bottom-left-radius: 45px;
-            border-bottom-right-radius: 45px;
-            box-shadow: 0 15px 40px -10px rgba(0,0,0,0.15);
-            overflow: hidden;
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--m-blue);
+        /* --- Header --- */
+        .ukiyo-header {
+            position: relative; background-color: var(--ukiyo-bg);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            padding: 50px 24px 70px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            margin-bottom: 20px; box-shadow: 0 15px 30px -10px rgba(0,0,0,0.2); text-align: center; border-bottom: 4px solid var(--ukiyo-navy);
         }
-        
-        @media (prefers-color-scheme: dark) {
-            .baseball-header { background-image: radial-gradient(#333 1px, transparent 1px); border-bottom-color: var(--glass-border); }
-        }
-
-        /* Baseball Stitches */
-        .stitch-line {
-            position: absolute; top: 0; bottom: 0; width: 80px;
-            background: transparent;
-            border-left: 3px dashed var(--header-stitch);
-            border-right: 3px dashed var(--header-stitch);
-            opacity: 0.6;
-        }
-        .stitch-left { left: -25px; transform: rotate(-15deg); }
-        .stitch-right { right: -25px; transform: rotate(15deg); }
-        
+        .sun-ball { position: absolute; top: -20px; right: -20px; width: 180px; height: 180px; background: var(--ukiyo-red); border-radius: 50%; opacity: 0.15; z-index: 0; }
+        .sun-ball::after { content: ''; position: absolute; width: 140px; height: 140px; border: 4px dashed var(--ukiyo-bg); border-radius: 50%; top: 20px; left: 20px; opacity: 0.5; }
+        .wave-pattern { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: radial-gradient(circle at 10px -7px, transparent 20px, var(--ukiyo-navy) 21px, var(--ukiyo-navy) 23px, transparent 24px) 0 0, radial-gradient(circle at 10px 27px, transparent 20px, var(--ukiyo-navy) 21px, var(--ukiyo-navy) 23px, transparent 24px) 50px 0; background-size: 100px 100px; opacity: 0.3; z-index: 0; }
         .header-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+        .gold-medal { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-main) 50%, var(--gold-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 0 3px rgba(255,255,255,0.4); margin-bottom: 12px; color: #FFF; text-shadow: 0 1px 2px rgba(0,0,0,0.5); position: relative; }
+        .gold-medal::before { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); }
+        .gm-text-main { font-family: var(--font-sport); font-size: 12px; line-height: 1; margin-bottom: 2px; }
+        .gm-text-sub { font-family: var(--font-stack); font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+        .ukiyo-title { margin: 0; padding: 0; font-family: var(--font-ukiyo); font-size: 56px; line-height: 1; color: var(--ukiyo-navy); letter-spacing: 0px; text-shadow: 2px 2px 0px rgba(244, 241, 234, 0.8); position: relative; }
+        .ukiyo-year { font-family: var(--font-sport); font-size: 20px; color: var(--m-gold); letter-spacing: 6px; margin-top: 5px; font-weight: 400; }
+        .decor-line { width: 40px; height: 4px; background: var(--ukiyo-red); margin: 10px auto 0; border-radius: 2px; }
 
-        /* Team Taiwan Badge */
-        .team-badge {
-            background: linear-gradient(90deg, #1d365d 0%, #b22222 100%); /* CT Colors */
-            color: white; font-size: 10px; font-weight: 900; letter-spacing: 2px;
-            padding: 4px 16px; border-radius: 20px; margin-bottom: 8px;
-            box-shadow: 0 4px 12px rgba(178, 34, 34, 0.3);
-            text-transform: uppercase;
-        }
-
-        /* Main Title */
-        .main-title {
-            margin: 0; padding: 0;
-            font-family: var(--font-sport); /* New Font */
-            font-size: 60px; line-height: 0.9;
-            background: linear-gradient(180deg, var(--text-main) 0%, var(--m-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 0px rgba(0,0,0,0.1));
-            letter-spacing: -2px;
-        }
-        
-        .sub-title-row {
-            display: flex; align-items: center; gap: 10px; margin-top: 5px;
-            font-family: var(--font-sport);
-            color: var(--m-red); font-size: 20px; font-weight: 400;
-        }
-        .wbc-logo-circle {
-            width: 12px; height: 12px; border-radius: 50%;
-            border: 3px solid var(--m-gold);
-            position: relative;
-        }
-        
-        /* Tokyo Skyline Silhouette (CSS only) */
-        .city-skyline {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath fill='%237D8A93' fill-opacity='0.1' d='M0,100 L0,80 L50,80 L50,60 L70,60 L80,20 L90,60 L120,60 L120,90 L180,90 L180,50 L220,50 L220,90 L300,90 L300,40 L340,10 L380,40 L380,90 L450,90 L450,70 L500,70 L500,90 L1000,90 L1000,100 Z'/%3E%3C/svg%3E");
-            background-size: cover;
-            background-position: bottom center;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* --- Sync Status Indicator --- */
-        .sync-container {
-            position: absolute; top: 15px; left: 15px; z-index: 1000;
-            display: flex; align-items: center; gap: 6px;
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 4px 10px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        @media (prefers-color-scheme: dark) {
-            .sync-container { background: rgba(30, 30, 35, 0.6); border: 1px solid rgba(255,255,255,0.1); }
-        }
+        /* --- Sync Status --- */
+        .sync-container { position: absolute; top: 15px; left: 15px; z-index: 1000; display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        @media (prefers-color-scheme: dark) { .sync-container { background: rgba(30, 30, 35, 0.6); border: 1px solid rgba(255,255,255,0.1); } }
         .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); transition: background 0.3s; }
         .sync-text { font-size: 10px; font-weight: 700; color: var(--text-sub); width: 85px; text-align: left; }
         .sync-dot.active { background: var(--status-ok); box-shadow: 0 0 5px var(--status-ok); }
@@ -244,23 +177,27 @@
         .add-btn:active, .reset-btn:active { transform: scale(0.95); }
         .reset-btn { position: absolute; right: 0; top: -2px; padding: 6px 16px; border-radius: 20px; box-shadow: 0 3px 8px rgba(184,120,120,0.5); letter-spacing: 1px; }
 
-        .packing-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        /* Packing Table (New Style) */
+        .packing-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        .packing-table th { color: var(--text-muted); font-size: 11px; text-align: left; padding: 5px; border-bottom: 2px solid rgba(125,138,147,0.2); font-weight: 700; }
         .packing-table td { padding: 8px 5px; border-bottom: 1px solid rgba(125,138,147,0.1); vertical-align: middle; }
         .packing-check { width: 22px; height: 22px; accent-color: var(--m-blue); cursor: pointer; }
         .packing-input { width: 100%; border: none; background: transparent; font-family: var(--font-stack); font-size: 15px; color: var(--text-main); outline: none; padding: 4px 0; }
         .packing-input.checked { text-decoration: line-through; opacity: 0.5; }
+        .qty-input { width: 35px; text-align: center; border: none; background: transparent; font-family: var(--font-stack); font-size: 15px; color: var(--text-main); border-bottom: 1px dashed var(--hr-color); }
         .packing-del { color: var(--text-muted); background: none; border: none; font-size: 20px; padding: 0 5px; cursor: pointer; opacity: 0.5; }
         .packing-del:hover { color: var(--m-red); opacity: 1; }
-
-        .editor-container { display: flex; flex-direction: column; gap: 10px; }
-        .editor-toolbar { display: flex; gap: 8px; background: var(--editor-toolbar-bg); padding: 8px; border-radius: 12px; border: 1px solid var(--glass-border); flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .tool-btn { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); padding: 6px 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; min-width: 36px; display: flex; justify-content: center; align-items: center; }
-        .color-wrapper { position: relative; display: flex; align-items: center; }
-        .color-input-hidden { position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer; }
-        .shopping-editor { width: 100%; min-height: 350px; background: var(--editor-bg); border: var(--editor-border); border-radius: 16px; padding: 20px; font-family: var(--font-stack); font-size: 16px; color: var(--text-main); outline: none; box-sizing: border-box; line-height: 1.7; overflow-y: auto; }
-        .shopping-editor:focus { border-color: var(--m-blue); box-shadow: 0 0 0 4px rgba(125, 138, 147, 0.4); }
-        .shopping-editor ul, .shopping-editor ol { padding-left: 20px; margin: 5px 0; }
-        .shopping-editor hr { border: 0; border-top: 2px dashed var(--hr-color); margin: 15px 0; }
+        
+        /* New Shopping List Styles */
+        .shop-category { margin-bottom: 20px; border-radius: 12px; background: rgba(255,255,255,0.4); overflow: hidden; border: 1px solid rgba(125, 138, 147, 0.2); }
+        .shop-cat-header { background: rgba(125, 138, 147, 0.15); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .shop-cat-title { font-weight: 800; color: var(--m-blue); font-size: 14px; border: none; background: transparent; outline: none; width: 70%; font-family: var(--font-stack); }
+        .shop-cat-actions { display: flex; gap: 5px; }
+        .shop-item-btn { font-size: 11px; background: var(--m-green); color: white; border: none; border-radius: 10px; padding: 2px 8px; cursor: pointer; }
+        .shop-cat-del { font-size: 16px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+        .shop-items-container { padding: 5px 10px 10px; }
+        .shop-input-new { flex: 1; padding: 8px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-family: var(--font-stack); font-size: 14px; outline: none; }
+        .shop-controls { display: flex; gap: 5px; margin-bottom: 10px; }
 
         /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -286,14 +223,18 @@
         <span class="sync-text" id="sync-text">連線中...</span>
     </div>
 
-    <header class="baseball-header">
-        <div class="stitch-line stitch-left"></div>
-        <div class="stitch-line stitch-right"></div>
+    <header class="ukiyo-header">
+        <div class="sun-ball"></div>
+        <div class="wave-pattern"></div>
         <div class="header-content">
-            <div class="team-badge">FIGHT FOR TAIWAN</div>
-            <h1 class="main-title">TOKYO<br><div class="sub-title-row"><div class="wbc-logo-circle"></div>2026</div></h1>
+            <div class="gold-medal">
+                <span class="gm-text-main">TEAM</span>
+                <span class="gm-text-sub">TAIWAN</span>
+            </div>
+            <h1 class="ukiyo-title">TOKYO</h1>
+            <div class="ukiyo-year">WBC 2026</div>
+            <div class="decor-line"></div>
         </div>
-        <div class="city-skyline"></div>
     </header>
 
     <div id="sub-nav-itinerary" class="sub-nav-wrapper active">
@@ -548,29 +489,12 @@
         
         <div id="shop" class="day-content active">
             <div class="card" style="margin-left:0;">
-                <div class="card-title" style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="card-title" style="position:relative;">
                     必買清單 🛍️
-                    <span style="font-size:12px; font-weight:400; color:var(--text-muted);">Auto-saved</span>
+                    <button class="add-btn" onclick="addCategory()">+ 新增類別</button>
                 </div>
-                <div class="editor-container">
-                    <div class="editor-toolbar">
-                        <button class="tool-btn" onclick="formatDoc('bold')" title="粗體"><b>B</b></button>
-                        <button class="tool-btn" onclick="formatDoc('italic')" title="斜體"><i>I</i></button>
-                        <button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="清單">≣</button>
-                        <button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="分隔線">―</button>
-                        <button class="tool-btn color-wrapper" title="文字顏色">
-                            🎨
-                            <input type="color" class="color-input-hidden" onchange="formatDoc('foreColor', this.value)">
-                        </button>
-                        <button class="tool-btn" onclick="selectAllContent()" title="全選">全選</button>
+                <div id="shopping-container" style="margin-top:15px;">
                     </div>
-                    <div id="shoppingNote" class="shopping-editor" contenteditable="true">
-                        <div>輸入購物清單...</div>
-                        <hr>
-                        <div><b>藥妝：</b></div>
-                        <ul><li>合利他命</li><li>EVE 止痛藥</li></ul>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -581,8 +505,18 @@
                     <button class="add-btn" onclick="addPackingItem()">+ 新增</button>
                 </div>
                 <div style="margin-top:10px;">
-                    <table class="packing-table" id="packing-table">
-                        </table>
+                    <table class="packing-table">
+                        <thead>
+                            <tr style="color:var(--text-muted); font-size:11px; border-bottom:2px solid rgba(125,138,147,0.2);">
+                                <th style="width:30px; text-align:center;">✓</th>
+                                <th style="text-align:left; padding-left:5px;">項目</th>
+                                <th style="width:40px; text-align:center;">數量</th>
+                                <th style="width:30px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="packing-table-body">
+                            </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -688,9 +622,9 @@
                 if(res.ok) {
                     const json = await res.json();
                     const data = json.record;
-                    if(data.shopping) {
-                        document.getElementById('shoppingNote').innerHTML = data.shopping;
-                        localStorage.setItem('wbc_shopping_note_v7', data.shopping);
+                    if(data.shoppingData) {
+                        shoppingData = data.shoppingData;
+                        renderShoppingList();
                     }
                     if(data.packing) {
                         packingData = data.packing;
@@ -706,15 +640,11 @@
         }
 
         function triggerSyncToCloud() {
-            // Reset timers
             clearTimeout(debounceTimer);
             clearInterval(countdownInterval);
-            
-            // Reset countdown logic
             timeLeft = 10;
             updateSyncStatus('working', `等待上傳 (${timeLeft}s)...`);
             
-            // Start visible countdown
             countdownInterval = setInterval(() => {
                 timeLeft--;
                 if(timeLeft > 0) {
@@ -725,10 +655,9 @@
                 }
             }, 1000);
 
-            // Actual upload trigger
             debounceTimer = setTimeout(async () => {
                 const data = {
-                    shopping: document.getElementById('shoppingNote').innerHTML,
+                    shoppingData: shoppingData,
                     packing: packingData
                 };
                 try {
@@ -743,7 +672,7 @@
                     if(res.ok) updateSyncStatus('active', '已同步');
                     else updateSyncStatus('error', '上傳失敗');
                 } catch(e) { updateSyncStatus('error', '上傳錯誤'); }
-            }, 10000); // 10 seconds
+            }, 10000);
         }
 
         // --- Standard Logic ---
@@ -770,7 +699,6 @@
             const parentViewId = btn.closest('.sub-nav-wrapper').id;
             
             if (parentViewId === 'sub-nav-itinerary') {
-                // Slider
                 const allBtns = document.querySelectorAll('#sub-nav-itinerary .sub-tab-btn');
                 allBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -778,18 +706,13 @@
                 document.getElementById('itinerary-track').style.transform = `translateX(-${index * 100}%)`;
                 updateSliderHeight(tabId);
             } else {
-                // Tools (Fixed: Hide/Show)
                 const parentView = document.getElementById('view-tools');
                 btn.parentElement.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                // Explicitly hide all tool contents
                 parentView.querySelectorAll('.day-content').forEach(c => {
                     c.style.display = 'none';
                     c.classList.remove('active', 'anim-up');
                 });
-                
-                // Show specific
                 const target = document.getElementById(tabId);
                 target.style.display = 'block';
                 setTimeout(() => target.classList.add('active', 'anim-up'), 10);
@@ -805,7 +728,6 @@
             }
         }
 
-        // Swipe
         let touchStartX = 0;
         const itineraryView = document.getElementById('view-itinerary');
         const days = ['d1', 'd2', 'd3', 'd4', 'd5'];
@@ -827,81 +749,164 @@
             }
         }
 
-        // Shopping List
-        function formatDoc(cmd, value=null) { document.execCommand(cmd, false, value); saveNote(); triggerSyncToCloud(); }
-        function selectAllContent() { const range = document.createRange(); range.selectNodeContents(document.getElementById('shoppingNote')); window.getSelection().removeAllRanges(); window.getSelection().addRange(range); }
-        function saveNote() { 
-            const html = document.getElementById('shoppingNote').innerHTML;
-            localStorage.setItem('wbc_shopping_note_v7', html); 
+        // --- Categorized Shopping List Logic ---
+        let shoppingData = JSON.parse(localStorage.getItem('wbc_shopping_v2')) || [
+            { 
+                id: 1, 
+                name: '藥妝 💊', 
+                items: [
+                    { id: 11, text: 'EVE 止痛藥', checked: false },
+                    { id: 12, text: '合利他命', checked: false }
+                ] 
+            },
+            {
+                id: 2,
+                name: 'Uniqlo 👕',
+                items: [
+                    { id: 21, text: '發熱衣', checked: false }
+                ]
+            }
+        ];
+
+        function renderShoppingList() {
+            const container = document.getElementById('shopping-container');
+            container.innerHTML = '';
+            
+            shoppingData.forEach((cat, catIndex) => {
+                // Category Block
+                const catDiv = document.createElement('div');
+                catDiv.className = 'shop-category';
+                
+                // Header
+                const header = document.createElement('div');
+                header.className = 'shop-cat-header';
+                header.innerHTML = `
+                    <input class="shop-cat-title" value="${cat.name}" oninput="updateCatName(${catIndex}, this.value)">
+                    <div class="shop-cat-actions">
+                        <button class="shop-cat-del" onclick="deleteCategory(${catIndex})">×</button>
+                    </div>
+                `;
+                catDiv.appendChild(header);
+
+                // Items Table
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'shop-items-container';
+                const table = document.createElement('table');
+                table.className = 'packing-table';
+                
+                cat.items.forEach((item, itemIndex) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="width:30px; text-align:center;">
+                            <input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="toggleShopCheck(${catIndex}, ${itemIndex})">
+                        </td>
+                        <td>
+                            <input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updateShopItem(${catIndex}, ${itemIndex}, this.value)">
+                        </td>
+                        <td style="width:30px; text-align:center;">
+                            <button class="packing-del" onclick="deleteShopItem(${catIndex}, ${itemIndex})">×</button>
+                        </td>
+                    `;
+                    table.appendChild(tr);
+                });
+                
+                // Add Item Button
+                const addRow = document.createElement('div');
+                addRow.style.padding = "5px 0";
+                addRow.style.textAlign = "center";
+                addRow.innerHTML = `<button class="shop-item-btn" onclick="addShopItemToCategory(${catIndex})">+ 新增項目</button>`;
+                
+                tableContainer.appendChild(table);
+                tableContainer.appendChild(addRow);
+                catDiv.appendChild(tableContainer);
+                container.appendChild(catDiv);
+            });
+            localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
+        }
+
+        function addCategory() {
+            shoppingData.push({ id: Date.now(), name: '新類別', items: [] });
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        function deleteCategory(index) {
+            if(confirm('確定刪除此類別與所有項目嗎？')) {
+                shoppingData.splice(index, 1);
+                renderShoppingList(); triggerSyncToCloud();
+            }
+        }
+        function updateCatName(index, val) { shoppingData[index].name = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
+        
+        function addShopItemToCategory(catIndex) {
+            shoppingData[catIndex].items.push({ id: Date.now(), text: '', checked: false });
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        function deleteShopItem(catIndex, itemIndex) {
+            shoppingData[catIndex].items.splice(itemIndex, 1);
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        function toggleShopCheck(catIndex, itemIndex) {
+            shoppingData[catIndex].items[itemIndex].checked = !shoppingData[catIndex].items[itemIndex].checked;
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        function updateShopItem(catIndex, itemIndex, val) {
+            shoppingData[catIndex].items[itemIndex].text = val;
+            localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
             triggerSyncToCloud();
         }
 
-        // Packing List
+        // --- Packing List Logic ---
         let packingData = JSON.parse(localStorage.getItem('wbc_packing_v1')) || [
-            { id: 1, text: '護照', checked: false }, { id: 2, text: '日幣', checked: false }, { id: 3, text: '網卡', checked: false }, { id: 4, text: '球衣', checked: false }
+            { id: 1, text: '護照', qty: 1, checked: false }, 
+            { id: 2, text: '日幣', qty: 1, checked: false }, 
+            { id: 3, text: '網卡', qty: 1, checked: false }, 
+            { id: 4, text: '球衣', qty: 1, checked: false }
         ];
         function renderPackingList() {
-            const table = document.getElementById('packing-table'); table.innerHTML = '';
+            const table = document.getElementById('packing-table-body'); 
+            table.innerHTML = '';
             packingData.forEach((item, index) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td style="width:30px; text-align:center;"><input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="toggleCheck(${index})"></td><td><input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updateText(${index}, this.value)"></td><td style="width:30px; text-align:center;"><button class="packing-del" onclick="deleteItem(${index})">×</button></td>`;
+                const qty = item.qty || 1;
+                tr.innerHTML = `
+                    <td style="width:30px; text-align:center;">
+                        <input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="togglePackingCheck(${index})">
+                    </td>
+                    <td>
+                        <input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updatePackingText(${index}, this.value)">
+                    </td>
+                    <td style="width:40px; text-align:center;">
+                        <input type="number" class="qty-input" value="${qty}" oninput="updatePackingQty(${index}, this.value)">
+                    </td>
+                    <td style="width:30px; text-align:center;">
+                        <button class="packing-del" onclick="deletePackingItem(${index})">×</button>
+                    </td>
+                `;
                 table.appendChild(tr);
             });
             localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData));
         }
-        function addPackingItem() { packingData.push({ id: Date.now(), text: '', checked: false }); renderPackingList(); triggerSyncToCloud(); }
-        function deleteItem(index) { packingData.splice(index, 1); renderPackingList(); triggerSyncToCloud(); }
-        function toggleCheck(index) { packingData[index].checked = !packingData[index].checked; renderPackingList(); triggerSyncToCloud(); }
-        function updateText(index, value) { packingData[index].text = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
+        function addPackingItem() { packingData.push({ id: Date.now(), text: '', qty: 1, checked: false }); renderPackingList(); triggerSyncToCloud(); }
+        function deletePackingItem(index) { packingData.splice(index, 1); renderPackingList(); triggerSyncToCloud(); }
+        function togglePackingCheck(index) { packingData[index].checked = !packingData[index].checked; renderPackingList(); triggerSyncToCloud(); }
+        function updatePackingText(index, value) { packingData[index].text = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
+        function updatePackingQty(index, value) { packingData[index].qty = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
 
-        // Calculator (Rter.info via AllOrigins Proxy for Taiwan Rates)
+        // Calculator
         async function fetchTaiwanRate() {
-            // Check offline first
-            if (!navigator.onLine) {
-                document.getElementById('rate-source').innerText = `⚠️ 資料來源: 預設值 (目前離線)`;
-                return;
-            }
-
+            if (!navigator.onLine) { document.getElementById('rate-source').innerText = `⚠️ 資料來源: 預設值 (目前離線)`; return; }
             try {
-                // Use AllOrigins to bypass CORS for Rter.info (which aggregates Taiwan banks)
                 const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://tw.rter.info/capi.php'));
                 const data = await res.json();
-                const rates = JSON.parse(data.contents); // AllOrigins wraps response
-                
-                // Calculate JPY/TWD from USD base
-                const usdtwd = rates.USDTWD.Exrate;
-                const usdjpy = rates.USDJPY.Exrate;
-                const jpyToTwd = usdtwd / usdjpy;
-
+                const rates = JSON.parse(data.contents); 
+                const usdtwd = rates.USDTWD.Exrate; const usdjpy = rates.USDJPY.Exrate; const jpyToTwd = usdtwd / usdjpy;
                 if (!isNaN(jpyToTwd)) {
                     currentRate = jpyToTwd;
                     document.getElementById('rate-val').innerText = currentRate.toFixed(4);
-                    
                     const now = new Date();
-                    const dateStr = now.toLocaleDateString('zh-TW');
-                    const timeStr = now.toLocaleTimeString('zh-TW', {hour: '2-digit', minute:'2-digit'});
-                    document.getElementById('rate-source').innerText = `資料來源: 台灣市場匯率 (Rter.info) | 更新: ${dateStr} ${timeStr}`;
-                    return;
+                    document.getElementById('rate-source').innerText = `資料來源: 台灣市場匯率 (Rter.info) | 更新: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
                 }
-                throw new Error("Calculation Error");
-            } catch (e) {
-                console.log("Taiwan Rate Fetch failed, using fallback.");
-                fetchRateFallback();
-            }
+            } catch (e) { console.log("Fetch failed"); }
         }
-
-        async function fetchRateFallback() {
-            try {
-                const res = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
-                const data = await res.json();
-                if (data && data.rates && data.rates.TWD) {
-                    currentRate = data.rates.TWD;
-                    document.getElementById('rate-val').innerText = currentRate.toFixed(3);
-                    document.getElementById('rate-source').innerText = `資料來源: 國際匯率 API (備援)`;
-                }
-            } catch (e) { document.getElementById('rate-source').innerText = `資料來源: 預設值 (離線)`; }
-        }
-
         function calc(source) {
             const jpy = parseFloat(document.getElementById('input-jpy').value);
             const twd = parseFloat(document.getElementById('input-twd').value);
@@ -912,16 +917,12 @@
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
-            const editor = document.getElementById('shoppingNote');
-            const savedContent = localStorage.getItem('wbc_shopping_note_v7');
-            if (savedContent) editor.innerHTML = savedContent;
-            editor.addEventListener('input', saveNote);
-
-            fetchTaiwanRate(); // Try Taiwan Rate first
+            fetchTaiwanRate(); 
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
             
             renderPackingList();
+            renderShoppingList();
             syncFromCloud(); // Auto-load
             
             setTimeout(() => updateSliderHeight('d1'), 100);
