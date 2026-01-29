@@ -24,15 +24,9 @@
             --glass-bg: rgba(255, 255, 255, 0.85); --glass-border: rgba(255, 255, 255, 0.9); --glass-blur: blur(35px);
             --shadow-soft: 0 10px 30px -5px rgba(125, 138, 147, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.9);
             
-            /* Header Specific (Ukiyo-e Palette) */
-            --ukiyo-bg: #F4F1EA;      
-            --ukiyo-navy: #1D365D;    
-            --ukiyo-red: #C63D0F;     
-            
-            /* Gold Medal Colors */
-            --gold-light: #F9E79F;
-            --gold-main: #D4AC0D;
-            --gold-dark: #9A7D0A;
+            /* Header Specific */
+            --ukiyo-bg: #F4F1EA; --ukiyo-navy: #1D365D; --ukiyo-red: #C63D0F;     
+            --gold-light: #F9E79F; --gold-main: #D4AC0D; --gold-dark: #9A7D0A;
 
             --table-bg: rgba(255,255,255,0.7); --table-row-hover: rgba(125, 138, 147, 0.05); --highlight-bg: rgba(184, 120, 120, 0.08);
             
@@ -51,14 +45,13 @@
                 --glass-bg: rgba(30, 30, 35, 0.75); --glass-border: rgba(255, 255, 255, 0.15);
                 --shadow-soft: 0 10px 40px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
                 
-                --ukiyo-bg: #2B2B30;
-                --ukiyo-navy: #4A6fa5;
-                --ukiyo-red: #E57373;
+                --ukiyo-bg: #2B2B30; --ukiyo-navy: #4A6fa5; --ukiyo-red: #E57373;
                 
                 --table-bg: rgba(44, 44, 46, 0.6); --table-row-hover: rgba(255, 255, 255, 0.05); --highlight-bg: rgba(209, 140, 140, 0.15);
                 --input-bg: rgba(60, 60, 65, 0.6);
                 --nav-bg: rgba(30, 30, 35, 0.35); --nav-border: rgba(255, 255, 255, 0.1);
                 --nav-active: #FFFFFF; --nav-inactive: #888888;
+                --svg-fill: #2C2C2E; --svg-stroke: #94A8B3;
             }
         }
 
@@ -188,7 +181,7 @@
         .packing-del { color: var(--text-muted); background: none; border: none; font-size: 20px; padding: 0 5px; cursor: pointer; opacity: 0.5; }
         .packing-del:hover { color: var(--m-red); opacity: 1; }
         
-        /* New Shopping List Styles */
+        /* New Categorized Shopping List Styles */
         .shop-category { margin-bottom: 20px; border-radius: 12px; background: rgba(255,255,255,0.4); overflow: hidden; border: 1px solid rgba(125, 138, 147, 0.2); }
         .shop-cat-header { background: rgba(125, 138, 147, 0.15); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; }
         .shop-cat-title { font-weight: 800; color: var(--m-blue); font-size: 14px; border: none; background: transparent; outline: none; width: 70%; font-family: var(--font-stack); }
@@ -198,6 +191,31 @@
         .shop-items-container { padding: 5px 10px 10px; }
         .shop-input-new { flex: 1; padding: 8px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-family: var(--font-stack); font-size: 14px; outline: none; }
         .shop-controls { display: flex; gap: 5px; margin-bottom: 10px; }
+        
+        /* Expense Styles */
+        .expense-date-block { margin-bottom: 20px; background: var(--glass-bg); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; }
+        .expense-header { background: rgba(125, 138, 147, 0.15); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .expense-date-input { border: none; background: transparent; font-weight: 800; color: var(--m-blue); font-size: 15px; font-family: var(--font-stack); outline: none; width: 40%; }
+        .expense-summary { font-size: 12px; font-weight: 700; color: var(--text-sub); background: rgba(255,255,255,0.5); padding: 2px 8px; border-radius: 10px; }
+        .expense-body { padding: 10px; }
+        .expense-row { display: flex; gap: 5px; margin-bottom: 8px; align-items: center; }
+        .expense-item-input { flex: 2; padding: 6px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 13px; width: 100%; outline: none; }
+        /* Hide Spinners for Number Input */
+        .expense-price-input { 
+            flex: 1; padding: 6px; border: 1px solid var(--glass-border); border-radius: 6px; 
+            background: var(--input-bg); color: var(--text-main); font-size: 13px; width: 100%; 
+            outline: none; text-align: right; 
+            -moz-appearance: textfield; 
+        }
+        .expense-price-input::-webkit-outer-spin-button,
+        .expense-price-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        .expense-currency { width: 55px; padding: 6px 2px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 11px; outline: none; text-align: center; }
+        .expense-add-row { text-align: center; margin-top: 5px; }
+        .expense-item-btn { font-size: 11px; background: var(--m-tan); color: #444; border: none; border-radius: 10px; padding: 4px 12px; cursor: pointer; font-weight: 700; }
+        
+        /* Grand Total Style */
+        .expense-grand-total { font-size: 13px; color: var(--m-blue); font-weight: 700; margin-left: auto; margin-right: 10px; }
 
         /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -250,6 +268,7 @@
     <div id="sub-nav-tools" class="sub-nav-wrapper">
         <div class="sub-tabs-container" style="justify-content: center;">
             <button class="sub-tab-btn active" onclick="showSubTab('shop', this)">必買清單</button>
+            <button class="sub-tab-btn" onclick="showSubTab('expenses', this)">記帳</button>
             <button class="sub-tab-btn" onclick="showSubTab('packing', this)">行李清單</button>
             <button class="sub-tab-btn" onclick="showSubTab('calc', this)">匯率換算</button>
         </div>
@@ -498,6 +517,17 @@
             </div>
         </div>
 
+        <div id="expenses" class="day-content">
+            <div class="card" style="margin-left:0;">
+                <div class="card-title" style="position:relative;">
+                    記帳本 💰
+                    <span id="expense-grand-total" class="expense-grand-total">Total: ¥0 | $0</span>
+                </div>
+                <div id="expense-container" style="margin-top:15px;">
+                    </div>
+            </div>
+        </div>
+
         <div id="packing" class="day-content">
             <div class="card" style="margin-left:0;">
                 <div class="card-title" style="position:relative;">
@@ -630,6 +660,10 @@
                         packingData = data.packing;
                         renderPackingList();
                     }
+                    if(data.expenses) {
+                        expenseData = data.expenses;
+                        renderExpenseList();
+                    }
                     updateSyncStatus('active', '已同步');
                 } else {
                     updateSyncStatus('error', '同步失敗');
@@ -658,7 +692,8 @@
             debounceTimer = setTimeout(async () => {
                 const data = {
                     shoppingData: shoppingData,
-                    packing: packingData
+                    packing: packingData,
+                    expenses: expenseData
                 };
                 try {
                     const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
@@ -773,11 +808,8 @@
             container.innerHTML = '';
             
             shoppingData.forEach((cat, catIndex) => {
-                // Category Block
                 const catDiv = document.createElement('div');
                 catDiv.className = 'shop-category';
-                
-                // Header
                 const header = document.createElement('div');
                 header.className = 'shop-cat-header';
                 header.innerHTML = `
@@ -788,7 +820,6 @@
                 `;
                 catDiv.appendChild(header);
 
-                // Items Table
                 const tableContainer = document.createElement('div');
                 tableContainer.className = 'shop-items-container';
                 const table = document.createElement('table');
@@ -810,7 +841,6 @@
                     table.appendChild(tr);
                 });
                 
-                // Add Item Button
                 const addRow = document.createElement('div');
                 addRow.style.padding = "5px 0";
                 addRow.style.textAlign = "center";
@@ -824,35 +854,126 @@
             localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
         }
 
-        function addCategory() {
-            shoppingData.push({ id: Date.now(), name: '新類別', items: [] });
-            renderShoppingList(); triggerSyncToCloud();
-        }
-        function deleteCategory(index) {
-            if(confirm('確定刪除此類別與所有項目嗎？')) {
-                shoppingData.splice(index, 1);
-                renderShoppingList(); triggerSyncToCloud();
-            }
-        }
+        function addCategory() { shoppingData.push({ id: Date.now(), name: '新類別', items: [] }); renderShoppingList(); triggerSyncToCloud(); }
+        function deleteCategory(index) { if(confirm('確定刪除此類別？')) { shoppingData.splice(index, 1); renderShoppingList(); triggerSyncToCloud(); } }
         function updateCatName(index, val) { shoppingData[index].name = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
+        function addShopItemToCategory(catIndex) { shoppingData[catIndex].items.push({ id: Date.now(), text: '', checked: false }); renderShoppingList(); triggerSyncToCloud(); }
+        function deleteShopItem(catIndex, itemIndex) { shoppingData[catIndex].items.splice(itemIndex, 1); renderShoppingList(); triggerSyncToCloud(); }
+        function toggleShopCheck(catIndex, itemIndex) { shoppingData[catIndex].items[itemIndex].checked = !shoppingData[catIndex].items[itemIndex].checked; renderShoppingList(); triggerSyncToCloud(); }
+        function updateShopItem(catIndex, itemIndex, val) { shoppingData[catIndex].items[itemIndex].text = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
+
+        // --- EXPENSE TRACKER LOGIC ---
+        const defaultExpenses = [
+            { id: 1, dateTitle: 'Day 1 (3/5)', items: [] },
+            { id: 2, dateTitle: 'Day 2 (3/6)', items: [] },
+            { id: 3, dateTitle: 'Day 3 (3/7)', items: [] },
+            { id: 4, dateTitle: 'Day 4 (3/8)', items: [] },
+            { id: 5, dateTitle: 'Day 5 (3/9)', items: [] }
+        ];
+
+        let expenseData = JSON.parse(localStorage.getItem('wbc_expense_v1')) || defaultExpenses;
+
+        function renderExpenseList() {
+            const container = document.getElementById('expense-container');
+            const grandTotalEl = document.getElementById('expense-grand-total');
+            container.innerHTML = '';
+            
+            let grandJPY = 0;
+            let grandTWD = 0;
+
+            expenseData.forEach((dateBlock, dIndex) => {
+                let subJPY = 0;
+                let subTWD = 0;
+                dateBlock.items.forEach(item => {
+                    let p = parseFloat(item.price);
+                    if(isNaN(p)) p = 0;
+                    if(item.curr === 'JPY') subJPY += p; else subTWD += p;
+                });
+                grandJPY += subJPY;
+                grandTWD += subTWD;
+
+                const block = document.createElement('div');
+                block.className = 'expense-date-block';
+                
+                block.innerHTML = `
+                    <div class="expense-header">
+                        <input class="expense-date-input" value="${dateBlock.dateTitle}" oninput="updateExpTitle(${dIndex}, this.value)">
+                        <span class="expense-summary" id="exp-total-${dIndex}">¥ ${subJPY} | $ ${subTWD}</span>
+                    </div>
+                    <div class="expense-body" id="exp-body-${dIndex}">
+                        </div>
+                    <div class="expense-add-row">
+                        <button class="expense-item-btn" onclick="addExpItem(${dIndex})">+ 新增消費</button>
+                    </div>
+                `;
+
+                const body = block.querySelector(`#exp-body-${dIndex}`);
+                dateBlock.items.forEach((item, iIndex) => {
+                    const row = document.createElement('div');
+                    row.className = 'expense-row';
+                    // Use input type="number" but hide arrows via CSS class .expense-price-input
+                    row.innerHTML = `
+                        <input class="expense-item-input" placeholder="項目" value="${item.name}" oninput="updateExpItem(${dIndex}, ${iIndex}, 'name', this.value)">
+                        <input type="number" class="expense-price-input" placeholder="0" value="${item.price}" oninput="updateExpItem(${dIndex}, ${iIndex}, 'price', this.value)">
+                        <select class="expense-currency" onchange="updateExpItem(${dIndex}, ${iIndex}, 'curr', this.value)">
+                            <option value="JPY" ${item.curr === 'JPY' ? 'selected' : ''}>JPY</option>
+                            <option value="TWD" ${item.curr === 'TWD' ? 'selected' : ''}>TWD</option>
+                        </select>
+                        <button class="shop-cat-del" style="font-size:18px;" onclick="deleteExpItem(${dIndex}, ${iIndex})">×</button>
+                    `;
+                    body.appendChild(row);
+                });
+                container.appendChild(block);
+            });
+            
+            // Update Grand Total in Header
+            if(grandTotalEl) grandTotalEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
+            localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData));
+        }
+
+        function recalculateTotals() {
+            let grandJPY = 0;
+            let grandTWD = 0;
+
+            expenseData.forEach((block, dIdx) => {
+                let subJPY = 0;
+                let subTWD = 0;
+                block.items.forEach(item => {
+                    let p = parseFloat(item.price);
+                    if(isNaN(p)) p = 0;
+                    if(item.curr === 'JPY') subJPY += p;
+                    else subTWD += p;
+                });
+
+                // Update Subtotal DOM
+                const subEl = document.getElementById(`exp-total-${dIdx}`);
+                if(subEl) subEl.innerText = `¥ ${subJPY} | $ ${subTWD}`;
+
+                grandJPY += subJPY;
+                grandTWD += subTWD;
+            });
+
+            // Update Grand Total DOM
+            const grandEl = document.getElementById('expense-grand-total');
+            if(grandEl) grandEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
+        }
+
+        function updateExpTitle(idx, val) { expenseData[idx].dateTitle = val; localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); triggerSyncToCloud(); }
+        function addExpItem(idx) { expenseData[idx].items.push({ name: '', price: '', curr: 'JPY' }); renderExpenseList(); triggerSyncToCloud(); }
+        function deleteExpItem(dIdx, iIdx) { expenseData[dIdx].items.splice(iIdx, 1); renderExpenseList(); triggerSyncToCloud(); }
         
-        function addShopItemToCategory(catIndex) {
-            shoppingData[catIndex].items.push({ id: Date.now(), text: '', checked: false });
-            renderShoppingList(); triggerSyncToCloud();
+        function updateExpItem(dIdx, iIdx, field, val) { 
+            expenseData[dIdx].items[iIdx][field] = val; 
+            
+            // If price or currency changed, update totals UI immediately (Smart Calc)
+            if(field === 'price' || field === 'curr') {
+                recalculateTotals();
+            }
+            
+            localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); 
+            triggerSyncToCloud(); 
         }
-        function deleteShopItem(catIndex, itemIndex) {
-            shoppingData[catIndex].items.splice(itemIndex, 1);
-            renderShoppingList(); triggerSyncToCloud();
-        }
-        function toggleShopCheck(catIndex, itemIndex) {
-            shoppingData[catIndex].items[itemIndex].checked = !shoppingData[catIndex].items[itemIndex].checked;
-            renderShoppingList(); triggerSyncToCloud();
-        }
-        function updateShopItem(catIndex, itemIndex, val) {
-            shoppingData[catIndex].items[itemIndex].text = val;
-            localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
-            triggerSyncToCloud();
-        }
+
 
         // --- Packing List Logic ---
         let packingData = JSON.parse(localStorage.getItem('wbc_packing_v1')) || [
@@ -923,6 +1044,7 @@
             
             renderPackingList();
             renderShoppingList();
+            renderExpenseList(); // Init Expenses
             syncFromCloud(); // Auto-load
             
             setTimeout(() => updateSliderHeight('d1'), 100);
