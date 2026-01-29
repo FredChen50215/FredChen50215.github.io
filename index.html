@@ -871,7 +871,7 @@
             { id: 5, dateTitle: 'Day 5 (3/9)', items: [] }
         ];
 
-        let expenseData = JSON.parse(localStorage.getItem('wbc_expense_v1')) || defaultExpenses;
+        let expenseData = JSON.parse(localStorage.getItem('wbc_expense_v1')) || JSON.parse(JSON.stringify(defaultExpenses));
 
         function renderExpenseList() {
             const container = document.getElementById('expense-container');
@@ -926,7 +926,6 @@
                 container.appendChild(block);
             });
             
-            // Update Grand Total in Header
             if(grandTotalEl) grandTotalEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData));
         }
@@ -961,19 +960,12 @@
         function updateExpTitle(idx, val) { expenseData[idx].dateTitle = val; localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); triggerSyncToCloud(); }
         function addExpItem(idx) { expenseData[idx].items.push({ name: '', price: '', curr: 'JPY' }); renderExpenseList(); triggerSyncToCloud(); }
         function deleteExpItem(dIdx, iIdx) { expenseData[dIdx].items.splice(iIdx, 1); renderExpenseList(); triggerSyncToCloud(); }
-        
         function updateExpItem(dIdx, iIdx, field, val) { 
             expenseData[dIdx].items[iIdx][field] = val; 
-            
-            // If price or currency changed, update totals UI immediately (Smart Calc)
-            if(field === 'price' || field === 'curr') {
-                recalculateTotals();
-            }
-            
+            if(field === 'price' || field === 'curr') recalculateTotals();
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); 
             triggerSyncToCloud(); 
         }
-
 
         // --- Packing List Logic ---
         let packingData = JSON.parse(localStorage.getItem('wbc_packing_v1')) || [
