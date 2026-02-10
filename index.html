@@ -216,6 +216,16 @@
         
         /* Grand Total Style */
         .expense-grand-total { font-size: 13px; color: var(--m-blue); font-weight: 700; margin-left: auto; margin-right: 10px; }
+        
+        /* Shopping Link Styles */
+        .link-badge { 
+            display: inline-block; background: var(--m-blue); color: white; border-radius: 12px; 
+            padding: 2px 8px; font-size: 11px; text-decoration: none; font-weight: bold; margin-right: 4px;
+        }
+        .edit-link-btn {
+            background: transparent; border: 1px solid rgba(125,138,147,0.4); color: var(--text-muted); 
+            border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer; display: inline-flex; justify-content: center; align-items: center;
+        }
 
         /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -311,7 +321,7 @@
                             </div>
                             <div class="action-row">
                                 <a href="https://vjw-lp.digital.go.jp/en/" target="_blank" class="nav-btn">🔗 Visit Japan Web</a>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Tower5" target="_blank" class="nav-btn">📍 開始導航</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=%E9%97%9C%E5%85%A7%E7%AB%99" target="_blank" class="nav-btn">📍 開始導航</a>
                             </div>
                         </div>
                     </div>
@@ -336,7 +346,7 @@
                                 <div class="info-row"><span class="badge move">行</span>搭乘京急線至「橫須賀中央站」或 JR 至「橫須賀站」。</div>
                                 <div class="info-row"><span class="badge play">樂</span>三笠公園參觀世界三大紀念艦「三笠號」。</div>
                             </div>
-                            <a href="https://www.google.com/maps?q=Mikasa+Park" target="_blank" class="nav-btn">📍 導航三笠公園</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=%E4%B8%89%E7%AC%A0%E5%85%AC%E5%9C%92" target="_blank" class="nav-btn">📍 導航三笠公園</a>
                         </div>
                     </div>
                     <div class="timeline-item">
@@ -428,7 +438,7 @@
                             <div class="info-grid">
                                 <div class="info-row"><span class="badge play">樂</span>賽後前往芝公園或赤羽橋，拍攝經典紅白鐵塔與黃昏美景。晚餐可於附近的麻布台之丘或新橋享用。</div>
                             </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Ginza+Uniqlo+Tokyo" target="_blank" class="nav-btn">📍 導航</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%90%B5%E5%A1%94" target="_blank" class="nav-btn">📍 導航</a>
                         </div>
                     </div>
                 </div>
@@ -462,11 +472,11 @@
                             <div class="info-grid">
                                 <div class="info-row">
                                     <span class="badge eat">食</span>
-                                    <span class="info-text">賽後移動回橫濱，於 <strong>ALEGRIA Minatomirai</strong> 享用 20 種巴西烤肉吃到飽與啤酒，大口吃肉慶祝勝利！</span>
+                                    <span class="info-text">賽後移動回橫濱，於 <strong>ALEGRIA Yokohama (橫濱店)</strong> 享用 20 種巴西烤肉吃到飽與啤酒，大口吃肉慶祝勝利！</span>
                                 </div>
-                                <div class="info-row"><span class="badge play">樂</span>餐後漫步港未來，欣賞摩天輪夜景。</div>
+                                <div class="info-row"><span class="badge play">樂</span>位於橫濱站西口，交通便利。</div>
                             </div>
-                            <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="nav-btn">📍 導航 ALEGRIA</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=ALEGRIA+YOKOHAMA" target="_blank" class="nav-btn">📍 導航 ALEGRIA 橫濱</a>
                         </div>
                     </div>
                 </div>
@@ -511,6 +521,11 @@
                 <div class="card-title" style="position:relative;">
                     必買清單 🛍️
                     <button class="add-btn" onclick="addCategory()">+ 新增類別</button>
+                </div>
+                <div class="shop-controls" style="margin-top:10px;">
+                    <input id="shop-cat-input" class="shop-input-new" placeholder="類別/品牌 (例: 藥妝)">
+                    <input id="shop-item-input" class="shop-input-new" placeholder="物品名稱">
+                    <input id="shop-link-input" class="shop-input-new" placeholder="網址 (選填)">
                 </div>
                 <div id="shopping-container" style="margin-top:15px;">
                     </div>
@@ -827,12 +842,27 @@
                 
                 cat.items.forEach((item, itemIndex) => {
                     const tr = document.createElement('tr');
+                    let linkHtml = '';
+                    // Logic for Link Column (Edit vs View)
+                    if (item.isEditingLink || !item.link) {
+                        linkHtml = `<input type="text" class="packing-input" placeholder="貼上網址..." 
+                                    value="${item.link || ''}" 
+                                    onblur="saveShopLink(${catIndex}, ${itemIndex}, this.value)"
+                                    onkeydown="if(event.key==='Enter') this.blur()" style="font-size:12px; color:var(--m-blue);">`;
+                    } else {
+                        linkHtml = `<a href="${item.link}" target="_blank" class="link-badge">🔗 連結</a>
+                                    <button class="edit-link-btn" onclick="enableLinkEdit(${catIndex}, ${itemIndex})">✎</button>`;
+                    }
+
                     tr.innerHTML = `
                         <td style="width:30px; text-align:center;">
                             <input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="toggleShopCheck(${catIndex}, ${itemIndex})">
                         </td>
                         <td>
                             <input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updateShopItem(${catIndex}, ${itemIndex}, this.value)">
+                        </td>
+                        <td style="width:90px; text-align:center;">
+                            ${linkHtml}
                         </td>
                         <td style="width:30px; text-align:center;">
                             <button class="packing-del" onclick="deleteShopItem(${catIndex}, ${itemIndex})">×</button>
@@ -854,13 +884,50 @@
             localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
         }
 
-        function addCategory() { shoppingData.push({ id: Date.now(), name: '新類別', items: [] }); renderShoppingList(); triggerSyncToCloud(); }
+        function addCategory() {
+            const catInput = document.getElementById('shop-cat-input');
+            const itemInput = document.getElementById('shop-item-input');
+            const linkInput = document.getElementById('shop-link-input');
+            
+            // If inputs provided, create specific item
+            if(catInput.value.trim() !== '') {
+                // Check if category exists
+                let existingCat = shoppingData.find(c => c.name === catInput.value.trim());
+                if(existingCat) {
+                    existingCat.items.push({ id: Date.now(), text: itemInput.value, link: linkInput.value, checked: false });
+                } else {
+                    shoppingData.push({ 
+                        id: Date.now(), 
+                        name: catInput.value, 
+                        items: [{ id: Date.now(), text: itemInput.value, link: linkInput.value, checked: false }] 
+                    });
+                }
+                // Clear inputs
+                itemInput.value = ''; linkInput.value = '';
+            } else {
+                // Empty new category
+                shoppingData.push({ id: Date.now(), name: '新類別', items: [] });
+            }
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        
         function deleteCategory(index) { if(confirm('確定刪除此類別？')) { shoppingData.splice(index, 1); renderShoppingList(); triggerSyncToCloud(); } }
         function updateCatName(index, val) { shoppingData[index].name = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
         function addShopItemToCategory(catIndex) { shoppingData[catIndex].items.push({ id: Date.now(), text: '', checked: false }); renderShoppingList(); triggerSyncToCloud(); }
         function deleteShopItem(catIndex, itemIndex) { shoppingData[catIndex].items.splice(itemIndex, 1); renderShoppingList(); triggerSyncToCloud(); }
         function toggleShopCheck(catIndex, itemIndex) { shoppingData[catIndex].items[itemIndex].checked = !shoppingData[catIndex].items[itemIndex].checked; renderShoppingList(); triggerSyncToCloud(); }
         function updateShopItem(catIndex, itemIndex, val) { shoppingData[catIndex].items[itemIndex].text = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
+
+        // Shop Link Logic
+        function saveShopLink(cIdx, iIdx, val) {
+            shoppingData[cIdx].items[iIdx].link = val;
+            shoppingData[cIdx].items[iIdx].isEditingLink = false;
+            renderShoppingList(); triggerSyncToCloud();
+        }
+        function enableLinkEdit(cIdx, iIdx) {
+            shoppingData[cIdx].items[iIdx].isEditingLink = true;
+            renderShoppingList();
+        }
 
         // --- EXPENSE TRACKER LOGIC ---
         const defaultExpenses = [
@@ -933,7 +1000,6 @@
         function recalculateTotals() {
             let grandJPY = 0;
             let grandTWD = 0;
-
             expenseData.forEach((block, dIdx) => {
                 let subJPY = 0;
                 let subTWD = 0;
@@ -943,16 +1009,10 @@
                     if(item.curr === 'JPY') subJPY += p;
                     else subTWD += p;
                 });
-
-                // Update Subtotal DOM
                 const subEl = document.getElementById(`exp-total-${dIdx}`);
                 if(subEl) subEl.innerText = `¥ ${subJPY} | $ ${subTWD}`;
-
-                grandJPY += subJPY;
-                grandTWD += subTWD;
+                grandJPY += subJPY; grandTWD += subTWD;
             });
-
-            // Update Grand Total DOM
             const grandEl = document.getElementById('expense-grand-total');
             if(grandEl) grandEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
         }
