@@ -170,18 +170,28 @@
         .add-btn:active, .reset-btn:active { transform: scale(0.95); }
         .reset-btn { position: absolute; right: 0; top: -2px; padding: 6px 16px; border-radius: 20px; box-shadow: 0 3px 8px rgba(184,120,120,0.5); letter-spacing: 1px; }
 
-        /* Packing Table (New Style) */
-        .packing-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        /* Packing Table */
+        .packing-table { width: 100%; border-collapse: collapse; margin-top: 5px; table-layout: fixed; }
         .packing-table th { color: var(--text-muted); font-size: 11px; text-align: left; padding: 5px; border-bottom: 2px solid rgba(125,138,147,0.2); font-weight: 700; }
-        .packing-table td { padding: 8px 5px; border-bottom: 1px solid rgba(125,138,147,0.1); vertical-align: middle; }
-        .packing-check { width: 22px; height: 22px; accent-color: var(--m-blue); cursor: pointer; }
+        .packing-table td { padding: 8px 5px; border-bottom: 1px solid rgba(125,138,147,0.1); vertical-align: top; }
+        .packing-check { width: 22px; height: 22px; accent-color: var(--m-blue); cursor: pointer; margin-top: 6px; }
         .packing-input { width: 100%; border: none; background: transparent; font-family: var(--font-stack); font-size: 15px; color: var(--text-main); outline: none; padding: 4px 0; }
         .packing-input.checked { text-decoration: line-through; opacity: 0.5; }
         .qty-input { width: 35px; text-align: center; border: none; background: transparent; font-family: var(--font-stack); font-size: 15px; color: var(--text-main); border-bottom: 1px dashed var(--hr-color); }
         .packing-del { color: var(--text-muted); background: none; border: none; font-size: 20px; padding: 0 5px; cursor: pointer; opacity: 0.5; }
         .packing-del:hover { color: var(--m-red); opacity: 1; }
         
-        /* New Categorized Shopping List Styles */
+        /* Fixed Auto-resize Textarea with Wrapping */
+        .packing-textarea {
+            width: 100%; border: none; background: transparent;
+            font-family: var(--font-stack); font-size: 15px; color: var(--text-main);
+            outline: none; padding: 8px 0; resize: none; overflow: hidden;
+            min-height: 24px; line-height: 1.5; box-sizing: border-box; display: block;
+            word-break: break-word; white-space: pre-wrap; /* Force wrap */
+        }
+        .packing-textarea.checked { text-decoration: line-through; opacity: 0.5; }
+
+        /* Categorized Shopping List */
         .shop-category { margin-bottom: 20px; border-radius: 12px; background: rgba(255,255,255,0.4); overflow: hidden; border: 1px solid rgba(125, 138, 147, 0.2); }
         .shop-cat-header { background: rgba(125, 138, 147, 0.15); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; }
         .shop-cat-title { font-weight: 800; color: var(--m-blue); font-size: 14px; border: none; background: transparent; outline: none; width: 70%; font-family: var(--font-stack); }
@@ -189,8 +199,10 @@
         .shop-item-btn { font-size: 11px; background: var(--m-green); color: white; border: none; border-radius: 10px; padding: 2px 8px; cursor: pointer; }
         .shop-cat-del { font-size: 16px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
         .shop-items-container { padding: 5px 10px 10px; }
-        .shop-input-new { flex: 1; padding: 8px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-family: var(--font-stack); font-size: 14px; outline: none; }
-        .shop-controls { display: flex; gap: 5px; margin-bottom: 10px; }
+        
+        /* Links */
+        .link-badge { display: inline-block; background: var(--m-blue); color: white; border-radius: 12px; padding: 2px 8px; font-size: 11px; text-decoration: none; font-weight: bold; margin-right: 4px; }
+        .edit-link-btn { background: transparent; border: 1px solid rgba(125,138,147,0.4); color: var(--text-muted); border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; }
         
         /* Expense Styles */
         .expense-date-block { margin-bottom: 20px; background: var(--glass-bg); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; }
@@ -200,32 +212,12 @@
         .expense-body { padding: 10px; }
         .expense-row { display: flex; gap: 5px; margin-bottom: 8px; align-items: center; }
         .expense-item-input { flex: 2; padding: 6px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 13px; width: 100%; outline: none; }
-        /* Hide Spinners for Number Input */
-        .expense-price-input { 
-            flex: 1; padding: 6px; border: 1px solid var(--glass-border); border-radius: 6px; 
-            background: var(--input-bg); color: var(--text-main); font-size: 13px; width: 100%; 
-            outline: none; text-align: right; 
-            -moz-appearance: textfield; 
-        }
-        .expense-price-input::-webkit-outer-spin-button,
-        .expense-price-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        
+        .expense-price-input { flex: 1; padding: 6px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 13px; width: 100%; outline: none; text-align: right; -moz-appearance: textfield; }
+        .expense-price-input::-webkit-outer-spin-button, .expense-price-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .expense-currency { width: 55px; padding: 6px 2px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 11px; outline: none; text-align: center; }
         .expense-add-row { text-align: center; margin-top: 5px; }
         .expense-item-btn { font-size: 11px; background: var(--m-tan); color: #444; border: none; border-radius: 10px; padding: 4px 12px; cursor: pointer; font-weight: 700; }
-        
-        /* Grand Total Style */
         .expense-grand-total { font-size: 13px; color: var(--m-blue); font-weight: 700; margin-left: auto; margin-right: 10px; }
-        
-        /* Shopping Link Styles */
-        .link-badge { 
-            display: inline-block; background: var(--m-blue); color: white; border-radius: 12px; 
-            padding: 2px 8px; font-size: 11px; text-decoration: none; font-weight: bold; margin-right: 4px;
-        }
-        .edit-link-btn {
-            background: transparent; border: 1px solid rgba(125,138,147,0.4); color: var(--text-muted); 
-            border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer; display: inline-flex; justify-content: center; align-items: center;
-        }
 
         /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -522,11 +514,6 @@
                     必買清單 🛍️
                     <button class="add-btn" onclick="addCategory()">+ 新增類別</button>
                 </div>
-                <div class="shop-controls" style="margin-top:10px;">
-                    <input id="shop-cat-input" class="shop-input-new" placeholder="類別/品牌 (例: 藥妝)">
-                    <input id="shop-item-input" class="shop-input-new" placeholder="物品名稱">
-                    <input id="shop-link-input" class="shop-input-new" placeholder="網址 (選填)">
-                </div>
                 <div id="shopping-container" style="margin-top:15px;">
                     </div>
             </div>
@@ -573,7 +560,7 @@
                     <button class="reset-btn" onclick="resetCalc()">↺ 重設</button>
                 </div>
                 <div class="analysis-box" style="margin-bottom:20px;">
-                    <span class="analysis-text">以<strong>台灣市場</strong>匯率換算 (需連網)</span>
+                    <span class="analysis-text">匯率來源：<strong>台灣銀行 (現金賣出)</strong><br>資料直接抓取自台銀牌告，不經交叉換算。</span>
                 </div>
                 <div class="calc-container">
                     <div class="calc-row">
@@ -591,7 +578,7 @@
                             <input type="number" id="input-twd" class="calc-input" placeholder="0">
                         </div>
                     </div>
-                    <div class="rate-display">目前匯率: 1 JPY ≈ <span id="rate-val">0.215</span> TWD</div>
+                    <div class="rate-display">目前匯率: 1 JPY ≈ <span id="rate-val">...</span> TWD</div>
                     <div id="rate-source" class="rate-source">資料來源: 載入中...</div>
                 </div>
             </div>
@@ -656,6 +643,12 @@
             const txt = document.getElementById('sync-text');
             dot.className = 'sync-dot ' + status;
             txt.innerText = text;
+        }
+
+        function refreshAllTextareas() {
+            setTimeout(() => {
+                document.querySelectorAll('.packing-textarea').forEach(el => autoResize(el));
+            }, 50);
         }
 
         async function syncFromCloud() {
@@ -727,6 +720,7 @@
 
         // --- Standard Logic ---
         let currentRate = 0.215; 
+        let ratesCache = {};
 
         function switchMainView(viewName, btn) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -741,6 +735,7 @@
                 setTimeout(() => updateSliderHeight(document.querySelector('#sub-nav-itinerary .sub-tab-btn.active').getAttribute('data-tab')), 10);
             } else if (viewName === 'tools') {
                 document.getElementById('sub-nav-tools').classList.add('active');
+                refreshAllTextareas();
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -765,7 +760,10 @@
                 });
                 const target = document.getElementById(tabId);
                 target.style.display = 'block';
-                setTimeout(() => target.classList.add('active', 'anim-up'), 10);
+                setTimeout(() => {
+                    target.classList.add('active', 'anim-up');
+                    if (tabId === 'shop') refreshAllTextareas();
+                }, 10);
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -843,7 +841,6 @@
                 cat.items.forEach((item, itemIndex) => {
                     const tr = document.createElement('tr');
                     let linkHtml = '';
-                    // Logic for Link Column (Edit vs View)
                     if (item.isEditingLink || !item.link) {
                         linkHtml = `<input type="text" class="packing-input" placeholder="貼上網址..." 
                                     value="${item.link || ''}" 
@@ -859,7 +856,7 @@
                             <input type="checkbox" class="packing-check" ${item.checked ? 'checked' : ''} onchange="toggleShopCheck(${catIndex}, ${itemIndex})">
                         </td>
                         <td>
-                            <input type="text" class="packing-input ${item.checked ? 'checked' : ''}" value="${item.text}" oninput="updateShopItem(${catIndex}, ${itemIndex}, this.value)">
+                            <textarea class="packing-textarea ${item.checked ? 'checked' : ''}" rows="1" oninput="autoResize(this); updateShopItem(${catIndex}, ${itemIndex}, this.value)">${item.text}</textarea>
                         </td>
                         <td style="width:90px; text-align:center;">
                             ${linkHtml}
@@ -881,33 +878,19 @@
                 catDiv.appendChild(tableContainer);
                 container.appendChild(catDiv);
             });
+            
+            refreshAllTextareas();
             localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
+        }
+        
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = (el.scrollHeight + 2) + 'px';
         }
 
         function addCategory() {
-            const catInput = document.getElementById('shop-cat-input');
-            const itemInput = document.getElementById('shop-item-input');
-            const linkInput = document.getElementById('shop-link-input');
-            
-            // If inputs provided, create specific item
-            if(catInput.value.trim() !== '') {
-                // Check if category exists
-                let existingCat = shoppingData.find(c => c.name === catInput.value.trim());
-                if(existingCat) {
-                    existingCat.items.push({ id: Date.now(), text: itemInput.value, link: linkInput.value, checked: false });
-                } else {
-                    shoppingData.push({ 
-                        id: Date.now(), 
-                        name: catInput.value, 
-                        items: [{ id: Date.now(), text: itemInput.value, link: linkInput.value, checked: false }] 
-                    });
-                }
-                // Clear inputs
-                itemInput.value = ''; linkInput.value = '';
-            } else {
-                // Empty new category
-                shoppingData.push({ id: Date.now(), name: '新類別', items: [] });
-            }
+            // Simplified: Just add a blank category
+            shoppingData.push({ id: Date.now(), name: '新類別 (點擊修改)', items: [] });
             renderShoppingList(); triggerSyncToCloud();
         }
         
@@ -918,7 +901,6 @@
         function toggleShopCheck(catIndex, itemIndex) { shoppingData[catIndex].items[itemIndex].checked = !shoppingData[catIndex].items[itemIndex].checked; renderShoppingList(); triggerSyncToCloud(); }
         function updateShopItem(catIndex, itemIndex, val) { shoppingData[catIndex].items[itemIndex].text = val; localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData)); triggerSyncToCloud(); }
 
-        // Shop Link Logic
         function saveShopLink(cIdx, iIdx, val) {
             shoppingData[cIdx].items[iIdx].link = val;
             shoppingData[cIdx].items[iIdx].isEditingLink = false;
@@ -1065,21 +1047,27 @@
         function updatePackingQty(index, value) { packingData[index].qty = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
 
         // Calculator
-        async function fetchTaiwanRate() {
+        async function fetchRate() {
             if (!navigator.onLine) { document.getElementById('rate-source').innerText = `⚠️ 資料來源: 預設值 (目前離線)`; return; }
             try {
-                const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://tw.rter.info/capi.php'));
-                const data = await res.json();
-                const rates = JSON.parse(data.contents); 
-                const usdtwd = rates.USDTWD.Exrate; const usdjpy = rates.USDJPY.Exrate; const jpyToTwd = usdtwd / usdjpy;
-                if (!isNaN(jpyToTwd)) {
-                    currentRate = jpyToTwd;
-                    document.getElementById('rate-val').innerText = currentRate.toFixed(4);
-                    const now = new Date();
-                    document.getElementById('rate-source').innerText = `資料來源: 台灣市場匯率 (Rter.info) | 更新: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                // Fetch BOT CSV
+                const res = await fetch('https://api.allorigins.win/raw?url=https://rate.bot.com.tw/xrt/flcsv/0/day');
+                const text = await res.text();
+                const lines = text.split('\n');
+                const jpyLine = lines.find(line => line.includes('JPY'));
+                if(jpyLine) {
+                    const cols = jpyLine.split(',');
+                    const cashSell = parseFloat(cols[12]) || parseFloat(cols[2]); // Try index 12 (Cash Sell)
+                    if(!isNaN(cashSell)) {
+                        currentRate = cashSell;
+                        document.getElementById('rate-val').innerText = currentRate.toFixed(4);
+                        const now = new Date();
+                        document.getElementById('rate-source').innerText = `資料來源: 台灣銀行 (現金賣出) | 更新: ${now.toLocaleTimeString()}`;
+                    }
                 }
-            } catch (e) { console.log("Fetch failed"); }
+            } catch(e) { console.log('BOT Fetch Failed'); }
         }
+
         function calc(source) {
             const jpy = parseFloat(document.getElementById('input-jpy').value);
             const twd = parseFloat(document.getElementById('input-twd').value);
@@ -1090,7 +1078,8 @@
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
-            fetchTaiwanRate(); 
+            fetchRate(); // Init Rate
+            
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
             
@@ -1100,6 +1089,7 @@
             syncFromCloud(); // Auto-load
             
             setTimeout(() => updateSliderHeight('d1'), 100);
+            refreshAllTextareas(); // Initial resize call
         });
     </script>
 </body>
