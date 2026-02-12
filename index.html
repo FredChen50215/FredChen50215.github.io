@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Russo+One&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <style>
         /* --- Light Morandi x Baseball x iOS 26 Design System --- */
@@ -169,6 +171,8 @@
         .add-btn, .reset-btn { position: relative; top: -2px; font-size: 12px; color: #FFF; background: var(--m-red); border: none; cursor: pointer; padding: 4px 14px; font-weight: 700; border-radius: 15px; box-shadow: 0 2px 5px rgba(184,120,120,0.4); transition: transform 0.1s; }
         .add-btn:active, .reset-btn:active { transform: scale(0.95); }
         .reset-btn { position: absolute; right: 0; top: -2px; padding: 6px 16px; border-radius: 20px; box-shadow: 0 3px 8px rgba(184,120,120,0.5); letter-spacing: 1px; }
+        .chart-btn { position: relative; top: -2px; font-size: 12px; color: #FFF; background: var(--m-blue); border: none; cursor: pointer; padding: 4px 14px; font-weight: 700; border-radius: 15px; box-shadow: 0 2px 5px rgba(125,138,147,0.4); margin-right: 5px; transition: transform 0.1s; }
+        .chart-btn:active { transform: scale(0.95); }
 
         /* Packing Table */
         .packing-table { width: 100%; border-collapse: collapse; margin-top: 5px; table-layout: fixed; }
@@ -181,13 +185,12 @@
         .packing-del { color: var(--text-muted); background: none; border: none; font-size: 20px; padding: 0 5px; cursor: pointer; opacity: 0.5; }
         .packing-del:hover { color: var(--m-red); opacity: 1; }
         
-        /* Fixed Auto-resize Textarea with Wrapping */
         .packing-textarea {
             width: 100%; border: none; background: transparent;
             font-family: var(--font-stack); font-size: 15px; color: var(--text-main);
             outline: none; padding: 8px 0; resize: none; overflow: hidden;
             min-height: 24px; line-height: 1.5; box-sizing: border-box; display: block;
-            word-break: break-word; white-space: pre-wrap; /* Force wrap */
+            word-break: break-word; white-space: pre-wrap;
         }
         .packing-textarea.checked { text-decoration: line-through; opacity: 0.5; }
 
@@ -199,8 +202,9 @@
         .shop-item-btn { font-size: 11px; background: var(--m-green); color: white; border: none; border-radius: 10px; padding: 2px 8px; cursor: pointer; }
         .shop-cat-del { font-size: 16px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
         .shop-items-container { padding: 5px 10px 10px; }
+        .shop-input-new { flex: 1; padding: 8px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-family: var(--font-stack); font-size: 14px; outline: none; }
+        .shop-controls { display: flex; gap: 5px; margin-bottom: 10px; }
         
-        /* Links */
         .link-badge { display: inline-block; background: var(--m-blue); color: white; border-radius: 12px; padding: 2px 8px; font-size: 11px; text-decoration: none; font-weight: bold; margin-right: 4px; }
         .edit-link-btn { background: transparent; border: 1px solid rgba(125,138,147,0.4); color: var(--text-muted); border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; }
         
@@ -218,6 +222,34 @@
         .expense-add-row { text-align: center; margin-top: 5px; }
         .expense-item-btn { font-size: 11px; background: var(--m-tan); color: #444; border: none; border-radius: 10px; padding: 4px 12px; cursor: pointer; font-weight: 700; }
         .expense-grand-total { font-size: 13px; color: var(--m-blue); font-weight: 700; margin-left: auto; margin-right: 10px; }
+        .expense-cat-select { width: 70px; padding: 6px 2px; border: 1px solid var(--glass-border); border-radius: 6px; background: var(--input-bg); color: var(--text-main); font-size: 11px; outline: none; text-align: center; }
+
+        /* Chart Modal with Bouncy Effect */
+        .chart-modal {
+            display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .chart-modal.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        .chart-content {
+            background: var(--bg-base); width: 90%; max-width: 400px;
+            padding: 20px; border-radius: 20px; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            /* Bouncy Animation Defaults */
+            transform: scale(0.8); opacity: 0;
+            transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+        }
+        /* Active State with Bounce */
+        .chart-modal.active .chart-content {
+            transform: scale(1); opacity: 1;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out;
+        }
+
+        .close-chart { position: absolute; top: 10px; right: 15px; font-size: 24px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+        .chart-container-box { height: 280px; width: 100%; display: flex; justify-content: center; }
 
         /* WBC Table */
         .wbc-table-container { border-radius: var(--radius-m); box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
@@ -241,6 +273,16 @@
     <div class="sync-container">
         <div class="sync-dot" id="sync-dot"></div>
         <span class="sync-text" id="sync-text">連線中...</span>
+    </div>
+
+    <div id="chart-modal" class="chart-modal" onclick="if(event.target === this) closeChart()">
+        <div class="chart-content">
+            <button class="close-chart" onclick="closeChart()">×</button>
+            <h3 style="margin:0 0 15px; text-align:center; color:var(--m-blue);">消費統計 (TWD)</h3>
+            <div class="chart-container-box">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </div>
     </div>
 
     <header class="ukiyo-header">
@@ -524,7 +566,9 @@
                 <div class="card-title" style="position:relative;">
                     記帳本 💰
                     <span id="expense-grand-total" class="expense-grand-total">Total: ¥0 | $0</span>
+                    <button class="chart-btn" onclick="openChart()">📊 統計分析</button>
                 </div>
+
                 <div id="expense-container" style="margin-top:15px;">
                     </div>
             </div>
@@ -847,7 +891,7 @@
                                     onblur="saveShopLink(${catIndex}, ${itemIndex}, this.value)"
                                     onkeydown="if(event.key==='Enter') this.blur()" style="font-size:12px; color:var(--m-blue);">`;
                     } else {
-                        linkHtml = `<a href="${item.link}" target="_blank" class="link-badge">🔗 連結</a>
+                        linkHtml = `<a href="${item.link}" target="_blank" class="link-badge">🔗</a>
                                     <button class="edit-link-btn" onclick="enableLinkEdit(${catIndex}, ${itemIndex})">✎</button>`;
                     }
 
@@ -879,6 +923,7 @@
                 container.appendChild(catDiv);
             });
             
+            // Auto resize textareas after render
             refreshAllTextareas();
             localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
         }
@@ -921,6 +966,79 @@
         ];
 
         let expenseData = JSON.parse(localStorage.getItem('wbc_expense_v1')) || JSON.parse(JSON.stringify(defaultExpenses));
+        let expenseChart = null; // Chart instance
+
+        function initChart() {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            expenseChart = new Chart(ctx, {
+                type: 'doughnut',
+                plugins: [ChartDataLabels],
+                data: {
+                    labels: ['餐飲', '購物', '交通', '伴手禮'],
+                    datasets: [{
+                        data: [0, 0, 0, 0],
+                        backgroundColor: [
+                            '#B87878', // Red (Eat)
+                            '#D6C6B0', // Tan (Shop)
+                            '#7D8A93', // Blue (Transport)
+                            '#9EAFA2'  // Green (Gift)
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } },
+                        datalabels: {
+                            color: '#fff',
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => { sum += data; });
+                                if (sum === 0) return '';
+                                let percentage = (value * 100 / sum).toFixed(0) + "%";
+                                return value > 0 ? percentage : '';
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function openChart() {
+            document.getElementById('chart-modal').classList.add('active');
+            updateChart(); // Recalculate on open
+        }
+        
+        function closeChart() {
+            document.getElementById('chart-modal').classList.remove('active');
+        }
+
+        function updateChart() {
+            if(!expenseChart) return;
+            
+            // Calc totals by category (convert to TWD)
+            let totals = { 'food': 0, 'shop': 0, 'transport': 0, 'gift': 0 };
+            
+            expenseData.forEach(date => {
+                date.items.forEach(item => {
+                    let price = parseFloat(item.price) || 0;
+                    // If JPY, convert to TWD
+                    if(item.curr === 'JPY') price = price * currentRate;
+                    
+                    let cat = item.cat || 'food'; // Default to food
+                    if(totals[cat] !== undefined) totals[cat] += price;
+                });
+            });
+
+            expenseChart.data.datasets[0].data = [
+                totals['food'], totals['shop'], totals['transport'], totals['gift']
+            ];
+            expenseChart.update();
+        }
 
         function renderExpenseList() {
             const container = document.getElementById('expense-container');
@@ -960,9 +1078,19 @@
                 dateBlock.items.forEach((item, iIndex) => {
                     const row = document.createElement('div');
                     row.className = 'expense-row';
-                    // Use input type="number" but hide arrows via CSS class .expense-price-input
+                    // Category Select
+                    const catSelect = `
+                        <select class="expense-cat-select" onchange="updateExpItem(${dIndex}, ${iIndex}, 'cat', this.value)">
+                            <option value="food" ${item.cat === 'food' ? 'selected' : ''}>餐飲</option>
+                            <option value="shop" ${item.cat === 'shop' ? 'selected' : ''}>購物</option>
+                            <option value="transport" ${item.cat === 'transport' ? 'selected' : ''}>交通</option>
+                            <option value="gift" ${item.cat === 'gift' ? 'selected' : ''}>伴手禮</option>
+                        </select>
+                    `;
+
                     row.innerHTML = `
                         <input class="expense-item-input" placeholder="項目" value="${item.name}" oninput="updateExpItem(${dIndex}, ${iIndex}, 'name', this.value)">
+                        ${catSelect}
                         <input type="number" class="expense-price-input" placeholder="0" value="${item.price}" oninput="updateExpItem(${dIndex}, ${iIndex}, 'price', this.value)">
                         <select class="expense-currency" onchange="updateExpItem(${dIndex}, ${iIndex}, 'curr', this.value)">
                             <option value="JPY" ${item.curr === 'JPY' ? 'selected' : ''}>JPY</option>
@@ -977,6 +1105,7 @@
             
             if(grandTotalEl) grandTotalEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData));
+            updateChart(); // Update chart on render
         }
 
         function recalculateTotals() {
@@ -1000,11 +1129,16 @@
         }
 
         function updateExpTitle(idx, val) { expenseData[idx].dateTitle = val; localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); triggerSyncToCloud(); }
-        function addExpItem(idx) { expenseData[idx].items.push({ name: '', price: '', curr: 'JPY' }); renderExpenseList(); triggerSyncToCloud(); }
+        function addExpItem(idx) { expenseData[idx].items.push({ name: '', price: '', curr: 'JPY', cat: 'food' }); renderExpenseList(); triggerSyncToCloud(); }
         function deleteExpItem(dIdx, iIdx) { expenseData[dIdx].items.splice(iIdx, 1); renderExpenseList(); triggerSyncToCloud(); }
+        
         function updateExpItem(dIdx, iIdx, field, val) { 
             expenseData[dIdx].items[iIdx][field] = val; 
+            
             if(field === 'price' || field === 'curr') recalculateTotals();
+            
+            // Note: Chart is not updated here to save performance, only on Open Modal.
+
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); 
             triggerSyncToCloud(); 
         }
@@ -1086,6 +1220,7 @@
             renderPackingList();
             renderShoppingList();
             renderExpenseList(); // Init Expenses
+            initChart(); // Init Chart Instance
             syncFromCloud(); // Auto-load
             
             setTimeout(() => updateSliderHeight('d1'), 100);
