@@ -202,8 +202,6 @@
         .shop-item-btn { font-size: 11px; background: var(--m-green); color: white; border: none; border-radius: 10px; padding: 2px 8px; cursor: pointer; }
         .shop-cat-del { font-size: 16px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
         .shop-items-container { padding: 5px 10px 10px; }
-        .shop-input-new { flex: 1; padding: 8px; border: 1px solid var(--glass-border); border-radius: 8px; background: var(--input-bg); color: var(--text-main); font-family: var(--font-stack); font-size: 14px; outline: none; }
-        .shop-controls { display: flex; gap: 5px; margin-bottom: 10px; }
         
         .link-badge { display: inline-block; background: var(--m-blue); color: white; border-radius: 12px; padding: 2px 8px; font-size: 11px; text-decoration: none; font-weight: bold; margin-right: 4px; }
         .edit-link-btn { background: transparent; border: 1px solid rgba(125,138,147,0.4); color: var(--text-muted); border-radius: 50%; width: 20px; height: 20px; font-size: 10px; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; }
@@ -238,11 +236,9 @@
             background: var(--bg-base); width: 90%; max-width: 400px;
             padding: 20px; border-radius: 20px; position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
-            /* Bouncy Animation Defaults */
             transform: scale(0.8); opacity: 0;
             transition: transform 0.3s ease-in, opacity 0.3s ease-in;
         }
-        /* Active State with Bounce */
         .chart-modal.active .chart-content {
             transform: scale(1); opacity: 1;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out;
@@ -466,13 +462,20 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">17:00</div></div>
+                        <div class="time-col"><div class="diamond-dot"></div><div class="time-text">16:30</div></div>
                         <div class="card">
-                            <div class="card-title">東京鐵塔</div>
+                            <div class="card-title">丸七 深川不動店 & 橫濱逛街</div>
                             <div class="info-grid">
-                                <div class="info-row"><span class="badge play">樂</span>賽後前往芝公園或赤羽橋，拍攝經典紅白鐵塔與黃昏美景。晚餐可於附近的麻布台之丘或新橋享用。</div>
+                                <div class="info-row">
+                                    <span class="badge eat">食</span>
+                                    <span class="info-text">賽後前往門前仲町，品嚐超厚切夢幻炸豬排「とんかつ丸七 深川不動店」！</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="badge shop">買</span>
+                                    <span class="info-text">飽餐一頓後，搭車返回橫濱站周邊商圈，享受悠閒的逛街採購時光。</span>
+                                </div>
                             </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%90%B5%E5%A1%94" target="_blank" class="nav-btn">📍 導航</a>
+                            <a href="https://maps.app.goo.gl/P3P2qDpxwSZYkL7N7" target="_blank" class="nav-btn">📍 導航 丸七 豬排</a>
                         </div>
                     </div>
                 </div>
@@ -510,7 +513,7 @@
                                 </div>
                                 <div class="info-row"><span class="badge play">樂</span>位於橫濱站西口，交通便利。</div>
                             </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=ALEGRIA+YOKOHAMA" target="_blank" class="nav-btn">📍 導航 ALEGRIA 橫濱</a>
+                            <a href="https://maps.app.goo.gl/bM5ZqH7A7fXJpY7o9" target="_blank" class="nav-btn">📍 導航 ALEGRIA 橫濱</a>
                         </div>
                     </div>
                 </div>
@@ -604,7 +607,7 @@
                     <button class="reset-btn" onclick="resetCalc()">↺ 重設</button>
                 </div>
                 <div class="analysis-box" style="margin-bottom:20px;">
-                    <span class="analysis-text">匯率來源：<strong>台灣銀行 (現金賣出)</strong><br>資料直接抓取自台銀牌告，不經交叉換算。</span>
+                    <span class="analysis-text">匯率來源：<strong>台灣銀行 (現金賣出)</strong><br>資料直接抓取自台銀官方牌告，不經交叉換算，最符合旅遊現鈔兌換需求。</span>
                 </div>
                 <div class="calc-container">
                     <div class="calc-row">
@@ -630,7 +633,7 @@
     </div>
 
     <div id="view-wbc" class="view-section">
-        <div class="day-content active" style="padding-top:10px;">
+        <div style="padding: 10px 20px 20px;">
             <div class="card" style="margin-left:0; margin-top:20px;">
                 <div class="card-title">
                     Pool C (Tokyo)
@@ -1105,7 +1108,6 @@
             
             if(grandTotalEl) grandTotalEl.innerText = `Total: ¥ ${grandJPY} | $ ${grandTWD}`;
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData));
-            updateChart(); // Update chart on render
         }
 
         function recalculateTotals() {
@@ -1131,14 +1133,11 @@
         function updateExpTitle(idx, val) { expenseData[idx].dateTitle = val; localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); triggerSyncToCloud(); }
         function addExpItem(idx) { expenseData[idx].items.push({ name: '', price: '', curr: 'JPY', cat: 'food' }); renderExpenseList(); triggerSyncToCloud(); }
         function deleteExpItem(dIdx, iIdx) { expenseData[dIdx].items.splice(iIdx, 1); renderExpenseList(); triggerSyncToCloud(); }
-        
         function updateExpItem(dIdx, iIdx, field, val) { 
             expenseData[dIdx].items[iIdx][field] = val; 
             
             if(field === 'price' || field === 'curr') recalculateTotals();
             
-            // Note: Chart is not updated here to save performance, only on Open Modal.
-
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); 
             triggerSyncToCloud(); 
         }
@@ -1180,26 +1179,46 @@
         function updatePackingText(index, value) { packingData[index].text = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
         function updatePackingQty(index, value) { packingData[index].qty = value; localStorage.setItem('wbc_packing_v1', JSON.stringify(packingData)); triggerSyncToCloud(); }
 
-        // Calculator
+        // Calculator (Dual Proxy Fetch for Stability)
         async function fetchRate() {
             if (!navigator.onLine) { document.getElementById('rate-source').innerText = `⚠️ 資料來源: 預設值 (目前離線)`; return; }
             try {
-                // Fetch BOT CSV
-                const res = await fetch('https://api.allorigins.win/raw?url=https://rate.bot.com.tw/xrt/flcsv/0/day');
-                const text = await res.text();
+                let text = '';
+                const botUrl = 'https://rate.bot.com.tw/xrt/flcsv/0/day';
+                
+                try {
+                    // Method 1: AllOrigins
+                    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(botUrl)}`);
+                    const data = await res.json();
+                    if(data && data.contents) text = data.contents;
+                    else throw new Error("No contents");
+                } catch(e1) {
+                    // Method 2: Fallback to Codetabs Proxy
+                    const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${botUrl}`);
+                    text = await res2.text();
+                }
+
+                if(!text) throw new Error("Fetch empty");
+
                 const lines = text.split('\n');
                 const jpyLine = lines.find(line => line.includes('JPY'));
                 if(jpyLine) {
                     const cols = jpyLine.split(',');
-                    const cashSell = parseFloat(cols[12]) || parseFloat(cols[2]); // Try index 12 (Cash Sell)
-                    if(!isNaN(cashSell)) {
+                    // 台銀 CSV: cols[12] 通常是本行現金賣出, 若格式變動防呆抓 cols[2]
+                    let cashSell = parseFloat(cols[12]);
+                    if (isNaN(cashSell) || cashSell === 0) cashSell = parseFloat(cols[2]); 
+                    
+                    if(!isNaN(cashSell) && cashSell > 0) {
                         currentRate = cashSell;
                         document.getElementById('rate-val').innerText = currentRate.toFixed(4);
                         const now = new Date();
                         document.getElementById('rate-source').innerText = `資料來源: 台灣銀行 (現金賣出) | 更新: ${now.toLocaleTimeString()}`;
                     }
                 }
-            } catch(e) { console.log('BOT Fetch Failed'); }
+            } catch(e) { 
+                console.log('BOT Fetch Failed', e);
+                document.getElementById('rate-source').innerText = `⚠️ 匯率連線失敗，使用預設值`;
+            }
         }
 
         function calc(source) {
