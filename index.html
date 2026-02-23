@@ -351,7 +351,7 @@
                             </div>
                             <div class="action-row">
                                 <a href="https://vjw-lp.digital.go.jp/en/" target="_blank" class="nav-btn">🔗 Visit Japan Web</a>
-                                <a href="https://www.google.com/maps/search/?api=1&query=%E9%97%9C%E5%85%A7%E7%AB%99" target="_blank" class="nav-btn">📍 開始導航</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query=關內站" target="_blank" class="nav-btn">📍 導航至 關內站</a>
                             </div>
                         </div>
                     </div>
@@ -376,7 +376,7 @@
                                 <div class="info-row"><span class="badge move">行</span>搭乘京急線至「橫須賀中央站」或 JR 至「橫須賀站」。</div>
                                 <div class="info-row"><span class="badge play">樂</span>三笠公園參觀世界三大紀念艦「三笠號」。</div>
                             </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=%E4%B8%89%E7%AC%A0%E5%85%AC%E5%9C%92" target="_blank" class="nav-btn">📍 導航三笠公園</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=三笠公園" target="_blank" class="nav-btn">📍 導航 三笠公園</a>
                         </div>
                     </div>
                     <div class="timeline-item">
@@ -445,6 +445,7 @@
                                 <div class="info-row"><span class="badge move">行</span>午場比賽需早起。建議 10:00 前抵達水道橋。</div>
                                 <div class="info-row"><span class="badge eat">食</span>早餐：便利商店飯糰。</div>
                             </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=東京巨蛋" target="_blank" class="nav-btn">📍 導航 東京巨蛋</a>
                         </div>
                     </div>
                     <div class="timeline-item">
@@ -475,7 +476,7 @@
                                     <span class="info-text">飽餐一頓後，搭車返回橫濱站周邊商圈，享受悠閒的逛街採購時光。</span>
                                 </div>
                             </div>
-                            <a href="https://maps.app.goo.gl/P3P2qDpxwSZYkL7N7" target="_blank" class="nav-btn">📍 導航 丸七 豬排</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=とんかつ丸七+深川不動店" target="_blank" class="nav-btn">📍 導航 丸七 豬排</a>
                         </div>
                     </div>
                 </div>
@@ -513,7 +514,7 @@
                                 </div>
                                 <div class="info-row"><span class="badge play">樂</span>位於橫濱站西口，交通便利。</div>
                             </div>
-                            <a href="https://maps.app.goo.gl/bM5ZqH7A7fXJpY7o9" target="_blank" class="nav-btn">📍 導航 ALEGRIA 橫濱</a>
+                            <a href="https://www.google.com/maps/search/?api=1&query=ALEGRIA+Yokohama" target="_blank" class="nav-btn">📍 導航 ALEGRIA 橫濱</a>
                         </div>
                     </div>
                 </div>
@@ -546,6 +547,7 @@
                                 <div class="info-row"><span class="badge shop">買</span>最後衝刺：機場免稅店。</div>
                                 <div class="info-row"><span class="badge move">家</span>預計 13:25 抵達台北松山。</div>
                             </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=羽田空港" target="_blank" class="nav-btn">📍 導航 羽田機場</a>
                         </div>
                     </div>
                 </div>
@@ -571,7 +573,6 @@
                     <span id="expense-grand-total" class="expense-grand-total">Total: ¥0 | $0</span>
                     <button class="chart-btn" onclick="openChart()">📊 統計分析</button>
                 </div>
-
                 <div id="expense-container" style="margin-top:15px;">
                     </div>
             </div>
@@ -767,7 +768,6 @@
 
         // --- Standard Logic ---
         let currentRate = 0.215; 
-        let ratesCache = {};
 
         function switchMainView(viewName, btn) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -926,7 +926,6 @@
                 container.appendChild(catDiv);
             });
             
-            // Auto resize textareas after render
             refreshAllTextareas();
             localStorage.setItem('wbc_shopping_v2', JSON.stringify(shoppingData));
         }
@@ -937,7 +936,6 @@
         }
 
         function addCategory() {
-            // Simplified: Just add a blank category
             shoppingData.push({ id: Date.now(), name: '新類別 (點擊修改)', items: [] });
             renderShoppingList(); triggerSyncToCloud();
         }
@@ -969,7 +967,7 @@
         ];
 
         let expenseData = JSON.parse(localStorage.getItem('wbc_expense_v1')) || JSON.parse(JSON.stringify(defaultExpenses));
-        let expenseChart = null; // Chart instance
+        let expenseChart = null; 
 
         function initChart() {
             const ctx = document.getElementById('expenseChart').getContext('2d');
@@ -1013,7 +1011,7 @@
         
         function openChart() {
             document.getElementById('chart-modal').classList.add('active');
-            updateChart(); // Recalculate on open
+            updateChart(); 
         }
         
         function closeChart() {
@@ -1023,16 +1021,13 @@
         function updateChart() {
             if(!expenseChart) return;
             
-            // Calc totals by category (convert to TWD)
             let totals = { 'food': 0, 'shop': 0, 'transport': 0, 'gift': 0 };
             
             expenseData.forEach(date => {
                 date.items.forEach(item => {
                     let price = parseFloat(item.price) || 0;
-                    // If JPY, convert to TWD
                     if(item.curr === 'JPY') price = price * currentRate;
-                    
-                    let cat = item.cat || 'food'; // Default to food
+                    let cat = item.cat || 'food'; 
                     if(totals[cat] !== undefined) totals[cat] += price;
                 });
             });
@@ -1081,7 +1076,6 @@
                 dateBlock.items.forEach((item, iIndex) => {
                     const row = document.createElement('div');
                     row.className = 'expense-row';
-                    // Category Select
                     const catSelect = `
                         <select class="expense-cat-select" onchange="updateExpItem(${dIndex}, ${iIndex}, 'cat', this.value)">
                             <option value="food" ${item.cat === 'food' ? 'selected' : ''}>餐飲</option>
@@ -1135,9 +1129,7 @@
         function deleteExpItem(dIdx, iIdx) { expenseData[dIdx].items.splice(iIdx, 1); renderExpenseList(); triggerSyncToCloud(); }
         function updateExpItem(dIdx, iIdx, field, val) { 
             expenseData[dIdx].items[iIdx][field] = val; 
-            
             if(field === 'price' || field === 'curr') recalculateTotals();
-            
             localStorage.setItem('wbc_expense_v1', JSON.stringify(expenseData)); 
             triggerSyncToCloud(); 
         }
@@ -1187,13 +1179,11 @@
                 const botUrl = 'https://rate.bot.com.tw/xrt/flcsv/0/day';
                 
                 try {
-                    // Method 1: AllOrigins
                     const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(botUrl)}`);
                     const data = await res.json();
                     if(data && data.contents) text = data.contents;
                     else throw new Error("No contents");
                 } catch(e1) {
-                    // Method 2: Fallback to Codetabs Proxy
                     const res2 = await fetch(`https://api.codetabs.com/v1/proxy?quest=${botUrl}`);
                     text = await res2.text();
                 }
@@ -1204,7 +1194,6 @@
                 const jpyLine = lines.find(line => line.includes('JPY'));
                 if(jpyLine) {
                     const cols = jpyLine.split(',');
-                    // 台銀 CSV: cols[12] 通常是本行現金賣出, 若格式變動防呆抓 cols[2]
                     let cashSell = parseFloat(cols[12]);
                     if (isNaN(cashSell) || cashSell === 0) cashSell = parseFloat(cols[2]); 
                     
@@ -1231,19 +1220,18 @@
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
-            fetchRate(); // Init Rate
+            fetchRate(); 
             
             document.getElementById('input-jpy').addEventListener('input', () => calc('jpy'));
             document.getElementById('input-twd').addEventListener('input', () => calc('twd'));
             
             renderPackingList();
             renderShoppingList();
-            renderExpenseList(); // Init Expenses
-            initChart(); // Init Chart Instance
-            syncFromCloud(); // Auto-load
+            renderExpenseList(); 
+            initChart(); 
+            syncFromCloud(); 
             
             setTimeout(() => updateSliderHeight('d1'), 100);
-            refreshAllTextareas(); // Initial resize call
         });
     </script>
 </body>
